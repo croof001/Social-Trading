@@ -1,5 +1,7 @@
 Social::Application.routes.draw do
-  devise_for :clients
+  devise_for :clients do
+  get 'home', :to => 'dashboard#index', :as => :clients_root
+  end
   resources :tweets
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -13,7 +15,7 @@ Social::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'dashboard#welcome'
-  client_root 'dashboard#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
