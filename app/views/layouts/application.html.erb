@@ -28,6 +28,9 @@
 					</li>
 				</ul>
 				<ul class="nav pull-right">
+					<li>
+						<a href="<%= client_path(current_client)%>">Profile</a>
+					</li>
 					<li><%= link_to 'Logout', destroy_client_session_path,:method =>:delete %></li>
 			    </ul>
 			   <%else%>
@@ -39,6 +42,7 @@
 			</div>
 		</div>
    <div class="container">
+   <%= render 'alerts'%>
    <%= yield %>
    </div>
 

@@ -3,7 +3,7 @@ Social::Application.routes.draw do
   devise_for :clients do
     get 'home', :to => 'dashboard#index', :as => :clients_root
   end
-  
+  resources :clients
   resources :tweets
 
   devise_for :admin_users, ActiveAdmin::Devise.config
