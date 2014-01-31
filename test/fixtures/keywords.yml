@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  phrase: MyString
+  priority: 1
+  client_id: 
+
+two:
+  phrase: MyString
+  priority: 1
+  client_id: 
