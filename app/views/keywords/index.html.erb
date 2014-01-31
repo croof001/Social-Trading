@@ -1,14 +1,14 @@
-<h1>Listing keywords</h1>
+<h4>Your keywords</h4><hr/>
+<%= link_to 'New Keyword', new_keyword_path, :class=>'btn btn-success' %>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Phrase</th>
       <th>Priority</th>
-      <th>Client</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Actions</th>
+
+
     </tr>
   </thead>
 
@@ -17,10 +17,11 @@
       <tr>
         <td><%= keyword.phrase %></td>
         <td><%= keyword.priority %></td>
-        <td><%= keyword.client %></td>
-        <td><%= link_to 'Show', keyword %></td>
-        <td><%= link_to 'Edit', edit_keyword_path(keyword) %></td>
-        <td><%= link_to 'Destroy', keyword, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="actions-cell"><%= link_to 'View', keyword ,:class=>'btn btn-mini btn-info'%>
+            <%= link_to 'Edit', edit_keyword_path(keyword),:class=>'btn btn-mini btn-warning' %>
+            <%= link_to 'Destroy', keyword,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'Fetch tweets', tweets_path(:AUTH_TOKEN => form_authenticity_token.inspect, :keyword_id=>keyword.id),:class=>'btn btn-mini btn-primary',:method=>:post %>
+            </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Keyword', new_keyword_path %>
+

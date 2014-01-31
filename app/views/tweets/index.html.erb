@@ -1,16 +1,13 @@
-<h1>Listing tweets</h1>
+<h4>Listing tweets</h4><hr/>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Author</th>
-      <th>Message</th>
-      <th>Author link</th>
-      <th>Message link</th>
-      <th>Posted at</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Message</th>  
+      <th class="actions-cell">Posted at</th>
+      <th ></th>
+     
     </tr>
   </thead>
 
@@ -21,15 +18,14 @@
         <td><%= tweet.message %></td>
         <td><%= tweet.author_link %></td>
         <td><%= tweet.message_link %></td>
-        <td><%= tweet.posted_at %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="actions-cell"><%= tweet.posted_at %></td>
+        <td class="actions-cell">
+        	<%= link_to 'View', tweet,:class=>'btn btn-mini btn-info' %>
+            <%= link_to 'Tweak', edit_tweet_path(tweet),:class=>'btn btn-mini btn-warning' %>
+            <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
 
-<%= link_to 'New Tweet', new_tweet_path %>

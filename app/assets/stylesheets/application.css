@@ -11,3 +11,8 @@
  *= require_self
 
  */
+ 
+.actions-cell
+{
+	white-space: nowrap;
+}
