@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20140131090933) do
     t.string   "message_link"
     t.datetime "posted_at"
     t.integer  "client_id"
+    t.integer  "keyword_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

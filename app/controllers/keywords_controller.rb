@@ -1,15 +1,21 @@
 class KeywordsController < ApplicationController
   before_action :set_keyword, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_client!
   # GET /keywords
   # GET /keywords.json
   def index
-    @keywords = Keyword.all
+    @keywords = Keyword.where(:client=>current_client)
   end
 
   # GET /keywords/1
   # GET /keywords/1.json
   def show
+    unless @keyword.client == current_client  
+       respond_to do |format|
+       format.html { redirect_to keywords_url, :status => :forbidden, notice: 'Unauthized.' }
+       format.json  {render json: {:error=>"forbidden"},:status=> :forbidden }
+      end
+    end
   end
 
   # GET /keywords/new
@@ -19,13 +25,19 @@ class KeywordsController < ApplicationController
 
   # GET /keywords/1/edit
   def edit
+   unless @keyword.client == current_client  
+       respond_to do |format|
+       format.html { redirect_to keywords_url, :status => :forbidden, notice: 'Unauthized.' }
+       format.json  {render json: {:error=>"forbidden"},:status=> :forbidden }
+      end
+    end
   end
 
   # POST /keywords
   # POST /keywords.json
   def create
     @keyword = Keyword.new(keyword_params)
-
+    @keyword.client = current_client
     respond_to do |format|
       if @keyword.save
         format.html { redirect_to @keyword, notice: 'Keyword was successfully created.' }
@@ -40,13 +52,22 @@ class KeywordsController < ApplicationController
   # PATCH/PUT /keywords/1
   # PATCH/PUT /keywords/1.json
   def update
-    respond_to do |format|
-      if @keyword.update(keyword_params)
-        format.html { redirect_to @keyword, notice: 'Keyword was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @keyword.errors, status: :unprocessable_entity }
+    if @keyword.client == current_client
+      
+      respond_to do |format|
+        if @keyword.update(keyword_params)
+          format.html { redirect_to @keyword, notice: 'Keyword was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @keyword.errors, status: :unprocessable_entity }
+        end
+      end
+      
+    else
+     respond_to do |format|
+       format.html { redirect_to keywords_url, :status => :forbidden, notice: 'Unauthized.' }
+       format.json  {render json: {:error=>"forbidden"},:status=> :forbidden }
       end
     end
   end
@@ -54,10 +75,17 @@ class KeywordsController < ApplicationController
   # DELETE /keywords/1
   # DELETE /keywords/1.json
   def destroy
-    @keyword.destroy
-    respond_to do |format|
-      format.html { redirect_to keywords_url }
-      format.json { head :no_content }
+    if @keyword.client == current_client
+     @keyword.destroy
+     respond_to do |format|
+       format.html { redirect_to keywords_url }
+       format.json { head :no_content }
+      end
+    else
+       respond_to do |format|
+       format.html { redirect_to keywords_url, :status => :forbidden, notice: 'Unauthized.' }
+       format.json  {render json: {:error=>"forbidden"},:status=> :forbidden }
+      end
     end
   end
 

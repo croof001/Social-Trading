@@ -7,6 +7,7 @@ class CreateTweets < ActiveRecord::Migration
       t.string :message_link
       t.datetime :posted_at
       t.references :client
+      t.references :keyword
       t.timestamps
     end
   end
