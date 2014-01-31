@@ -1,4 +1,5 @@
 Social::Application.routes.draw do
+  devise_for :clients
   resources :tweets
 
   devise_for :admin_users, ActiveAdmin::Devise.config
