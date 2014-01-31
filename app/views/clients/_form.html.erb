@@ -1,4 +1,4 @@
-<%= form_for(@client) do |f| %>
+<%= form_for@client, :html=>{:class=>'form-horizontal'} do |f| %>
 
   <% if @client.errors.any? %>
     <div id="error_explanation">
@@ -12,35 +12,46 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %><br>
+  <div class="control-group">
+    <%= f.label :first_name, :class=>'control-label' %>
+    <div class="controls">
     <%= f.text_field :first_name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
+  <div class="control-group">
+    <%= f.label :last_name, :class=>'control-label' %>
+    <div class="controls">
     <%= f.text_field :last_name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :company %><br>
+  <div class="control-group">
+    <%= f.label :company, :class=>'control-label' %>
+    <div class="controls">
     <%= f.text_field :company %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :address %><br>
+  <div class="control-group">
+    <%= f.label :address, :class=>'control-label' %>
+    <div class="controls">
     <%= f.text_area :address %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :phone %><br>
+  <div class="control-group">
+    <%= f.label :phone, :class=>'control-label' %>
+    <div class="controls">
     <%= f.text_field :phone %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :alternate_phone %><br>
+  <div class="control-group">
+    <%= f.label :alternate_phone, :class=>'control-label' %>
+    <div class="controls">
     <%= f.text_field :alternate_phone %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :notes %><br>
-    <%= f.text_area :notes %>
-  </div>
-  <div class="actions">
+
+  <div class="control-group">
+  	<div class="controls">
     <%= f.submit 'Update profile', :class=>'btn btn-warning' %>
+    </div>
   </div>
 <% end %>

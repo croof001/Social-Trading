@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_client!
 
   # GET /clients
   # GET /clients.json
@@ -69,6 +70,6 @@ class ClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.require(:client).permit(:first_name, :last_name, :company, :address, :phone, :alternate_phone, :notes)
+      params.require(:client).permit(:first_name, :last_name, :company, :address, :phone, :alternate_phone)
     end
 end
