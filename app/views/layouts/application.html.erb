@@ -11,7 +11,7 @@
 <body>
     <div class="navbar">
 			<div class="navbar-inner">
-				<a class="brand" href="#{root_url}">Social Trading</a>
+				<a class="brand" href="<%=root_url%>">Social Trading</a>
 				<ul class="nav">
 					<li class="active">
 						<a href="#">Home</a>
@@ -38,8 +38,9 @@
 			   <%end%>
 			</div>
 		</div>
-
-<%= yield %>
+   <div class="container">
+   <%= yield %>
+   </div>
 
 </body>
 </html>
