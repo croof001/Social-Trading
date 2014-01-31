@@ -16,6 +16,10 @@
 					<li class="active">
 						<a href="#">Home</a>
 					</li>
+				</ul>
+				<%if current_client.present?%>
+				<ul class="nav">
+					
 					<li>
 						<a href="#">Tweets</a>
 					</li>
@@ -23,6 +27,15 @@
 						<a href="#">Keywords</a>
 					</li>
 				</ul>
+				<ul class="nav pull-right">
+					<li><%= link_to 'Logout', destroy_client_session_path,:method =>:delete %></li>
+			    </ul>
+			   <%else%>
+			    <ul class="nav pull-right">
+			    	<li><%= link_to 'Login', new_client_session_path %></li>
+			    </ul>
+			    
+			   <%end%>
 			</div>
 		</div>
 
