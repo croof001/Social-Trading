@@ -4,7 +4,8 @@ class TweetsController < ApplicationController
   # GET /keywords
   # GET /keywords.json
   def index
-    @tweets = Tweet.where(:client=>current_client)
+    @tweets  = Tweet.includes(:keyword).where(:client=>current_client)
+    @gtweets = @tweets.group_by {|t| t.keyword}
   end
 
   # GET /keywords/1
@@ -24,9 +25,27 @@ class TweetsController < ApplicationController
   # POST /keywords
   # POST /keywords.json
   def create
-    keyword = Keyword.find(params[:keyword_id])
-    fetch_tweets_for_keyword(keyword)
-    redirect_to tweets_path
+    if params[:keyword_id]
+     keyword = Keyword.find(params[:keyword_id])
+     unless keyword.client == current_client
+       respond_to do |format|
+         format.html { redirect_to tweets_url, :status => :forbidden, notice: 'Unauthized.' }
+         format.json  {render json: {:error=>"forbidden"},:status=> :forbidden }
+       end
+       return
+     end
+     Tweet.delay(:queue => 'keyword_fetch').fetch_with_keyword(current_client, keyword)
+    else
+      current_client.keywords.each do |keyword|
+        Tweet.delay(:queue => 'keyword_fetch').fetch_with_keyword(current_client, keyword)
+      end
+    end
+    
+    respond_to do |format|
+        format.html { redirect_to tweets_url, notice: 'A tweet fecth has been scheduled.' }
+        format.json { render action: 'show', status: :created}
+      end
+    
   end
 
   # PATCH/PUT /keywords/1
@@ -71,16 +90,6 @@ class TweetsController < ApplicationController
       params.require(:keyword).permit(:phrase, :priority, :client_id)
     end
     
-    def fetch_tweets_for_keyword(keyword)
-      puts "*************************************************"
-      puts "Background task being run"
-      twitter = Twitter::REST::Client.new do |config|
-      config.consumer_key        = "rUqzjv3fCnAH5grduFxoUA"
-      config.consumer_secret     = "irzIyOrjU1ArY0hbGHQ4cBrxtggbnoSghZlwo9Co"
-      end
-      twitter.search("#{keyword.phrase}", :result_type => "recent").take(10).collect do |tweet|
-        Tweet.new(:message => tweet.text, :author => tweet.user.screen_name, :client=>current_client,:keyword=>keyword).save
-      end
-    end
-    handle_asynchronously :fetch_tweets_for_keyword
+
+    
 end
