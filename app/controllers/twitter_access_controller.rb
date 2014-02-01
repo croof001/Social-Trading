@@ -25,23 +25,42 @@ class TwitterAccessController < ApplicationController
    end
   end
   
-
+  def disconnect_twitter
+    TwitterOauthSetting.find_by_client_id(current_client.id).delete
+    clear_user_account
+    redirect_to client_url(current_client), notice: "Twitter account disconnected"
+  end
   
-  
-  def update_user_account
-   user_twitter_profile = get_client.user
-   current_client.update_attributes({
-   name_on_twitter: user_twitter_profile.name,
-   screen_name: user_twitter_profile.screen_name,
-   url: user_twitter_profile.url.to_s,
-   profile_image_url: user_twitter_profile.profile_image_url.to_s,
-   location: user_twitter_profile.location,
-   description: user_twitter_profile.description
-   })
+  def follow
+    tweeter = params[:tweeter]
+    get_client.follow(tweeter)
+    redirect_to tweets_url, notice: "You are now following #{tweeter}"
   end
  
   private
-  
+    
+    def update_user_account
+      user_twitter_profile = get_client.user
+      current_client.update_attributes({
+      name_on_twitter: user_twitter_profile.name,
+      screen_name: user_twitter_profile.screen_name,
+      url: user_twitter_profile.url.to_s,
+      profile_image_url: user_twitter_profile.profile_image_url.to_s,
+      location: user_twitter_profile.location,
+      description: user_twitter_profile.description
+   })
+    end
+    
+    def clear_user_account
+      current_client.update_attributes({
+      name_on_twitter: nil,
+      screen_name: nil,
+      url: nil,
+      profile_image_url: nil,
+      location: nil,
+      description: nil})
+    end
+    
     def get_client
     tclient = Twitter::REST::Client.new do |config|
      config.consumer_key       = "rUqzjv3fCnAH5grduFxoUA"

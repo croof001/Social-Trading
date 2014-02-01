@@ -34,7 +34,18 @@
 <legend>Twitter Account</legend>
 <div id="twitter-info">
 	<% if @client.screen_name %>
-	
+	   <img src="<%=@client.profile_image_url%>" />
+	   <p>
+       <strong>Screen name:</strong>
+        <%= @client.screen_name %>
+       </p>
+       <strong>Location:</strong>
+        <%= @client.location %>
+       </p>
+       <strong>Twitter profile:</strong>
+        <a href="<%= @client.url %>"><%= @client.url %></a>
+       </p>
+        <%=link_to 'Disconnect' ,disconnect_twitter_path ,method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger" %>
 	<%else%>
 	 Your account doesn't have a Twitter account connected to it. You should have your Twitter accounted connected before being 
 	 able to use most of the features of this app. <br/>
