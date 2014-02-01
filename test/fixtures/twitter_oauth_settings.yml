@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  atocken: MyString
+  secret: MyString
+  client_id: 
+
+two:
+  atocken: MyString
+  secret: MyString
+  client_id: 
