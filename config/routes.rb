@@ -17,7 +17,10 @@ Social::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'dashboard#welcome'
-
+  
+  get 'twitter_profile' => "twitter_access#twitter_profile"
+  get 'oauth_account' => "twitter_access#oauth_account"
+  get 'twitter_oauth_url' => 'twitter_access#generate_twitter_oauth_url'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,4 +1,5 @@
-
+<legend>Basic Informations</legend>
+<div id="basic-info">
 <p>
   <strong>First name:</strong>
   <%= @client.first_name %>
@@ -28,11 +29,19 @@
   <strong>Alternate phone:</strong>
   <%= @client.alternate_phone %>
 </p>
-
-<p>
-  <strong>Notes:</strong>
-  <%= @client.notes %>
-</p>
-
 <%= link_to 'Modify', edit_client_path(@client),:class=>"btn btn-info" %> 
+</div>
+<legend>Twitter Account</legend>
+<div id="twitter-info">
+	<% if @client.screen_name %>
+	
+	<%else%>
+	 Your account doesn't have a Twitter account connected to it. You should have your Twitter accounted connected before being 
+	 able to use most of the features of this app. <br/>
+	 <a class="btn btn-warning" href="<%= twitter_oauth_url_path%>">Connect my Twitter account</a>
+	<%end%>
+</div>
+<hr/>
+
+
 

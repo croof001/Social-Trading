@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140131153428) do
+ActiveRecord::Schema.define(version: 20140201191715) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -66,6 +66,12 @@ ActiveRecord::Schema.define(version: 20140131153428) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "name_on_twitter"
+    t.string   "screen_name"
+    t.string   "url"
+    t.string   "profile_image_url"
+    t.string   "location"
+    t.text     "description"
   end
 
   add_index "clients", ["email"], name: "index_clients_on_email", unique: true
@@ -107,5 +113,15 @@ ActiveRecord::Schema.define(version: 20140131153428) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "twitter_oauth_settings", force: true do |t|
+    t.string   "atocken"
+    t.string   "secret"
+    t.integer  "client_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "twitter_oauth_settings", ["client_id"], name: "index_twitter_oauth_settings_on_client_id"
 
 end
