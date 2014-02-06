@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @future_tweet.message %>
+</p>
+
+<p>
+  <strong>Post at:</strong>
+  <%= @future_tweet.post_at %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @future_tweet.status %>
+</p>
+
+<%= link_to 'Edit', edit_future_tweet_path(@future_tweet) %> |
+<%= link_to 'Back', future_tweets_path %>

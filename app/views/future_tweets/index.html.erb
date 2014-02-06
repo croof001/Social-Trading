@@ -1,0 +1,30 @@
+<h4>Your scheduled tweets</h4>
+<hr/>
+<%= link_to 'New Future tweet', new_future_tweet_path, :class=>'btn btn-info' %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Message</th>
+      <th>Post at</th>
+      <th>Status</th>
+      <th class="actions-cell"></th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @future_tweets.each do |future_tweet| %>
+      <tr>
+        <td><%= future_tweet.message %></td>
+        <td><%= future_tweet.post_at %></td>
+        <td><%= future_tweet.status %></td>
+        <td class="actions-cell"><%= link_to 'Edit', edit_future_tweet_path(future_tweet),:class=>"btn btn-mini btn-warning" %>
+           <%= link_to 'Delete', future_tweet, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
