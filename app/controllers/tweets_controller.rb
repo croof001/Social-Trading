@@ -34,10 +34,10 @@ class TweetsController < ApplicationController
        end
        return
      end
-     Tweet.delay(:queue => 'keyword_fetch').fetch_with_keyword(current_client, keyword)
+     TwitterManager.delay(:queue => 'keyword_fetch').fetch_with_keyword(current_client, keyword)
     else
       current_client.keywords.each do |keyword|
-        Tweet.delay(:queue => 'keyword_fetch').fetch_with_keyword(current_client, keyword)
+        TwitterManager.delay(:queue => 'keyword_fetch').fetch_with_keyword(current_client, keyword)
       end
     end
     

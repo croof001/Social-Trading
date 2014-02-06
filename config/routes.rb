@@ -1,5 +1,7 @@
 Social::Application.routes.draw do
  
+  resources :future_tweets
+
   devise_for :clients do
     get 'home', :to => 'dashboard#index', :as => :clients_root
   end
@@ -22,6 +24,8 @@ Social::Application.routes.draw do
   get 'oauth_account' => "twitter_access#oauth_account"
   get 'twitter_oauth_url' => 'twitter_access#generate_twitter_oauth_url'
   get 'follow' => "twitter_access#follow"
+  post 'retweet' => "twitter_access#retweet"
+ 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

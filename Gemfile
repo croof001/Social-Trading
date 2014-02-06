@@ -40,7 +40,6 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'twitter'
 
 
-
 gem 'delayed_job_active_record'
 gem "daemons"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

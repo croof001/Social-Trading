@@ -3,5 +3,5 @@ $: << File.dirname(__FILE__)
 require 'config/boot'
 require 'config/environment'
 module Clockwork
-every(10.minutes, 'fetch.all.tweets') { Tweet.fetch_all }
+every(10.minutes, 'fetch.all.tweets') { TwitterManager.fetch_all }
 end

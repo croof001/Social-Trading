@@ -1,5 +1,5 @@
 class TwitterAccessController < ApplicationController
-  
+    before_filter :authenticate_client!
   
   def generate_twitter_oauth_url
    oauth_callback = "http://#{request.host}:#{request.port}/oauth_account"
@@ -33,14 +33,20 @@ class TwitterAccessController < ApplicationController
   
   def follow
     tweeter = params[:tweeter]
-    get_client.follow(tweeter)
+    TwitterManager.follow(tweeter,current_client)
     redirect_to tweets_url, notice: "You are now following #{tweeter}"
+  end
+  
+  def retweet
+    tweet = params[:tweet_id]
+    TwitterManager.retweet(tweet,current_client)
+    redirect_to tweets_url, notice: "Retweet successful"
   end
  
   private
     
     def update_user_account
-      user_twitter_profile = get_client.user
+      user_twitter_profile = TwitterManager.twitter_client(current_client).user
       current_client.update_attributes({
       name_on_twitter: user_twitter_profile.name,
       screen_name: user_twitter_profile.screen_name,
