@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201191715) do
+ActiveRecord::Schema.define(version: 20140206113357) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20140201191715) do
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
     t.text     "handler",                null: false
-    t.text     "last_error"
+    t.binary   "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
