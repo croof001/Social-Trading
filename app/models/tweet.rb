@@ -12,7 +12,7 @@ class Tweet < ActiveRecord::Base
     end
     twitter.search("#{keyword.phrase}", :result_type => "recent").take(10).collect do |tweet|
         
-        Tweet.new(:message => tweet.text.dup.force_encoding("UTF-8"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword).save
+        Tweet.new(:message => tweet.text.dup.encode("UTF-8", "ISO-8859-1"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword).save
     end
   end
   
