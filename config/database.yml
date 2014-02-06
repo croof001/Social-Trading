@@ -23,4 +23,6 @@ production:
   database: socialtrader1
   username: rails
   password: hYIBsluDqg
+  host: 127.0.0.1
+  port: 3306
 
