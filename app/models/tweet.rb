@@ -11,7 +11,7 @@ class Tweet < ActiveRecord::Base
       config.consumer_secret     = "irzIyOrjU1ArY0hbGHQ4cBrxtggbnoSghZlwo9Co"
     end
     twitter.search("#{keyword.phrase}", :result_type => "recent").take(10).collect do |tweet|
-        Tweet.new(:message => tweet.text, :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword).save
+        Tweet.new(:message => tweet.text.force_encoding("UTF-8"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword).save
     end
   end
   
