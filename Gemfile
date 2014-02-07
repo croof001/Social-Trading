@@ -36,9 +36,9 @@ gem 'turbolinks'
 gem 'oauth'
 
 gem 'activeadmin', github: 'gregbell/active_admin'
-
+gem 'filterrific' , github: 'jhund/filterrific'
 gem 'twitter'
-gem 'filterrific'
+
 
 gem 'delayed_job_active_record'
 gem "daemons"

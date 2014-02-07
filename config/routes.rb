@@ -6,7 +6,9 @@ Social::Application.routes.draw do
     get 'home', :to => 'dashboard#index', :as => :clients_root
   end
   resources :clients
-  resources :tweets
+  resources :tweets do
+    get :reset_filterrific, :on => :collection
+  end
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

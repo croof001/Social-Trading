@@ -4,10 +4,28 @@ class TweetsController < ApplicationController
   # GET /keywords
   # GET /keywords.json
   def index
-    @tweets  = Tweet.includes(:keyword).where(:client=>current_client)
+    clean_select_multiple_params
+    @filterrific = Filterrific.new(
+      Tweet,
+      params[:filterrific] || session[:filterrific_tweets]
+    )
+  
+    @tweets = Tweet.includes(:keyword).where(:client=>current_client).filterrific_find(@filterrific).page(params[:page])
     @gtweets = @tweets.group_by {|t| t.keyword}
+    session[:filterrific_students] = @filterrific.to_hash
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
-
+  
+  def reset_filterrific
+    # Clear session persistence
+    session[:filterrific_students] = nil
+    # Redirect back to the index action for default filter settings.
+    redirect_to :action => :index
+  end
+  
   # GET /keywords/1
   # GET /keywords/1.json
   def show
@@ -90,6 +108,13 @@ class TweetsController < ApplicationController
       params.require(:keyword).permit(:phrase, :priority, :client_id)
     end
     
-
+   def clean_select_multiple_params hash = params
+    hash.each do |k, v|
+     case v
+      when Array then v.reject!(&:blank?)
+      when Hash then clean_select_multiple_params(v)
+     end
+    end
+   end
     
 end
