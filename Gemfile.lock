@@ -80,6 +80,8 @@ GEM
     execjs (2.0.2)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    filterrific (1.2.0)
+      rails (>= 3.0.0)
     formtastic (2.3.0.rc2)
       actionpack (>= 3.0)
     has_scope (0.6.0.rc)
@@ -210,6 +212,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   daemons
   delayed_job_active_record
+  filterrific
   jbuilder (~> 1.2)
   jquery-rails
   mysql2
