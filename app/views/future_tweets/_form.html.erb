@@ -21,7 +21,7 @@
   <div class="control-group">
     <%= f.label :post_at, :class=>'control-label' %>
     <div class="controls">
-    <%= f.datetime_select :post_at %>
+    <%= f.datetime_field :post_at,:id=>'datepicker1' %>
     </div>
   </div>
 
@@ -33,3 +33,11 @@
   </div>
   
 <% end %>
+
+<script type="text/javascript">
+
+ 	$('#datepicker1').datetimepicker({
+ 		onClose: function(a){$('#datepicker1').change();}
+ 	});
+
+</script>
