@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20140206183536) do
     t.string   "longitude"
     t.float    "radius"
     t.string   "notes"
-    t.string   "color"
+    t.string   "color",         default: "#ffffff"
     t.boolean  "read"
     t.integer  "client_id"
     t.datetime "created_at"

@@ -13,32 +13,32 @@
 			<div class="navbar-inner">
 				<a class="brand" href="<%=root_url%>">Social Trading</a>
 				<ul class="nav">
-					<li class="active">
+					<li class="<%= is_active? root_path%>">
 						<a href="#">Home</a>
 					</li>
 				</ul>
 				<%if current_client.present?%>
 				<ul class="nav">
 					
-					<li>
+					<li class="<%=is_active? tweets_path%>">
 						<a href="<%= tweets_path %>">Tweets</a>
 					</li>
-					<li>
+					<li class="<%=is_active? keywords_path%>">
 						<a href="<%= keywords_path %>">Keywords</a>
 					</li>
-					<li>
+					<li class="<%=is_active? future_tweets_path%>" >
 						<a href="<%= future_tweets_path %>">Future Tweets</a>
 					</li>
 				</ul>
 				<ul class="nav pull-right">
-					<li>
+					<li class="<%=is_active? client_path(current_client)%>" >
 						<a href="<%= client_path(current_client)%>">Profile</a>
 					</li>
-					<li><%= link_to 'Logout', destroy_client_session_path,:method =>:delete %></li>
+					<li ><%= link_to 'Logout', destroy_client_session_path,:method =>:delete %></li>
 			    </ul>
 			   <%else%>
 			    <ul class="nav pull-right">
-			    	<li><%= link_to 'Login', new_client_session_path %></li>
+			    	<li class="<%=is_active? new_client_session_path%>" ><%= link_to 'Login', new_client_session_path %></li>
 			    </ul>
 			    
 			   <%end%>

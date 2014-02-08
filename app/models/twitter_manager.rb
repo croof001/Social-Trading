@@ -17,20 +17,35 @@ class TwitterManager
     twitter_client(client).retweet(tweet)
   end
   
-  def self.fetch_with_keyword(client, keyword)
+  def self.fetch_with_keyword(client, keyword,auto=false)
     puts "quied #{keyword}"
     twitter_client(client).search("#{keyword.phrase}", :result_type => "recent").take(10).collect do |tweet|
         if not  Tweet.exists?(:twitter_uuid=>tweet.id) 
-          Tweet.new(:message => tweet.text.dup.encode("UTF-8", "ISO-8859-1"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword).save
+          new_post=Tweet.new(:message => tweet.text.dup.encode("UTF-8", "ISO-8859-1"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword)
+          new_post.save
+          if auto
+            if keyword.auto_follow
+              TwitterManager.delay(:queue => 'auto_x').follow(new_post.author,client)
+               puts "+++++++++++++++autofollow requested+++++++++++++++++++"
+            end
+            if keyword.auto_retweet
+              puts "+++++++++++++++autoretweet requested+++++++++++++++++++"
+              TwitterManager.delay(:queue => 'auto_x').retweet(new_post.twitter_uuid,client)
+            end
+            if keyword.auto_reply
+              puts "+++++++++++++++autoreply requested+++++++++++++++++++"
+            end
+          end
+          
         end
     end
   end
   
-  def self.fetch_all()
+  def self.fetch_all(auto=false)
     puts "fetch all being run.."
     Client.all.each do |client|
       client.keywords.each do |keyword|
-        TwitterManager.delay(:queue => 'keyword_fetch').fetch_with_keyword(client, keyword)
+        TwitterManager.delay(:queue => 'keyword_fetch').fetch_with_keyword(client, keyword,auto)
         end
       end
   end
