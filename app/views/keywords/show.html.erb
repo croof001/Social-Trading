@@ -1,16 +1,58 @@
 
-
+<legend>Keyword  details</legend>
+<%= link_to 'Edit', edit_keyword_path(@keyword),:class=>'btn btn-warning' %> 
 <p>
   <strong>Phrase:</strong>
   <%= @keyword.phrase %>
 </p>
 
+
+
 <p>
-  <strong>Priority:</strong>
-  <%= @keyword.priority %>
+  <strong>Automatically follow the user:</strong>
+  <%=  if @keyword.auto_follow then 'enabled' else 'disabled' end%>
+</p>
+
+<p>
+  <strong>Auto retweet:</strong>
+  <%=  if @keyword.auto_retweet then 'enabled' else 'disabled' end%>
+</p>
+
+<p>
+  <strong>Auto replay:</strong>
+  <% if @keyword.auto_reply %> 
+  Auto tweet the following reply </br>
+  <blockquote>
+  <i><%=@keyword.default_reply%></i>
+  </blockquote>
+  <%else%>
+  disabled
+  <%end%>
+</p>
+
+<p>
+<strong>Restrict to follwoing location:</strong>
+  <% if @keyword.geocoded %> 
+  Within <%=@keyword.radius%> miles of <i><%=@keyword.longitude%>,<%=@keyword.lattitude%></i>
+  <%else%>
+  no location preference
+  <%end%>
+</p>
+
+<p>
+  <strong>Purpose:</strong>
+  <%= Keyword.options_for_priority[@keyword.priority - 1][0] %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <span style="background-color: <%= @keyword.color %>;"><%= @keyword.color %></span>
+</p>
+<p>
+  <strong>Notes:</strong><br/>
+  <%= @keyword.notes %>
 </p>
 
 
 
-<%= link_to 'Edit', edit_keyword_path(@keyword) %> |
 <%= link_to 'Back', keywords_path %>

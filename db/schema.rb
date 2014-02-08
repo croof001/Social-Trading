@@ -104,6 +104,18 @@ ActiveRecord::Schema.define(version: 20140206183536) do
   create_table "keywords", force: true do |t|
     t.string   "phrase"
     t.integer  "priority"
+    t.boolean  "auto_follow"
+    t.boolean  "auto_retweet"
+    t.boolean  "auto_reply"
+    t.boolean  "geocoded"
+    t.string   "default_reply"
+    t.string   "keyword_type"
+    t.string   "lattitude"
+    t.string   "longitude"
+    t.float    "radius"
+    t.string   "notes"
+    t.string   "color"
+    t.boolean  "read"
     t.integer  "client_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -113,7 +125,7 @@ ActiveRecord::Schema.define(version: 20140206183536) do
 
   create_table "tweets", force: true do |t|
     t.string   "author"
-    t.string   "message"
+    t.string   "message",      limit: 400
     t.string   "twitter_uuid"
     t.datetime "posted_at"
     t.integer  "client_id"

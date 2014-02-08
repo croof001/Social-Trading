@@ -1,6 +1,7 @@
 class KeywordsController < ApplicationController
-  before_action :set_keyword, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_client!
+  before_action :set_keyword, only: [:show, :edit, :update, :destroy]
+  
   # GET /keywords
   # GET /keywords.json
   def index
@@ -97,6 +98,6 @@ class KeywordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def keyword_params
-      params.require(:keyword).permit(:phrase, :priority, :client_id)
+            params.require(:keyword).permit(:phrase, :priority, :client_id, :auto_reply, :auto_retweet,:auto_follow,:default_reply,:longitude,:lattitude,:radius,:keyword_type,:color,:notes)
     end
 end

@@ -103,10 +103,7 @@ class TweetsController < ApplicationController
       @tweet = Tweet.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def keyword_params
-      params.require(:keyword).permit(:phrase, :priority, :client_id)
-    end
+
     
    def clean_select_multiple_params hash = params
     hash.each do |k, v|
