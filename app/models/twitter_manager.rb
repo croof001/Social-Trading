@@ -18,7 +18,7 @@ class TwitterManager
   end
   
   def self.fetch_with_keyword(client, keyword,auto=false)
-    puts "quied #{keyword}"
+    puts "quied #{keyword.phrase}"
     
     query_options = Hash.new
     query_options[:result_type]  = "recent"
@@ -26,10 +26,10 @@ class TwitterManager
     query_options[:lang]="#{keyword.language}" if not keyword.language.to_s.empty?
     query_options[:since_id]= "#{keyword.since}" if not keyword.since.to_s.empty?
     query_options[:max_count]= "#{keyword.max_count}" if keyword.max_count
- 
+
     
     
-    results=twitter_client(client).search("#{keyword.phrase}",query_options )
+    results=twitter_client(client).search("#{keyword.phrase}",query_options ).take(50)
     if results.first
       keyword.since = results.first.id
     end
