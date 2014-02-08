@@ -23,4 +23,19 @@ class Keyword < ActiveRecord::Base
     
   end
   
+  def language
+    'en'
+  end
+  
+  def since
+    nil
+  end
+  
+  def since=(a)
+    
+  end
+  
+  def max_count
+    nil
+  end
 end

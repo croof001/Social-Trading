@@ -25,7 +25,7 @@
 
 				<tbody>
 					<% tweets.each do |tweet| %>
-					<tr>
+					<tr style="color:<%=tweet.keyword.color%>">
 						<td><%= link_to tweet.twitter_uuid , "https://twitter.com/#{tweet.author}/status/#{tweet.twitter_uuid}"%></td>
 						<td><%= tweet.author %></td>
 						<td><%= tweet.message %></td>

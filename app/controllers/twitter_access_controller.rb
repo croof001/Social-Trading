@@ -19,7 +19,9 @@ class TwitterAccessController < ApplicationController
        TwitterOauthSetting.create(atocken: @access_token.token, secret: @access_token.secret, client_id: current_client.id)
        update_user_account()
      end
-   redirect_to client_url(current_client), notice: "Your Twitter account is now connected"
+   #redirect_to client_url(current_client), notice: "Your Twitter account is now connected"
+    flash[:notice]= "Your Twitter account is now connected"
+    render :text=> "<script>window.opener.location.reload();window.close();</script>"
    else
      redirect_to root_url ,notice: "You haven't authorized us to access your Twitter account."
    end

@@ -19,7 +19,21 @@ class TwitterManager
   
   def self.fetch_with_keyword(client, keyword,auto=false)
     puts "quied #{keyword}"
-    twitter_client(client).search("#{keyword.phrase}", :result_type => "recent").take(10).collect do |tweet|
+    
+    query_options = Hash.new
+    query_options[:result_type]  = "recent"
+    query_options[:geocode]="#{keyword.lattitude},#{keyword.longitude},#{keyword.radius}mi" if keyword.geocoded
+    query_options[:lang]="#{keyword.language}" if not keyword.language.to_s.empty?
+    query_options[:since_id]= "#{keyword.since}" if not keyword.since.to_s.empty?
+    query_options[:max_count]= "#{keyword.max_count}" if keyword.max_count
+ 
+    
+    
+    results=twitter_client(client).search("#{keyword.phrase}",query_options )
+    if results.first
+      keyword.since = results.first.id
+    end
+    results.each do |tweet|
         if not  Tweet.exists?(:twitter_uuid=>tweet.id) 
           new_post=Tweet.new(:message => tweet.text.dup.encode("UTF-8", "ISO-8859-1"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword)
           new_post.save
