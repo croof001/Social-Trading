@@ -1,7 +1,7 @@
 <div id="filterrific_results">
 
 	<div>
-		<%= page_entries_info @tweets  %>
+		<%= page_entries_info @tweets  %>     
 	</div>
 
 	<table>
@@ -14,30 +14,31 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-
+						<th ><%=check_box_tag '','abc',false,:id=>'batch-select-chk'%></th>
 						<th>ID</th>
 						<th>Author</th>
 						<th>Message</th>
 						<th class="actions-cell">Posted at</th>
-						<th ></th>
+						
 					</tr>
 				</thead>
 
 				<tbody>
 					<% tweets.each do |tweet| %>
-					<tr style="color:<%=tweet.keyword.color%>">
-						<td><%= link_to tweet.twitter_uuid , "https://twitter.com/#{tweet.author}/status/#{tweet.twitter_uuid}"%></td>
-						<td><%= tweet.author %></td>
+					<tr id="tweet<%=tweet.id%>" style="color:<%=tweet.keyword.color%>">
+						<td ><%=check_box_tag '',false,false,'data-tid'=>tweet.id,:class=>"chk-multi-select"%></td>
+						<td><%= link_to tweet.twitter_uuid.last(4) , "https://twitter.com/#{tweet.author}/status/#{tweet.twitter_uuid}"%></td>
+						<td><%=link_to tweet.author , "https://twitter.com/#{tweet.author}"%></td>
 						<td class="tweet-message-td"><%= tweet.message %>
-							<div class="tweet-message-div"> <%= link_to 'View', tweet,:class=>'btn btn-mini btn-info' %>
-						          <%= link_to 'Follow', "#{follow_path}?tweeter=#{tweet.author}",:class=>'btn btn-mini btn-success' %>
-						          <%= link_to 'Retweet', retweet_path(:AUTH_TOKEN => form_authenticity_token.inspect,:tweet_id=>tweet.twitter_uuid),:class=>'btn  btn-mini btn-warning',:method=>:post %>
-						          <%#= link_to 'Tweak', edit_tweet_path(tweet),:class=>'btn btn-mini btn-warning' %>
-						          <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-mini btn-danger' %>
+							<div class="tweet-message-div"> <%= link_to 'Reply', tweet,:class=>'btn btn-mini btn-info' %>
+						          <%= link_to 'Follow', "#{follow_path}?tweeter=#{tweet.author}",:class=>'btn btn-mini btn-success' ,:remote=>true%>
+						          <%= link_to 'Retweet', retweet_path(:AUTH_TOKEN => form_authenticity_token.inspect,:tweet_id=>tweet.twitter_uuid),:class=>'btn  btn-mini btn-warning',:method=>:post,:remote=>true %>
+						          <%= link_to 'Mark as read', edit_tweet_path(tweet),:class=>'btn btn-mini btn-inverse' %>
+						          <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-mini btn-danger',:remote=>'true' %>
 						    </div>
 						</td>
 
-						<td class="actions-cell"><%= tweet.posted_at %></td>
+						<td class="actions-cell"><%= tweet.created_at.strftime('%d %b %l:%M %p') %></td>
 					
 					</tr>
 					<% end %>
@@ -49,3 +50,9 @@
 	</table>
 
 	<%= paginate @tweets  %>
+
+<script type="text/javascript">
+$('#batch-select-chk').change(function(){
+	$(".chk-multi-select").prop('checked',$(this).prop('checked') );
+});
+</script>

@@ -1,62 +1,138 @@
-<h4>Listing tweets</h4><hr/>
-<div style="margin-bottom:20px;"><%= link_to 'Fetch tweets', tweets_path(:AUTH_TOKEN => form_authenticity_token.inspect),:class=>'btn  btn-primary',:method=>:post %></div>
-
-<div class="well">
-<%=  form_tag(tweets_path, method: :get, id: :filterrific_filter, :class =>'form-inline') do%>
-<legend>Filter</legend>
-    <label>Search</label>
-    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-    <%= text_field_tag(
-      'filterrific[search_query]',@filterrific.search_query,
-      :class => 'filterrific-periodically-observed search-query '
-    ) %>
-    <label>User</label>
-    <div class="input-prepend">
-    <span class="add-on">@</span>
-   <%= text_field_tag(
-      'filterrific[with_author]',@filterrific.with_author,
-      :class => 'filterrific-periodically-observed'
-    ) %>
-    </div>
- 
-    <label>Fetched after</label>
-    <%= text_field_tag('filterrific[with_created_at_gte]',@filterrific.with_created_at_gte, :id=>'datepicker1') %>
-
-    <label>Sort by</label>
-    <%= select_tag('filterrific[sorted_by]', options_for_select(Tweet.options_for_sorted_by),:class=>'chosen-select') %>
-    
-    <label>Keyword</label>
-    <%= collection_select 'filterrific','with_keyword_id',Keyword.where(:client=>current_client),:id,:phrase,{prompt: true},{:multiple=>:multiple, :class=>"chosen-select",'data-placeholder'=>'Choose one or more keywords'}%>
-  
-    <%= link_to(
-      'Reset',
-      reset_filterrific_tweets_path,:class=>"btn btn-inverse"
-    ) %>
- 
-  <%# add an automated spinner to your form when the list is refreshed %>
-  <%= render_filterrific_spinner %>
-<% end %>
+<div style="margin-bottom:20px;">
+	<%= link_to 'Fetch tweets', tweets_path(:AUTH_TOKEN => form_authenticity_token.inspect),:class=>'btn  btn-primary',:method=>:post %>
+	<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseOne" id="filter-button-1">
+		Show filters
+	</button>
 </div>
 
-<script type="text/javascript">
-    var config = {
-      '.chosen-select'           : {},
-      '.chosen-select-deselect'  : {allow_single_deselect:true},
-      '.chosen-select-no-single' : {disable_search_threshold:10},
-      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-      '.chosen-select-width'     : {width:"95%"}
-    }
-    for (var selector in config) {
-      $(selector).chosen(config[selector]);
-    }
-  </script>
- <script type="text/javascript">
- 	$('#datepicker1').datetimepicker({
- 		onClose: function(a){$('#datepicker1').change();}
- 	});
- </script>
 
+	<div id="collapseOne" class="collapse " style="" id="filter-box2">
+
+		<%=  form_tag(tweets_path, method: :get, id: :filterrific_filter, :class =>'form-horizontal') do%>
+
+		<div style="display:inline-block;float:left">
+			<div  class="control-group">
+				<label for"filterrific[search_query]" class="control-label">Search</label>
+				<div class="controls">
+					<%= text_field_tag(
+					'filterrific[search_query]',@filterrific.search_query,
+					:class => 'filterrific-periodically-observed search-query'
+					) %>
+				</div>
+			</div>
+			<div class="control-group">
+				<label for="filterrific[with_author]" class="control-label">User</label>
+				<div class="controls">
+					<div class="input-prepend">
+						<span class="add-on">@</span>
+						<%= text_field_tag(
+						'filterrific[with_author]',@filterrific.with_author,
+						:class => 'filterrific-periodically-observed'
+						) %>
+					</div>
+				</div>
+			</div>
+			<div class="control-group">
+				<label for="filterrific" class="control-label">Priority</label>
+				<div class="controls">
+					<%= select_tag('filterrific[with_priority_id]', options_for_select(Keyword.options_for_priority),:class=>'chosen-select',:multiple=>:multiple) %>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="controls">
+					<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseOne" id="filter-button-2">
+						Hide filters
+					</button>
+				</div>
+			</div>
+		</div>
+		<div style="display:inline-block;float:left">
+			<div class="control-group">
+				<label for="filterrific[with_created_at_gte]" class="control-label">Fetched after</label>
+				<div class="controls">
+					<%= text_field_tag('filterrific[with_created_at_gte]',@filterrific.with_created_at_gte, :id=>'datepicker1') %>
+				</div>
+			</div>
+			<div class="control-group">
+				<label for="filterrific[sorted_by]" class="control-label">Sort by</label>
+				<div class="controls">
+					<%= select_tag('filterrific[sorted_by]', options_for_select(Tweet.options_for_sorted_by),:class=>'chosen-select') %>
+				</div>
+			</div>
+			<div class="control-group">
+				<label for="filterrific" class="control-label">Keyword</label>
+				<div class="controls">
+					<%= collection_select 'filterrific','with_keyword_id',Keyword.where(:client=>current_client),:id,:phrase,{prompt: true},{:multiple=>:multiple, :class=>"chosen-select",'data-placeholder'=>'Choose one or more keywords'}%>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="controls">
+					<%= link_to(
+					'Reset Filters',
+					reset_filterrific_tweets_path,:class=>"btn  btn-inverse"
+					) %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<%= render_filterrific_spinner %>
+	</div>
+
+	<% end %>
+
+
+<div id="batch-action">
+	Batch actions <%= select_tag 'batch-action',options_for_select(Tweet.options_for_batch_action),:class=>'chosen-select' ,:style=>'width:100px;'%>
+</div>
+<script type="text/javascript">
+	var config = {
+		'.chosen-select' : {},
+		'.chosen-select-deselect' : {
+			allow_single_deselect : true
+		},
+		'.chosen-select-no-single' : {
+			disable_search_threshold : 10
+		},
+		'.chosen-select-no-results' : {
+			no_results_text : 'Oops, nothing found!'
+		},
+		'.chosen-select-width' : {
+			width : "95%"
+		}
+	}
+	for (var selector in config) {
+		$(selector).chosen(config[selector]);
+	}
+</script>
+<script type="text/javascript">
+	$('#datepicker1').datetimepicker({
+		onClose : function(a) {
+			$('#datepicker1').change();
+		}
+	}); 
+	
+	$("#filter-button-1").click(function()
+	{   
+		$("#filter-button-1").css('visibility','hidden');
+	});
+	$("#filter-button-2").click(function()
+	{   
+		$("#filter-button-1").css('visibility','visible');
+	});
+	
+	function removeTweet(id)
+	{
+		$('#tweet'+id).remove();
+	}
+	
+</script>
+<div style="z-index:0">
 <%= render(
-  :partial => 'tweets/list',
-  :locals => { :gtweets => @gtweets }
+:partial => 'tweets/list',
+:locals => { :gtweets => @gtweets }
 ) %>
+</div>

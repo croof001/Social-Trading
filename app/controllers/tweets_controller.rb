@@ -88,6 +88,7 @@ class TweetsController < ApplicationController
      respond_to do |format|
        format.html { redirect_to tweets_url }
        format.json { head :no_content }
+       format.js  {render :js=>"$.notify('Tweet deleted', 'success');removeTweet(#{@tweet.id})"}
       end
     else
        respond_to do |format|

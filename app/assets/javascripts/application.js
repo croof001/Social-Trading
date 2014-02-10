@@ -17,4 +17,4 @@
 //= require filterrific-jquery
 //= require chosen.jquery.min
 //= require jquery.datetimepicker
-
+//= require 'notify'

@@ -19,13 +19,34 @@
 	white-space: nowrap;
 }
 
-.tweet-message-div
+.filter-form input
 {
-	opacity: 0.2;
+	margin-right:10%;
 	
 }
 
+.tweet-message-div
+{
+   visibility: hidden;
+   height:0px;
+   opacity: 0;
+  -webkit-transition: opacity 0.3s linear;
+  -moz-transition: opacity 0.3s linear;
+  -o-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
+  
+}
+
+.tweet-message-td:hover
+{
+	cursor: pointer;
+}
 .tweet-message-td:hover > .tweet-message-div
 {
+  
+   height:auto;
+   visibility: visible;
    opacity: 1;
+   
+   
 }
