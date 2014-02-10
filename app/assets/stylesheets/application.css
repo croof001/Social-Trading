@@ -18,3 +18,14 @@
 {
 	white-space: nowrap;
 }
+
+.tweet-message-div
+{
+	opacity: 0.2;
+	
+}
+
+.tweet-message-td:hover > .tweet-message-div
+{
+   opacity: 1;
+}
