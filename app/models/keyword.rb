@@ -1,6 +1,6 @@
 class Keyword < ActiveRecord::Base
   belongs_to :client
-  has_many :tweets
+  has_many :tweets, :dependent => :delete_all
   
   def self.options_for_keyword_type
   [

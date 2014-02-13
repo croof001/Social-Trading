@@ -43,6 +43,9 @@ class KeywordsController < ApplicationController
       if @keyword.save
         format.html { redirect_to @keyword, notice: 'Keyword was successfully created.' }
         format.json { render action: 'show', status: :created, location: @keyword }
+        format.js {
+          flash[:notice]="Keyword created successfully"
+          render :js=>"$.notify('Keyword created', 'success');window.location.href='#{keywords_url}';"}
       else
         format.html { render action: 'new' }
         format.json { render json: @keyword.errors, status: :unprocessable_entity }

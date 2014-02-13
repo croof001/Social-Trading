@@ -13,8 +13,11 @@
 
 //= require jquery
 //= require jquery_ujs
+
 //= require turbolinks
 //= require filterrific-jquery
 //= require chosen.jquery.min
 //= require jquery.datetimepicker
 //= require 'notify'
+//= require jquery.smartWizard
+

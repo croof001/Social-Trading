@@ -12,6 +12,7 @@
  *= require chosen.min
  *= require jquery.datetimepicker
 
+ *= require smart_wizard
  */
  
 .actions-cell

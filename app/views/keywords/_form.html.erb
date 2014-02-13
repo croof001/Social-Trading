@@ -1,61 +1,54 @@
-<%= form_for(@keyword, :html=>{:class=>'form-horizontal'}  ) do |f| %>
-  <% if @keyword.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@keyword.errors.count, "error") %> prohibited this keyword from being saved:</h2>
-
-      <ul>
-      <% @keyword.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
-   <div class="control-group">
-    <%= f.label :keyword_type, 'What kind of tweets do you want to fetch?',:class=>'control-label' %>
-    <div class="controls">
-    <%= f.select :keyword_type,options_for_select(Keyword.options_for_keyword_type) %>
-    </div>
+<div id="wizard" class="swMain">
+  <ul>
+    <li><a href="#step-1" class="wicontent">
+          <label class="stepNumber">1</label>
+          <span class="stepDesc">
+             Step 1<br />
+             <small>Introduction</small>
+          </span>
+      </a></li>
+    <li><a href="#step-2" class="wicontent">
+          <label class="stepNumber">2</label>
+          <span class="stepDesc">
+             Step 2<br />
+             <small>Create filter</small>
+          </span>
+      </a></li>
+    <li><a href="#step-3" class="wicontent">
+          <label class="stepNumber">3</label>
+          <span class="stepDesc">
+             Step 3<br />
+             <small>Choose target locations</small>
+          </span>                  
+       </a></li>
+    <li><a href="#step-4">
+          <label class="stepNumber">4</label>
+          <span class="stepDesc">
+             Step 4<br />
+             <small>Automatic Actions</small>
+          </span>                  
+      </a></li>
+  </ul>
+  <div class="stepContainer" style="height:500px;overflow-y: auto;">
+  <%= form_for(@keyword ,:html=>{:class=>"form-horizontal"},:remote=>true) do |f| %>
+  <div id="step-1"  >  
+      <h2 class="StepTitle">Before we start</h2>
+       <!-- step content -->
   </div>
-  
-  <div class="control-group">
-    <%= f.label :phrase, :class=>'control-label' %>
-    <div class="controls">
-    <%= f.text_field :phrase %>
-    </div>
-  </div>
-  
-  
-  <div class="control-group">
-    <%= f.label :auto_follow,'Automatically follow the user of the tweet', :class=>'control-label' %>
-    <div class="controls">
-    <%= f.check_box :auto_follow %>
-    </div>
-  </div>
-  
-  <div class="control-group">
-    <%= f.label :auto_retweet,'Retweet automatically', :class=>'control-label' %>
-    <div class="controls">
-    <%= f.check_box :auto_retweet %>
-    </div>
-  </div>
-  
- <div class="control-group">
-    <%= f.label :auto_reply,'Do you want to reply with a pre-defined tweet?', :class=>'control-label' %>
-    <div class="controls">
-    <%= f.check_box :auto_reply, :id=>'auto-reply' %>
-    </div>
-  </div>
-  
-  <div class="well hide" id="default-reply-block">
-    <div class="control-group" >
-      <%= f.label :default_reply, :class=>'control-label' %>
-      <div class="controls">
-        <%= f.text_area :default_reply %>
-      </div>
-     </div>
-  </div>
-  
+  <div id="step-2" class="wicontent" style="overflow-y: scroll;">
+      <h2 class="StepTitle">Creating tweet filter</h2>
+       <!-- step content -->
+       
+       <%= render(
+		:partial => 'lead',
+		:locals => { :f => f }
+		) %>
+       
+             
+  </div>                     
+  <div id="step-3" class="wicontent">
+      <h2 class="StepTitle">Localize the scope with area and language</h2>  
+      
    <div class="control-group">
     <%= f.label :geocoded,'Recieve tweets only from specific location?', :class=>'control-label' %>
     <div class="controls">
@@ -96,77 +89,45 @@
     <%= f.select :priority ,options_for_select(Keyword.options_for_priority)%>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :color,'Show in' ,:class=>'control-label' %>
-    <div class="controls">
-    <%= f.text_field :color %> color
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :notes, :class=>'control-label' %>
-    <div class="controls">
-    <%= f.text_area :notes %>
-    </div>
-  </div>
+      
   
-  <div class="actions">
-    <%= f.submit :class=>'btn btn-success' %>
   </div>
-  <script type="text/javascript">
-  	$(function() {
-		$('#geocoded').change(function (a)
-		{
-			if ($('#geocoded').is(":checked"))
-               {
-					$('#geo-box').removeClass('hide');
-					
-                }
-            else
-               {
-			      
-			      $('#geo-box').removeClass('hide').addClass('hide');
-			   }
-		});
-		
-		$('#auto-reply').change(function (a)
-		{
-			if ($('#auto-reply').is(":checked"))
-               {
-					$('#default-reply-block').removeClass('hide');
-					
-                }
-            else
-               {
-			      
-			      $('#default-reply-block').removeClass('hide').addClass('hide');
-			   }
-		});
-		
-		
-		$('#geocode-button').click(function (argument){
-			  //http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false)
-			var request_url = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address="+encodeURIComponent($('#address').val())
-			$.getJSON( request_url, function( data ) {
-    		 
-              
-              longitude = data['results'][0]['geometry']['location']['lng'];
-              lattitude = data['results'][0]['geometry']['location']['lat'];
-              $('#lng').val(longitude);
-              $('#lat').val(lattitude);
-              formatted_address = data['results'][0]['formatted_address'];
-              $('#formatted_address').html('<strong>'+formatted_address+'</strong>');
-              $("#geocode-button").text('Get cordinates again');
-			  $('#geocode-button').removeClass('disabled');
-			
-			});
-			
-			$('#formatted_address').html('');
-			$("#geocode-button").text('Fetching...');
-			$('#geocode-button').removeClass('disabled').addClass('disabled');
-			return false;
-		});
-		
-		
-	  });
-  </script>
-<% end %>
+  <div id="step-4" class="wicontent">
+      <h2 class="StepTitle">Step 4 Title</h2>  
+        <div class="control-group">
+    		<%= f.label :auto_follow,'Automatically follow the user of the tweet', :class=>'control-label' %>
+    		<div class="controls">
+    		<%= f.check_box :auto_follow %>
+    		</div>
+  		</div>
+  		
+  		  <div class="control-group">
+    		<%= f.label :auto_retweet,'Retweet automatically', :class=>'control-label' %>
+    		<div class="controls">
+    		<%= f.check_box :auto_retweet %>
+    		</div>
+  		</div>      
+  		
+  		<div class="control-group">
+    		<%= f.label :auto_reply,'Do you want to reply with a pre-defined tweet?', :class=>'control-label' %>
+    		<div class="controls">
+    			<%= f.check_box :auto_reply, :id=>'auto-reply' %>
+    		</div>
+  		</div>
+  
+  		<div class="well hide" id="default-reply-block">
+    		<div class="control-group" >
+      		<%= f.label :default_reply, :class=>'control-label' %>
+      		<div class="controls">
+        	<%= f.text_area :default_reply %>
+     		 </div>
+     		</div>
+ 		 </div>
+  		                
+  </div>
+  <%end%>
+</div>
+
+<script type="text/javascript" scr="/assets/keywordwizard.js"></script>
+
+
