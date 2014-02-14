@@ -24,7 +24,7 @@ class TwitterManager
     query_options[:result_type]  = "recent"
     query_options[:geocode]="#{keyword.lattitude},#{keyword.longitude},#{keyword.radius}mi" if keyword.geocoded
     query_options[:lang]="#{keyword.language}" if not keyword.language.to_s.empty?
-    query_options[:since_id]= "#{keyword.since}" if not keyword.since.to_s.empty?
+    query_options[:since_id]= "#{keyword.last_tweet}" if not keyword.last_tweet.to_s.empty?
     query_options[:max_count]= "#{keyword.max_count}" if keyword.max_count
 
     

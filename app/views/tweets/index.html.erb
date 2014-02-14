@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label for="filterrific" class="control-label">Priority</label>
+				<label for="filterrific" class="control-label">Category</label>
 				<div class="controls">
 					<%= select_tag('filterrific[with_priority_id]', options_for_select(Keyword.options_for_priority),:class=>'chosen-select',:multiple=>:multiple) %>
 				</div>
@@ -63,7 +63,7 @@
 			<div class="control-group">
 				<label for="filterrific" class="control-label">Keyword</label>
 				<div class="controls">
-					<%= collection_select 'filterrific','with_keyword_id',Keyword.where(:client=>current_client),:id,:phrase,{prompt: true},{:multiple=>:multiple, :class=>"chosen-select",'data-placeholder'=>'Choose one or more keywords'}%>
+					<%= collection_select 'filterrific','with_keyword_id',Keyword.where(:client=>current_client),:id,:nickname,{prompt: true},{:multiple=>:multiple, :class=>"chosen-select",'data-placeholder'=>'Choose one or more keywords'}%>
 				</div>
 			</div>
 

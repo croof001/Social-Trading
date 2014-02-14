@@ -1,0 +1,46 @@
+   <div class="control-group clearfix">
+    <%= label_tag :geocoded,'Recieve tweets from specific location only?'%>
+    <%= check_box_tag :geocoded,1,@keyword.geocoded,:id=>'geocoded' %>
+
+  </div>
+  
+  <div id="geo-box" class="hide well">
+  	<div class="control-group clearfix">
+      <%= label_tag :radius,'With in', :class=>'control-label' %>
+      <div class="controls">
+      <%= text_field_tag :radius,@keyword.radius,:size=>5,:maxlength=>5 %> miles of
+      <div id="formatted_address"></div>
+      </div>
+    </div>
+  	<div class="control-group clearfix">
+      <%= label_tag :longitude,'longitude', :class=>'control-label' %>
+      <div class="controls">
+      <%= text_field_tag :longitude,@keyword.longitude, :id=>'lng' %>
+      </div>
+    </div>
+    
+    <div class="control-group clearfix">
+      <%= label_tag :lattitude,'Latitude', :class=>'control-label'%>
+      <div class="controls">
+      <%= text_field_tag :lattitude,@keyword.lattitude ,:id=>'lat' %>
+      </div>
+    </div>
+    
+    Don't know cordinates? Enter the address here
+    <input type="text" id="address" value='<%="New York,\nUnited States"%>'/>
+    <a href="#" id="geocode-button" class="btn btn-inverse">Get Cordinates</a>
+  </div>
+  
+   <div class="control-group clearfix">
+    <%= label_tag :lng,'Restrict tweets to specific langauge?'%>
+    <%= check_box_tag :lngspecific,1,if @keyword.language then true else false end %>
+   </div>
+   <div id="language-box" class="hide well">
+   <div class="control-group clearfix">
+    <%= label_tag :language,'Language', :class=>'control-label' %>
+    <div class="controls">
+    <%= collection_select '','language',LanguageList::COMMON_LANGUAGES,:iso_639_1,:name%>
+    </div>
+  </div>
+  </div>
+  

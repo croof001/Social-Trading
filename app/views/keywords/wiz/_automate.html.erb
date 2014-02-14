@@ -1,0 +1,98 @@
+       <div class="control-group clearfix">
+    		<%= label_tag :auto_follow,'Automatically follow the user of the tweet' %>
+    		<%= check_box_tag :auto_follow,1,@keyword.auto_follow %>
+  		</div>
+  		
+  		<div class="well hide" id="auto-follow-block">
+  		  	<label>Follow tweets during</label> 
+  		  	    <div class="control-group clearfix">
+     			 <%= label_tag :auto_follow_time_from,'From', :class=>'control-label'%>
+     			 <div class="controls">
+      			<%= text_field_tag :auto_follow_time_from,@keyword.auto_follow_time_from,:class=>'dtpicker' %>
+      			</div>
+    			</div>
+    			
+    		    <div class="control-group clearfix">
+     			 <%= label_tag :auto_follow_time_to,'To', :class=>'control-label'%>
+     			 <div class="controls">
+      			<%= text_field_tag :auto_follow_time_to,@keyword.auto_follow_time_to,:class=>'dtpicker' %>
+      			</div>
+    			</div>
+    			<div class="control-group" >
+      		    <%= label_tag :auto_follow_rate,'Maxiumum auto-follow per day', :class=>'control-label' %>
+      		    <div class="controls">
+        	    <%=text_field_tag :auto_follow_rate,@keyword.auto_reply_rate %>
+     		    </div>
+     		    </div>
+    			
+  		  </div>  
+  		
+  		  <div class="control-group clearfix">
+    		<%= label_tag :auto_retweet,'Retweet automatically'%>
+    		
+    		<%= check_box_tag :auto_retweet,1,@keyword.auto_retweet %>
+  		  </div>
+  		  
+  		 <div class="well hide" id="auto-retweet-block">
+  		  	<label>Retweet during during</label> 
+  		  	    <div class="control-group clearfix">
+     			 <%= label_tag :auto_retweet_time_from,'From', :class=>'control-label'%>
+     			 <div class="controls">
+      			<%= text_field_tag :auto_follow_time_from,@keyword.auto_follow_time_from,:class=>'dtpicker' %>
+      			</div>
+    			</div>
+    			
+    		    <div class="control-group clearfix">
+     			 <%= label_tag :auto_retweet_time_to,'To', :class=>'control-label'%>
+     			 <div class="controls">
+      			<%= text_field_tag :auto_retweet_time_to,@keyword.auto_follow_time_to,:class=>'dtpicker' %>
+      			</div>
+    			</div>
+    			<div class="control-group" >
+      		    <%= label_tag :auto_retweet_rate,'Maxiumum auto-retweet per day', :class=>'control-label' %>
+      		    <div class="controls">
+        	    <%=text_field_tag :auto_retweet_tag,@keyword.auto_reply_rate %>
+     		   </div>
+     		   </div>
+    			
+  		  </div>  
+    
+  		
+  		<div class="control-group clearfix">
+    		<%= label_tag :auto_reply,'Do you want to reply with a pre-defined tweet?' %>
+    		
+    			<%= check_box_tag :auto_reply,1,@keyword.auto_reply, :id=>'auto-reply' %>
+    		
+  		</div>
+  
+  		<div class="well hide" id="default-reply-block">
+    		<div class="control-group" >
+      		<%= label_tag :default_reply,'Default reply', :class=>'control-label' %>
+      		<div class="controls">
+        	<%=text_area_tag :default_reply,@keyword.default_reply %>
+     		 </div>
+     		</div>
+     		
+     		<label>Auto reply during during during</label> 
+  		  	    <div class="control-group clearfix">
+     			 <%= label_tag :auto_reply_time_from,'From', :class=>'control-label'%>
+     			 <div class="controls">
+      			<%= text_field_tag :auto_reply_time_from,@keyword.auto_follow_time_from,:class=>'dtpicker' %>
+      			</div>
+    			</div>
+    			
+    		    <div class="control-group clearfix">
+     			 <%= label_tag :auto_reply_time_to,'To', :class=>'control-label'%>
+     			 <div class="controls">
+      			<%= text_field_tag :auto_reply_time_to,@keyword.auto_follow_time_to,:class=>'dtpicker' %>
+      			</div>
+    		 </div>
+     	   <div class="control-group" >
+      		<%= label_tag :auto_reply_rate,'Maxiumum auto-reply per day', :class=>'control-label' %>
+      		<div class="controls">
+        	<%=text_field_tag :auto_reply_tag,@keyword.auto_reply_rate %>
+     		 </div>
+     		</div>
+     		
+ 		 </div>
+  		          

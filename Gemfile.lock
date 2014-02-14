@@ -115,6 +115,7 @@ GEM
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    language_list (1.0.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -224,6 +225,7 @@ DEPENDENCIES
   filterrific!
   jbuilder (~> 1.2)
   jquery-rails
+  language_list
   mysql2
   oauth
   rails (= 4.0.0)

@@ -17,7 +17,7 @@ class Tweet < ActiveRecord::Base
 def self.options_for_sorted_by
   [
     ['Time (newest first)', 'created_at_desc'],
-    ['Keyword Phrase', 'keyword_asc'],
+    ['Keyword', 'keyword_asc'],
     ['Time (oldest first)', 'created_at_asc'],
     ['Author', 'author_asc'],
     ['Priority','priority_asc']
@@ -95,14 +95,14 @@ end
     # This sorts by a student's country name, so we need to include
     # the country. We can't use JOIN since not all students might have
     # a country.
-    order("LOWER(keywords.phrase) #{ direction }").includes(:keyword)
+    order("LOWER(keywords.nickname) #{ direction }").includes(:keyword)
     
   when /^priority_/
     # Simple sort on the created_at column.
     # Make sure to include the table name to avoid ambiguous column names.
     # Joining on other tables is quite common in Filterrific, and almost
     # every ActiveRecord table has a 'created_at' column.
-    order("keywords.priority #{ direction }")
+    order("keywords.priority #{ direction }").includes(:keyword)
   else
     raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
   end

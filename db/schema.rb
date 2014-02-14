@@ -103,20 +103,43 @@ ActiveRecord::Schema.define(version: 20140206183536) do
 
   create_table "keywords", force: true do |t|
     t.string   "phrase"
-    t.integer  "priority"
-    t.boolean  "auto_follow"
-    t.boolean  "auto_retweet"
-    t.boolean  "auto_reply"
-    t.boolean  "geocoded"
+    t.boolean  "auto_follow",            default: false
+    t.time     "auto_follow_time_from",  default: '2000-01-01 18:30:00'
+    t.time     "auto_follow_time_to",    default: '2000-01-01 18:29:59'
+    t.integer  "auto_follow_rate",       default: 1
+    t.boolean  "auto_retweet",           default: false
+    t.time     "auto_retweet_time_from", default: '2000-01-01 18:30:00'
+    t.time     "auto_retweet_time_to",   default: '2000-01-01 18:29:59'
+    t.integer  "auto_retweet_rate",      default: 1
+    t.boolean  "auto_reply",             default: false
+    t.time     "auto_reply_time_from",   default: '2000-01-01 18:30:00'
+    t.time     "auto_reply_time_to",     default: '2000-01-01 18:29:59'
+    t.integer  "auto_reply_rate",        default: 1
     t.string   "default_reply"
-    t.string   "keyword_type"
+    t.boolean  "geocoded",               default: false
     t.string   "lattitude"
     t.string   "longitude"
-    t.float    "radius"
+    t.float    "radius",                 default: 300.0
     t.string   "notes"
-    t.string   "color",         default: "#ffffff"
-    t.boolean  "read"
+    t.string   "color",                  default: "#AAAAAA"
+    t.string   "nickname"
+    t.integer  "priority"
+    t.string   "language",               default: "en"
+    t.integer  "max_count",              default: 50
+    t.boolean  "email_notification",     default: false
+    t.integer  "fetch_frequency",        default: 72
+    t.string   "notification_frequency", default: "hourly"
     t.integer  "client_id"
+    t.boolean  "read",                   default: false
+    t.string   "created_by",             default: "system"
+    t.string   "last_tweet"
+    t.datetime "last_fetch"
+    t.datetime "last_follow"
+    t.datetime "last_retweet"
+    t.integer  "tweets_yet",             default: 0
+    t.integer  "follow_yet",             default: 0
+    t.integer  "reply_yet",              default: 0
+    t.datetime "last_reply"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

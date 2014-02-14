@@ -1,0 +1,51 @@
+   <div class="control-group clearfix">
+    <%= label_tag :nickname,'Give a nickname for this keyword', :class=>'control-label' %>
+    <div class="controls">
+    <%= text_field_tag :nickname ,@keyword.nickname,:maxlength=>'29'%>
+    </div>
+  </div>
+ 
+  <div class="control-group clearfix">
+    <%= label_tag :priority,'Choose a category', :class=>'control-label' %>
+    <div class="controls">
+    <%= select_tag :priority ,options_for_select(Keyword.options_for_priority)%>
+    </div>
+  </div>
+  
+  <div class="control-group clearfix">
+    <%= label_tag :email_notification,'Do you like to get email notifications when tweets arrive?' %>
+
+    <%= check_box_tag :email_notification,1 ,@keyword.email_notification%>
+
+  </div>
+  
+  <div class="well hide" id="email-notification-block">
+  	<div class="control-group clearfix">
+    <%= label_tag :notification_frequency,'How frequently you want to get notification', :class=>'control-label' %>
+    <div class="controls">
+    <%= select_tag :notification_frequency,options_for_select(Keyword.options_for_notification_frequency)%>
+    </div>
+    </div>
+  </div>
+    <div class="control-group clearfix">
+    <%= label_tag :color,'Highlight color',:class=>'control-label'%>
+    <div class="controls">
+    <%= text_field_tag :color,@keyword.color,:id=>'color1' %> 
+    </div>
+    </div>
+   <div class="control-group clearfix">
+    <%= label_tag :fetch_frequency,'No. times to fetch tweets per day', :class=>'control-label' %>
+    <div class="controls">
+    <%= text_field_tag :fetch_frequency ,@keyword.fetch_frequency,:maxlength=>'2'%>
+    </div>
+   </div>
+    
+   <div class="control-group clearfix">
+    <%= label_tag :max_count,'Tweets to fetch at a time', :class=>'control-label' %>
+    <div class="controls">
+    <%= text_field_tag :max_count ,@keyword.max_count,:maxlength=>'2'%>
+    </div>
+    
+
+    
+   </div>

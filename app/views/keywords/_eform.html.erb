@@ -11,12 +11,7 @@
     </div>
   <% end %>
   
-   <div class="control-group">
-    <%= f.label :keyword_type, 'What kind of tweets do you want to fetch?',:class=>'control-label' %>
-    <div class="controls">
-    <%= f.select :keyword_type,options_for_select(Keyword.options_for_keyword_type) %>
-    </div>
-  </div>
+
   
   <div class="control-group">
     <%= f.label :phrase, :class=>'control-label' %>

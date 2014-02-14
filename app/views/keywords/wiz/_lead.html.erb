@@ -1,0 +1,213 @@
+<div id="page0">
+	<div class="control-group">
+	<label>What you sell or provide (at max 2 words)</label>
+	<%= text_field_tag '','',:placeholder=>'Eg: Handbag',:id=>'sellitem'%>
+	</div>
+	
+	<button class="btn keyword_back" type="button" data-page="page0"><i class=" icon-arrow-left" ></i>Back</button>
+	<button class="btn keyword_next" type="button" data-page="page0">Proceed<i class=" icon-arrow-right" ></i></button>
+	
+</div>
+<div id="page1" style="display: none;">
+   What kind of tweets you are interested in
+   <%= select_tag '' ,
+   options_for_select([
+   						[ 'Sales leads',1],
+   						['Potential customers to follow',2],
+   						[ 'Talking about my business / brand',3],
+   						[ 'Talking about my competetor',4],
+   						[ 'Containing given words',5],
+   						[ 'From satisfied customers',6],
+   						[ 'From disappointed customers',7],
+   						[ 'About given topics',8],
+   						[ 'From competetor',9],
+   						[ 'Mentioning / reply to us',10],
+   						[ 'Advanced',11]
+   					  ],1),
+   :prompt=>'Choose an option',:id=>"filtertype"%>
+   
+ <p></p>
+ 	<button class="btn keyword_back" type="button" data-page="page0"><i class=" icon-arrow-left" ></i>Back</button>
+	<button class="btn keyword_next" type="button" data-page="page1">Proceed<i class=" icon-arrow-right" ></i></button>
+
+ 
+</div>
+<div id="page2" style="display: none">
+	   <div class="control-group">
+       <label class="control-label">What do you sell?</label> 
+       <div class="controls">
+       <%= select_tag '',options_for_select([['Goods / Products',1],['Services',2]]),:id=>"bsnstype"%>
+       </div>
+      </div>
+       	
+       <div class="control-group">
+       <label class="control-label">
+       What is the nature of your business? </label>
+       <div class="controls">
+       <%= select_tag '',options_for_select([['Both online and offline',1],['Online',2],['Offline',3],
+       							['Irrelevant',4]],1),:id=>"bsnspresence"%>
+       </div>
+       </div>
+       	<button class="btn keyword_back" type="button" data-page="page1"><i class=" icon-arrow-left" ></i>Back</button>
+		<button class="btn keyword_next" type="button" data-page="page2">Proceed<i class=" icon-arrow-right" ></i></button>
+
+
+</div>
+
+<div id="page3" style="display:none;">
+	Will you be interested in retweets? (Tip: Most probably you won't)
+	<div>
+		<%= radio_button_tag 'rt','0',true,:id=>'rtinterest' %>No 
+		<%= radio_button_tag 'rt','1',false,:id=>'rtinterest2' %>Yes
+	</div>
+	Will you be interested on tweets carrying links
+	<div>
+		<%= radio_button_tag 'leadlink','0',true,:id=>'linkinterest' %>No 
+		<%= radio_button_tag 'leadlink','1',false,:id=>'linkinterest2' %>Yes
+	</div>
+	<button class="btn keyword_back" type="button" data-page="page2"><i class=" icon-arrow-left" ></i>Back</button>
+	<button class="btn keyword_next" type="button" data-page="page3">Create Filter<i class=" icon-arrow-right" ></i></button>
+
+</div>
+
+<div id="page4" style="display:none;">
+	Please enter the twitter search query
+	<div>
+		<%= text_field_tag :phrase,@keyword.phrase,  :id=>'keywordfield'%>
+	</div>
+	<button class="btn keyword_back" type="button" data-page="page1"><i class=" icon-arrow-left" ></i>Back</button>
+	<button class="btn keyword_next" type="button" data-page="page4">Create Filter<i class=" icon-arrow-right" ></i></button>
+
+	<h3>Hint:</h3>
+	<div class="well">
+	 The query can have operators that modify its behavior, the available operators are:
+			<table class="table-striped">
+			<thead>
+				<tr>
+					<th>Operator</th>
+					<th>Finds tweets...</th>
+				</tr><tr></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>watching now</td>
+					<td>containing both "watching" and "now". This is the default operator.</td>
+				</tr>
+				<tr>
+					<td>"happy hour"</td>
+					<td>containing the exact phrase "happy hour".</td>
+				</tr>
+				<tr>
+					<td>love OR hate</td>
+					<td>containing either "love" or "hate" (or both).</td>
+				</tr>
+				<tr>
+					<td>beer -root</td>
+					<td>containing "beer" but not "root".</td>
+				</tr>
+				<tr>
+					<td>#haiku</td>
+					<td>containing the hashtag "haiku".</td>
+				</tr>
+				<tr>
+					<td>from:alexiskold</td>
+					<td>sent from person "alexiskold".</td>
+				</tr>
+				<tr>
+					<td>to:techcrunch</td>
+					<td>sent to person "techcrunch".</td>
+				</tr>
+				<tr>
+					<td>@mashable</td>
+					<td>referencing person "mashable".</td>
+				</tr>
+				<tr>
+					<td>superhero since:2010-12-27</td>
+					<td>containing "superhero" and sent since date "2010-12-27" (year-month-day).</td>
+				</tr>
+				<tr>
+					<td>ftw until:2010-12-27</td>
+					<td>containing "ftw" and sent before the date "2010-12-27".</td>
+				</tr>
+				<tr>
+					<td>movie -scary :)</td>
+					<td>containing "movie", but not "scary", and with a positive attitude.</td>
+				</tr>
+				<tr>
+					<td>flight :(</td>
+					<td>containing "flight" and with a negative attitude.</td>
+				</tr>
+				<tr>
+					<td>traffic ?</td>
+					<td>containing "traffic" and asking a question.</td>
+				</tr>
+				<tr>
+					<td>hilarious filter:links</td>
+					<td>containing "hilarious" and linking to URL.</td>
+				</tr>
+				<tr>
+					<td>news source:twitterfeed</td>
+					<td>containing "news" and entered via TwitterFeed</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+
+
+<div id="page5" style="display: none;">
+	Enter the names by which your business or brand is known to customers, One name per line
+	<div>
+		<%= text_area_tag :business_known_as,nil,:title=>"Example:\nApple\nIpad\nIOS\nSteve Jobs\nIphone"%>
+	</div>
+	Your website url (Seperate by coma if you have multiple sites)
+	<div>
+		http://<%= text_field_tag :business_websites,nil,:placeholder=>"yahoo.com, www.yahoo.com"%>
+	</div>
+	<button class="btn keyword_back" type="button" data-page="page1"><i class=" icon-arrow-left" ></i>Back</button>
+	<button class="btn keyword_next" type="button" data-page="page5">Create Filter<i class=" icon-arrow-right" ></i></button>
+</div>
+
+<div id="page6" style="display: none;">
+	Enter the names by which your business or brand is known to customers, One name per line
+	<div>
+		<%= text_area_tag :business_known_as2,nil,:title=>"Example:\nApple\nIpad\nIOS\nSteve Jobs\nIphone"%>
+	</div>
+	Your website url (Seperate by coma if you have multiple sites)
+	<div>
+		http://<%= text_field_tag :business_websites2,nil,:placeholder=>"yahoo.com, www.yahoo.com"%>
+	</div>
+	<button class="btn keyword_back" type="button" data-page="page1"><i class=" icon-arrow-left" ></i>Back</button>
+	<button class="btn keyword_next" type="button" data-page="page6">Create Filter<i class=" icon-arrow-right" ></i></button>
+</div>
+
+<div id="page7" style="display: none;">
+	Enter the names by which your business or brand is known to customers, One name per line
+	<div>
+		<%= text_area_tag :business_known_as3,nil,:title=>"Example:\nApple\nIpad\nIOS\nSteve Jobs\nIphone"%>
+	</div>
+	Your website url (Seperate by coma if you have multiple sites)
+	<div>
+		http://<%= text_field_tag :business_websites3,nil,:placeholder=>"yahoo.com, www.yahoo.com"%>
+	</div>
+	<button class="btn keyword_back" type="button" data-page="page1"><i class=" icon-arrow-left" ></i>Back</button>
+	<button class="btn keyword_next" type="button" data-page="page7">Create Filter<i class=" icon-arrow-right" ></i></button>
+</div>
+
+<div id="page8" style="display: none;">
+	Enter the names of  your comptetor brands as known to customers, One name per line
+	<div>
+		<%= text_area_tag :business_known_as4,nil,:title=>"Example:\nApple\nMicrosoft\nIOS\nGoogle\nFacebook"%>
+	</div>
+	Websites of competetors (Seperated by coma)
+	<div>
+		http://<%= text_field_tag :business_websites4,nil,:placeholder=>"yahoo.com, www.yahoo.com"%>
+	</div>
+	Twitter screen names of competetors (Seperated by coma)
+	<div>
+		@<%= text_field_tag :compete_screen_names,nil,:placeholder=>"@microsft, @google"%>
+	</div>
+	<button class="btn keyword_back" type="button" data-page="page1"><i class=" icon-arrow-left" ></i>Back</button>
+	<button class="btn keyword_next" type="button" data-page="page8">Create Filter<i class=" icon-arrow-right" ></i></button>
+</div>

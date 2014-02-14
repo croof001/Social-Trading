@@ -101,6 +101,13 @@ class KeywordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def keyword_params
-            params.require(:keyword).permit(:phrase, :priority, :client_id, :auto_reply, :auto_retweet,:auto_follow,:default_reply,:longitude,:lattitude,:radius,:keyword_type,:color,:notes,:geocoded)
+            params.require(:keyword).permit(:phrase, :priority, :client_id, :auto_reply,
+                                             :auto_retweet,:auto_follow,:default_reply,:longitude,
+                                             :lattitude,:radius,:color,:notes,:geocoded,
+                                             :language, :auto_follow_time_from, :auto_follow_time_to,
+                                             :auto_follow_rate, :auto_retweet_time_to,
+                                             :auto_reply_time_from, :auto_reply_time_to, :nickname,
+                                             :email_notification, :notification_frequency,
+                                             :fetch_frequency, :max_count)
     end
 end

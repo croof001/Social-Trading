@@ -4,8 +4,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Phrase</th>
-      <th>Priority</th>
+      <th>Keyword</th>
+      <th>Category</th>
       <th>Actions</th>
 
 
@@ -15,8 +15,8 @@
   <tbody>
     <% @keywords.each do |keyword| %>
       <tr>
-        <td><%= keyword.phrase %></td>
-        <td><%= keyword.priority %></td>
+        <td><%= keyword.nickname %></td>
+        <td><%= Keyword.options_for_priority[keyword.priority-1][0] %></td>
         <td class="actions-cell"><%= link_to 'View', keyword ,:class=>'btn btn-mini btn-info'%>
             <%= link_to 'Edit', edit_keyword_path(keyword),:class=>'btn btn-mini btn-warning' %>
             <%= link_to 'Destroy', keyword,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>

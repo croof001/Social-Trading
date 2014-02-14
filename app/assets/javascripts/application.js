@@ -20,4 +20,5 @@
 //= require jquery.datetimepicker
 //= require 'notify'
 //= require jquery.smartWizard
+//= require jquery.colorPicker
 

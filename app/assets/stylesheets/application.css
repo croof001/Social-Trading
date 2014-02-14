@@ -12,7 +12,8 @@
  *= require chosen.min
  *= require jquery.datetimepicker
 
- *= require smart_wizard
+ *= require smart_wizard_vertical
+ *= require colorPicker
  */
  
 .actions-cell

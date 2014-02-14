@@ -23,19 +23,16 @@ class Keyword < ActiveRecord::Base
     
   end
   
-  def language
-    'en'
+  def self.options_for_notification_frequency
+    [
+    ['Every hour', 1],
+    ['Every 3 hours', 3],
+    ['Every 6 hours', 6],
+    ['Twice a day', 12],
+    ['Once per day',24],
+    ['Every other day',48]
+    ] 
   end
   
-  def since
-    nil
-  end
   
-  def since=(a)
-    
-  end
-  
-  def max_count
-    nil
-  end
 end

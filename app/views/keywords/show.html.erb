@@ -2,11 +2,16 @@
 <legend>Keyword  details</legend>
 <%= link_to 'Edit', edit_keyword_path(@keyword),:class=>'btn btn-warning' %> 
 <p>
-  <strong>Phrase:</strong>
-  <%= @keyword.phrase %>
+  <strong>Nickname:</strong>
+  <%= @keyword.nickname %>
 </p>
 
-
+<%unless @keyword.created_by='system'%>
+<p>
+  <strong>Twitter search query:</strong>
+  <blockquote><%= @keyword.phrase %></blockquote>
+</p>
+<%end%>
 
 <p>
   <strong>Automatically follow the user:</strong>
@@ -40,13 +45,13 @@
 </p>
 
 <p>
-  <strong>Purpose:</strong>
+  <strong>Category:</strong>
   <%= Keyword.options_for_priority[@keyword.priority - 1][0] %>
 </p>
 
 <p>
   <strong>Color:</strong>
-  <span style="background-color: <%= @keyword.color %>;"><%= @keyword.color %></span>
+  <span style="background-color: <%= @keyword.color %>;">&nbsp; &nbsp; &nbsp; &nbsp;</span>
 </p>
 <p>
   <strong>Notes:</strong><br/>

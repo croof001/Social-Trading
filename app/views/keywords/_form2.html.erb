@@ -1,0 +1,140 @@
+<div id="wizard" class="swMain">
+  <ul>
+    <li><a href="#step-1" >
+          <label class="stepNumber">1</label>
+          <span class="stepDesc">
+             Step 1<br />
+             <small>Introduction</small>
+          </span>
+      </a></li>
+    <li><a href="#step-2" >
+          <label class="stepNumber">2</label>
+          <span class="stepDesc">
+             Step 2<br />
+             <small>Create filter</small>
+          </span>
+      </a></li>
+    <li><a href="#step-3">
+          <label class="stepNumber">3</label>
+          <span class="stepDesc">
+             Step 3<br />
+             <small>Choose target locations</small>
+          </span>                  
+       </a></li>
+    <li><a href="#step-4">
+          <label class="stepNumber">4</label>
+          <span class="stepDesc">
+             Step 4<br />
+             <small>Automatic Actions</small>
+          </span>                  
+      </a></li>
+  </ul>
+ 
+  <%= form_for(@keyword ,:html=>{:class=>"form-horizontal"},:remote=>true) do |f| %>
+  <div id="step-1"  >  
+      <h2 class="StepTitle">Before we start</h2>
+       <!-- step content -->
+  </div>
+  <div id="step-2" >
+      <h2 class="StepTitle">Creating tweet filter</h2>
+       <!-- step content -->
+       
+       <%= render(
+		:partial => 'lead',
+		:locals => { :f => f }
+		) %>
+       
+             
+  </div>                     
+  <div id="step-3" >
+      <h2 class="StepTitle">Localize the scope with area and language</h2>  
+      
+   <div class="control-group">
+    <%= f.label :geocoded,'Recieve tweets only from specific location?', :class=>'control-label' %>
+    <div class="controls">
+    <%= f.check_box :geocoded,:id=>'geocoded' %>
+    </div>
+  </div>
+  
+  <div id="geo-box" class="hide well">
+  	<div class="control-group">
+      <%= f.label :radius,'With in', :class=>'control-label' %>
+      <div class="controls">
+      <%= f.text_field :radius,:size=>5,:maxlength=>5 %> miles of
+      <div id="formatted_address"></div>
+      </div>
+    </div>
+  	<div class="control-group">
+      <%= f.label :longitude, :class=>'control-label' %>
+      <div class="controls">
+      <%= f.text_field :longitude, :id=>'lng' %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :lattitude, :class=>'control-label'%>
+      <div class="controls">
+      <%= f.text_field :lattitude ,:id=>'lat' %>
+      </div>
+    </div>
+    
+    Don't know cordinates? Enter the address here
+    <input type="text" id="address" value='<%="New York,\nUnited States"%>'/>
+    <a href="#" id="geocode-button" class="btn btn-inverse">Get Cordinates</a>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :language,'Language', :class=>'control-label' %>
+    <div class="controls">
+    <%= f.text_field :language %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :priority,'Priority', :class=>'control-label' %>
+    <div class="controls">
+    <%= f.select :priority ,options_for_select(Keyword.options_for_priority)%>
+    </div>
+  </div>
+      
+  
+  </div>
+  <div id="step-4">
+      <h2 class="StepTitle">Step 4 Title</h2>  
+        <div class="control-group">
+    		<%= f.label :auto_follow,'Automatically follow the user of the tweet', :class=>'control-label' %>
+    		<div class="controls">
+    		<%= f.check_box :auto_follow %>
+    		</div>
+  		</div>
+  		
+  		  <div class="control-group">
+    		<%= f.label :auto_retweet,'Retweet automatically', :class=>'control-label' %>
+    		<div class="controls">
+    		<%= f.check_box :auto_retweet %>
+    		</div>
+  		</div>      
+  		
+  		<div class="control-group">
+    		<%= f.label :auto_reply,'Do you want to reply with a pre-defined tweet?', :class=>'control-label' %>
+    		<div class="controls">
+    			<%= f.check_box :auto_reply, :id=>'auto-reply' %>
+    		</div>
+  		</div>
+  
+  		<div class="well hide" id="default-reply-block">
+    		<div class="control-group" >
+      		<%= f.label :default_reply, :class=>'control-label' %>
+      		<div class="controls">
+        	<%= f.text_area :default_reply %>
+     		 </div>
+     		</div>
+ 		 </div>
+  		                
+  </div>
+  <%end%>
+
+</div>
+<script type="text/javascript" src="/assets/keywordwizard.js"></script>
+
+
