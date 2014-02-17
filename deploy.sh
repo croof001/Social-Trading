@@ -14,7 +14,8 @@ git pull
 echo "running bundle install"
 bundle install
 echo "Resetting production database"
-RAILS_ENV=production db:migrate:reset
+RAILS_ENV=production db:drop
+RAILS_ENV=production db:create
 echo "running migrations is production"
 RAILS_ENV=production rake db:migrate
 echo "seeding"
