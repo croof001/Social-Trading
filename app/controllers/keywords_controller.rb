@@ -1,5 +1,6 @@
 class KeywordsController < ApplicationController
   before_filter :authenticate_client!
+  before_action :require_twitter_connection
   before_action :set_keyword, only: [:show, :edit, :update, :destroy]
   
   # GET /keywords

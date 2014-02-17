@@ -12,9 +12,10 @@
 //
 
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 
-//= require turbolinks
+
 //= require filterrific-jquery
 //= require chosen.jquery.min
 //= require jquery.datetimepicker
@@ -22,3 +23,5 @@
 //= require jquery.smartWizard
 //= require jquery.colorPicker
 //= require keywordwizard
+//= require tweets
+//= require turbolinks

@@ -6,6 +6,8 @@ if (!String.prototype.trim)
     };
 }
 
+/**********************************************************/
+
 function secondsFromTime(s)
     {
     	alert(s.trim());
@@ -19,6 +21,8 @@ function secondsFromTime(s)
     	alert(''+hours+' hours and '+seconds);
     	return seconds;
     }
+
+/**********************************************************/
 
 $(document).ready(function() {
 	/* Functions for the secondary wizard */
@@ -243,6 +247,8 @@ $(document).ready(function() {
 
 });
 
+/**********************************************************/
+
 $(document).ready(function() {
 	// Smart Wizard
 	$('#wizard').smartWizard({
@@ -355,6 +361,8 @@ $(document).ready(function() {
 	}
 
 });
+
+/**********************************************************/
 
 $(document).ready(function() {
 /*UI control*/

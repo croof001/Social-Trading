@@ -1,5 +1,6 @@
 class FutureTweetsController < InheritedResources::Base
   before_filter :authenticate_client!
+  before_action :require_twitter_connection
   respond_to :html, :xml, :json, :js
   def permitted_params
   params.permit!

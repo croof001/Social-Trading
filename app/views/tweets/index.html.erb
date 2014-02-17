@@ -91,46 +91,10 @@
 	Batch actions <%= select_tag 'batch-action',options_for_select(Tweet.options_for_batch_action),:class=>'chosen-select' ,:style=>'width:100px;'%>
 </div>
 <script type="text/javascript">
-	var config = {
-		'.chosen-select' : {},
-		'.chosen-select-deselect' : {
-			allow_single_deselect : true
-		},
-		'.chosen-select-no-single' : {
-			disable_search_threshold : 10
-		},
-		'.chosen-select-no-results' : {
-			no_results_text : 'Oops, nothing found!'
-		},
-		'.chosen-select-width' : {
-			width : "95%"
-		}
-	}
-	for (var selector in config) {
-		$(selector).chosen(config[selector]);
-	}
+
 </script>
 <script type="text/javascript">
-	$('#datepicker1').datetimepicker({
-		onClose : function(a) {
-			$('#datepicker1').change();
-		}
-	}); 
-	
-	$("#filter-button-1").click(function()
-	{   
-		$("#filter-button-1").css('visibility','hidden');
-	});
-	$("#filter-button-2").click(function()
-	{   
-		$("#filter-button-1").css('visibility','visible');
-	});
-	
-	function removeTweet(id)
-	{
-		$('#tweet'+id).remove();
-	}
-	
+
 </script>
 <div style="z-index:0">
 <%= render(
