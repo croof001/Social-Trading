@@ -9,7 +9,7 @@ thin stop --servers 3
 echo "Cleaning every local change"
 git clean -f
 echo "fetching latest code"
-git pull origin master
+git pull origin master -m "Just ordinary merge"
 echo "running bundle install"
 bundle install
 echo "Resetting production database"
