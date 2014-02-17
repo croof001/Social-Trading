@@ -6,6 +6,20 @@ if (!String.prototype.trim)
     };
 }
 
+function secondsFromTime(s)
+    {
+    	alert(s.trim());
+    	var time = s.trim().split(':');
+    	var hours = parseInt(time[0].trim());
+    	alert(hours);
+    	var minutes = parseInt(time[1].trim());
+    	alert(minutes);
+    	minutes = minutes + hours * 60;
+    	seconds = minutes *60;
+    	alert(''+hours+' hours and '+seconds);
+    	return seconds;
+    }
+
 $(document).ready(function() {
 	/* Functions for the secondary wizard */
 	$(".keyword_next").click(function(e) {
@@ -39,7 +53,8 @@ $(document).ready(function() {
 			if (FilterKeyword.keyword.length > 2) {
 				return $("#page1");
 			} else {
-				alert("Inavlid entry");
+				$.notify('Please enter a product or service', 'error');
+				$("#sellitem").focus();
 				return 0;
 			}
 		},
@@ -268,19 +283,19 @@ $(document).ready(function() {
           		       }
                       }),
             auto_follow: $('#auto_follow').val(),
-            auto_follow_time_from: $('#auto_follow_time_from').val(),
-            auto_follow_time_to: $('#auto_follow_time_to').val(),
+            auto_follow_time_from: secondsFromTime($('#auto_follow_time_from').val()),
+            auto_follow_time_to: secondsFromTime($('#auto_follow_time_to').val()),
             auto_follow_rate: $('#auto_follow_rate').val(),
             
             auto_retweet: $('#auto_retweet').val(),
-            auto_retweet_time_from: $('#auto_retweet_time_from').val(),
-            auto_retweet_time_to: $('#auto_retweet_time_to').val(),
+            auto_retweet_time_from: secondsFromTime($('#auto_retweet_time_from').val()),
+            auto_retweet_time_to: secondsFromTime($('#auto_retweet_time_to').val()),
             auto_retweet_rate: $('#auto_retweet_rate').val(),
             
             auto_reply: $('#auto-reply').val(),
             default_reply: $('#default_reply').val(),
-            auto_reply_time_from: $('#auto_reply_time_from').val(),
-            auto_reply_time_to: $('#auto_reply_time_to').val(),
+            auto_reply_time_from: secondsFromTime($('#auto_reply_time_from').val()),
+            auto_reply_time_to: secondsFromTime($('#auto_reply_time_to').val()),
             auto_reply_rate: $('#auto_reply_rate').val(),
             
             nickname: $('#nickname').val(),
@@ -298,7 +313,7 @@ $(document).ready(function() {
             success: function(){
             	      $.notify('Keyword created', 'success');
             	      window.location.href=keywords_path;
-            	      alert("Success");},
+            	      },
            dataType: 'json'
                 });
             $.notify('Creating keyword', 'info');
@@ -330,6 +345,12 @@ $(document).ready(function() {
 	function validateAllSteps() {
 		var isStepValid = true;
 		// all step validation logic
+		    if($("#nickname").val().trim().length == 0){
+    	    $.notify('Nickname is required', 'error');
+            $("#nickname").focus();
+            return false;
+        
+           }
 		return isStepValid;
 	}
 
@@ -366,6 +387,17 @@ $(document).ready(function() {
 	});
 	
 
+    $('.dtpicker').each(function(index){
+    	var seconds = parseInt($(this).val());
+    	var minutes = seconds /60;
+    	var hours   = minutes/60;
+    	minutes     = minutes % 60 ;
+    	$(this).val(''+hours+':'+minutes);
+    	
+    });
+
+
+    
     $('.dtpicker').datetimepicker({
 	datepicker:false,
 	format:'H:i'
@@ -460,4 +492,5 @@ $(document).ready(function() {
 		});
 
 	});
-}); 
+});
+

@@ -21,7 +21,7 @@
     			<div class="control-group" >
       		    <%= label_tag :auto_follow_rate,'Maxiumum auto-follow per day', :class=>'control-label' %>
       		    <div class="controls">
-        	    <%=text_field_tag :auto_follow_rate,@keyword.auto_reply_rate %>
+        	    <%=text_field_tag :auto_follow_rate,@keyword.auto_follow_rate %>
      		    </div>
      		    </div>
     			
@@ -34,24 +34,24 @@
   		  </div>
   		  
   		 <div class="well hide" id="auto-retweet-block">
-  		  	<label>Retweet during during</label> 
+  		  	<label>Retweet during</label> 
   		  	    <div class="control-group clearfix">
      			 <%= label_tag :auto_retweet_time_from,'From', :class=>'control-label'%>
      			 <div class="controls">
-      			<%= text_field_tag :auto_follow_time_from,@keyword.auto_follow_time_from,:class=>'dtpicker' %>
+      			<%= text_field_tag :auto_retweet_time_from,@keyword.auto_retweet_time_from,:class=>'dtpicker' %>
       			</div>
     			</div>
     			
     		    <div class="control-group clearfix">
      			 <%= label_tag :auto_retweet_time_to,'To', :class=>'control-label'%>
      			 <div class="controls">
-      			<%= text_field_tag :auto_retweet_time_to,@keyword.auto_follow_time_to,:class=>'dtpicker' %>
+      			<%= text_field_tag :auto_retweet_time_to,@keyword.auto_retweet_time_to,:class=>'dtpicker' %>
       			</div>
     			</div>
     			<div class="control-group" >
       		    <%= label_tag :auto_retweet_rate,'Maxiumum auto-retweet per day', :class=>'control-label' %>
       		    <div class="controls">
-        	    <%=text_field_tag :auto_retweet_tag,@keyword.auto_reply_rate %>
+        	    <%=text_field_tag :auto_retweet_rate,@keyword.auto_retweet_rate %>
      		   </div>
      		   </div>
     			
@@ -77,20 +77,20 @@
   		  	    <div class="control-group clearfix">
      			 <%= label_tag :auto_reply_time_from,'From', :class=>'control-label'%>
      			 <div class="controls">
-      			<%= text_field_tag :auto_reply_time_from,@keyword.auto_follow_time_from,:class=>'dtpicker' %>
+      			<%= text_field_tag :auto_reply_time_from,@keyword.auto_reply_time_from,:class=>'dtpicker' %>
       			</div>
     			</div>
     			
     		    <div class="control-group clearfix">
      			 <%= label_tag :auto_reply_time_to,'To', :class=>'control-label'%>
      			 <div class="controls">
-      			<%= text_field_tag :auto_reply_time_to,@keyword.auto_follow_time_to,:class=>'dtpicker' %>
+      			<%= text_field_tag :auto_reply_time_to,@keyword.auto_reply_time_to,:class=>'dtpicker' %>
       			</div>
     		 </div>
      	   <div class="control-group" >
       		<%= label_tag :auto_reply_rate,'Maxiumum auto-reply per day', :class=>'control-label' %>
       		<div class="controls">
-        	<%=text_field_tag :auto_reply_tag,@keyword.auto_reply_rate %>
+        	<%=text_field_tag :auto_reply_rate,@keyword.auto_reply_rate %>
      		 </div>
      		</div>
      		

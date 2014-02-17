@@ -6,7 +6,7 @@
   <%= @keyword.nickname %>
 </p>
 
-<%unless @keyword.created_by='system'%>
+<%unless @keyword.created_by=='system'%>
 <p>
   <strong>Twitter search query:</strong>
   <blockquote><%= @keyword.phrase %></blockquote>

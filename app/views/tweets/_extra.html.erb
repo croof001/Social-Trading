@@ -1,0 +1,82 @@
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Open your stream</a>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Your Twitter Stream</h3>
+</div>
+<div class="modal-body">
+	
+	<a class="twitter-timeline" data-dnt="true" data-screen-name="<%=current_client.screen_name%>" href="https://twitter.com/achugopal"  data-widget-id="434796745470386176">Tweets by <%=current_client.screen_name%> </a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+	
+	
+</div>
+<div class="modal-footer">
+<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>
+</div>
+
+<a href="#myModal2" role="button" class="btn btn-warning" data-toggle="modal">Scheduled Tweet</a>
+
+<div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Create a scheduled tweet</h3>
+</div>
+<div class="modal-body">
+<% @future_tweet = FutureTweet.new%>	
+<%= form_for @future_tweet,:html=>{:class=>'form-horizontal'},:remote=>true do |f| %>
+		<% if @future_tweet.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@future_tweet.errors.count, "error") %> prohibited this scheduled tweet from creating:</h2>
+
+			<ul>
+				<% @future_tweet.errors.full_messages.each do |msg| %>
+				<li>
+					<%= msg %>
+				</li>
+				<% end %>
+			</ul>
+		</div>
+		<% end %>
+
+		<div class="control-group">
+			<%= f.label :message, :class=>'control-label' %>
+			<div class="controls">
+				<%= f.text_area :message %>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= f.label :post_at,'Time', :class=>'control-label' %>
+			<div class="controls">
+				<%= f.datetime_field :post_at,:id=>'datepicker1' %>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<div class="controls">
+				<%= f.submit 'Tweet', :class=>'btn btn-success' %>
+			</div>
+		</div>
+
+		<% end %>
+
+		<script type="text/javascript">
+			$('#datepicker1').datetimepicker({
+				onClose : function(a) {
+					$('#datepicker1').change();
+				}
+			});
+
+		</script>
+
+
+			
+</div>
+<div class="modal-footer">
+<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>
+</div>

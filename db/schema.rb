@@ -104,16 +104,16 @@ ActiveRecord::Schema.define(version: 20140206183536) do
   create_table "keywords", force: true do |t|
     t.string   "phrase"
     t.boolean  "auto_follow",            default: false
-    t.time     "auto_follow_time_from",  default: '2000-01-01 18:30:00'
-    t.time     "auto_follow_time_to",    default: '2000-01-01 18:29:59'
+    t.integer  "auto_follow_time_from",  default: 36000
+    t.integer  "auto_follow_time_to",    default: 61200
     t.integer  "auto_follow_rate",       default: 1
     t.boolean  "auto_retweet",           default: false
-    t.time     "auto_retweet_time_from", default: '2000-01-01 18:30:00'
-    t.time     "auto_retweet_time_to",   default: '2000-01-01 18:29:59'
+    t.integer  "auto_retweet_time_from", default: 36000
+    t.integer  "auto_retweet_time_to",   default: 61200
     t.integer  "auto_retweet_rate",      default: 1
     t.boolean  "auto_reply",             default: false
-    t.time     "auto_reply_time_from",   default: '2000-01-01 18:30:00'
-    t.time     "auto_reply_time_to",     default: '2000-01-01 18:29:59'
+    t.integer  "auto_reply_time_from",   default: 36000
+    t.integer  "auto_reply_time_to",     default: 61200
     t.integer  "auto_reply_rate",        default: 1
     t.string   "default_reply"
     t.boolean  "geocoded",               default: false
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20140206183536) do
     t.string   "color",                  default: "#AAAAAA"
     t.string   "nickname"
     t.integer  "priority"
-    t.string   "language",               default: "en"
+    t.string   "language"
     t.integer  "max_count",              default: 50
     t.boolean  "email_notification",     default: false
     t.integer  "fetch_frequency",        default: 72

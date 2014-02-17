@@ -105,8 +105,9 @@ class KeywordsController < ApplicationController
                                              :auto_retweet,:auto_follow,:default_reply,:longitude,
                                              :lattitude,:radius,:color,:notes,:geocoded,
                                              :language, :auto_follow_time_from, :auto_follow_time_to,
-                                             :auto_follow_rate, :auto_retweet_time_to,
-                                             :auto_reply_time_from, :auto_reply_time_to, :nickname,
+                                             :auto_follow_rate, :auto_retweet_time_to,:auto_retweet_time_from,
+                                             :auto_retweet_rate,
+                                             :auto_reply_time_from, :auto_reply_time_to,:auto_reply_rate, :nickname,
                                              :email_notification, :notification_frequency,
                                              :fetch_frequency, :max_count)
     end

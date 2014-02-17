@@ -4,7 +4,15 @@
     <%= text_field_tag :nickname ,@keyword.nickname,:maxlength=>'29'%>
     </div>
   </div>
- 
+  <script type="text/javascript">
+  $($("#nickname").blur(function(){
+    if($(this).val().trim().length == 0){
+    	$.notify('Nickname is required', 'error');
+        $("#nickname").focus();
+        
+    }
+   }));
+  </script>
   <div class="control-group clearfix">
     <%= label_tag :priority,'Choose a category', :class=>'control-label' %>
     <div class="controls">

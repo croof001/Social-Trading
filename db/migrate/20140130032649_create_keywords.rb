@@ -4,18 +4,18 @@ class CreateKeywords < ActiveRecord::Migration
       t.string :phrase
       
       t.boolean :auto_follow, :default=>false
-      t.time    :auto_follow_time_from, :default=> Time.now.beginning_of_day
-      t.time    :auto_follow_time_to , :default=> Time.now.end_of_day
+      t.integer    :auto_follow_time_from, :default=> 36000
+      t.integer    :auto_follow_time_to , :default=> 61200
       t.integer :auto_follow_rate, :default=>1
       
       t.boolean :auto_retweet, :default=>false
-      t.time    :auto_retweet_time_from, :default=> Time.now.beginning_of_day
-      t.time    :auto_retweet_time_to, :default=> Time.now.end_of_day
+      t.integer    :auto_retweet_time_from, :default=> 36000
+      t.integer   :auto_retweet_time_to, :default=> 61200
       t.integer :auto_retweet_rate, :default=>1
       
       t.boolean :auto_reply, :default=>false
-      t.time    :auto_reply_time_from, :default=> Time.now.beginning_of_day
-      t.time    :auto_reply_time_to, :default=> Time.now.end_of_day
+      t.integer    :auto_reply_time_from, :default=> 36000
+      t.integer    :auto_reply_time_to, :default=> 61200
       t.integer :auto_reply_rate, :default=>1
       t.string  :default_reply
       
