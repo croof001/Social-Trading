@@ -19,14 +19,15 @@ echo "running migrations is production"
 RAILS_ENV=production rake db:migrate
 echo "seeding"
 RAILS_ENV=production rake db:seed
-echo "starting three nginx servrs"
+echo "pre-compiling assets in productiom"
+RAILS_ENV=production rake assets:precompile
+echo "starting three thin servrs"
 thin start --servers 3 -e production
 echo "starting delayed jobs"
 RAILS_ENV=production bin/delayed_job --queues=keyword_fetch,auto_x start
 echo "re-starting nginx"
 service nginx restart
-echo "pre-compiling assets in productiom"
-RAILS_ENV=production rake assets:precompile
+
 echo "start clockwork"
 #RAILS_ENV=production  clockwork clock.rb
 RAILS_ENV=production clockworkd -c clock.rb start

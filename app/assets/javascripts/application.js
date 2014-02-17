@@ -21,4 +21,4 @@
 //= require 'notify'
 //= require jquery.smartWizard
 //= require jquery.colorPicker
-
+//= require keywordwizard

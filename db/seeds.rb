@@ -6,4 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Client.new(:email=>'vishnu@yubi.in',:password=>'password',:confirm_password=>'password').save
+Client.new(:email=>'vishnu@yubi.in',:password=>'password',:password_confirmation=>'password').save
