@@ -1,5 +1,5 @@
 <div style="margin-bottom:20px;">
-	<%= link_to 'Fetch tweets', tweets_path(:AUTH_TOKEN => form_authenticity_token.inspect),:class=>'btn  btn-primary',:method=>:post %>
+	<%= link_to 'Fetch tweets', tweets_path(:AUTH_TOKEN => form_authenticity_token.inspect),:class=>'btn  btn-primary',:method=>:post,:remote=>true %>
 	<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseOne" id="filter-button-1">
 		Show filters
 	</button>
@@ -15,11 +15,12 @@
 		<div style="display:inline-block;float:left">
 			<div  class="control-group">
 				<label for"filterrific[search_query]" class="control-label">Search</label>
-				<div class="controls">
+				<div class="controls" id="searchboxholder">
 					<%= text_field_tag(
 					'filterrific[search_query]',@filterrific.search_query,
 					:class => 'filterrific-periodically-observed search-query'
 					) %>
+					
 				</div>
 			</div>
 			<div class="control-group">

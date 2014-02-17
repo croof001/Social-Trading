@@ -51,6 +51,7 @@ class TweetsController < ApplicationController
        respond_to do |format|
          format.html { redirect_to tweets_url, :status => :forbidden, notice: 'Unauthized.' }
          format.json  {render json: {:error=>"forbidden"},:status=> :forbidden }
+      
        end
        return
      end
@@ -64,6 +65,7 @@ class TweetsController < ApplicationController
     respond_to do |format|
         format.html { redirect_to tweets_url, notice: 'A tweet fecth has been scheduled.' }
         format.json { render action: 'show', status: :created}
+        format.js {render :js=>'notifyFetch();'}
       end
     
   end

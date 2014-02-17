@@ -28,11 +28,14 @@ class TwitterManager
     query_options[:max_count]= "#{keyword.max_count}" if keyword.max_count
 
     
-    
+    require 'pp'
+    pp query_options
     results=twitter_client(client).search("#{keyword.phrase}",query_options ).take(50)
     if results.first
       keyword.last_tweet = results.first.id
     end
+    puts "=============================="
+    puts results.count
     results.each do |tweet|
         if not  Tweet.exists?(:twitter_uuid=>tweet.id) 
           new_post=Tweet.new(:message => tweet.text.dup.encode("UTF-8", "ISO-8859-1"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword)

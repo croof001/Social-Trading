@@ -274,7 +274,7 @@ $(document).ready(function() {
 			
 			data = {
           	phrase: $('#keywordfield').val(),
-          	geocoded: $('#geocoded').val(),
+          	geocoded: $('#geocoded').is(':checked'),
           	radius: $('#radius').val(),
           	longitude: $('#lng').val(),
           	lattitude: $('#lat').val(),
@@ -285,20 +285,20 @@ $(document).ready(function() {
           		       }
           		       else
           		       {
-          		       	return null;
+          		       	return '';
           		       }
                       }),
-            auto_follow: $('#auto_follow').val(),
+            auto_follow: $('#auto_follow').is(':checked'),
             auto_follow_time_from: secondsFromTime($('#auto_follow_time_from').val()),
             auto_follow_time_to: secondsFromTime($('#auto_follow_time_to').val()),
             auto_follow_rate: $('#auto_follow_rate').val(),
             
-            auto_retweet: $('#auto_retweet').val(),
+            auto_retweet: $('#auto_retweet').is(':checked'),
             auto_retweet_time_from: secondsFromTime($('#auto_retweet_time_from').val()),
             auto_retweet_time_to: secondsFromTime($('#auto_retweet_time_to').val()),
             auto_retweet_rate: $('#auto_retweet_rate').val(),
             
-            auto_reply: $('#auto-reply').val(),
+            auto_reply: $('#auto-reply').is(':checked'),
             default_reply: $('#default_reply').val(),
             auto_reply_time_from: secondsFromTime($('#auto_reply_time_from').val()),
             auto_reply_time_to: secondsFromTime($('#auto_reply_time_to').val()),
