@@ -17,6 +17,8 @@ echo "Resetting production database"
 RAILS_ENV=production rake db:reset
 echo "running migrations is production"
 RAILS_ENV=production rake db:migrate
+echo "seeding"
+RAILS_ENV=production rake db:seed
 echo "starting three nginx servrs"
 thin start --servers 3 -e production
 echo "starting delayed jobs"
