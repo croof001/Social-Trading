@@ -34,6 +34,12 @@ class Keyword < ActiveRecord::Base
     ] 
   end
   
+  
+  def should_fetch?
+     return true
+  end
+  
+  
   def should_auto_follow?
     puts "At start"
     unless auto_follow

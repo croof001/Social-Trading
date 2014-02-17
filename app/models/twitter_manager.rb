@@ -63,7 +63,9 @@ class TwitterManager
     puts "fetch all being run.."
     Client.all.each do |client|
       client.keywords.each do |keyword|
-        TwitterManager.delay(:queue => 'keyword_fetch').fetch_with_keyword(client, keyword,auto)
+        if keyword.should_fetch?
+          TwitterManager.delay(:queue => 'keyword_fetch').fetch_with_keyword(client, keyword,auto)
+        end
         end
       end
   end
