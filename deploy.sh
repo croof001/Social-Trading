@@ -7,7 +7,7 @@ RAILS_ENV=production bin/delayed_job stop
 echo "stopping thin servers"
 thin stop --servers 3
 echo "Cleaning every local change"
-git clean -f
+git reset --hard origin/master
 echo "fetching latest code"
 git pull origin master -m "Just ordinary merge"
 echo "running bundle install"
