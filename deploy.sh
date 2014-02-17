@@ -6,6 +6,7 @@ echo "Stopping delayed jobs"
 RAILS_ENV=production bin/delayed_job stop
 echo "stopping thin servers"
 thin stop --servers 3
+rm -r public/assets
 echo "Cleaning every local change"
 git reset --hard origin/master
 echo "fetching latest code"
