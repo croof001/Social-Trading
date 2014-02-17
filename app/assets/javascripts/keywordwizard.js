@@ -10,15 +10,15 @@ if (!String.prototype.trim)
 
 function secondsFromTime(s)
     {
-    	alert(s.trim());
+    	
     	var time = s.trim().split(':');
     	var hours = parseInt(time[0].trim());
-    	alert(hours);
+    	
     	var minutes = parseInt(time[1].trim());
-    	alert(minutes);
+    	
     	minutes = minutes + hours * 60;
     	seconds = minutes *60;
-    	alert(''+hours+' hours and '+seconds);
+    	
     	return seconds;
     }
 
@@ -138,7 +138,7 @@ $(document).ready(function() {
                 }
               keyword = keyword + " OR @" + client_twitter_name;
 		  	  $("#keywordfield").val(keyword);
-		  	  alert(keyword);
+		  	  
 		  	  $.notify('Filter created', 'info');
 			  $(".buttonNext").removeClass('buttonDisabled');
 			  $(".buttonNext").click();
@@ -163,7 +163,7 @@ $(document).ready(function() {
                 }
               keyword = keyword + " OR @" + client_twitter_name + " :)";
 		  	  $("#keywordfield").val(keyword);
-		  	  alert(keyword);
+		  	  
 		  	  $.notify('Filter created', 'info');
 			  $(".buttonNext").removeClass('buttonDisabled');
 			  $(".buttonNext").click();
@@ -187,7 +187,7 @@ $(document).ready(function() {
                 }
               keyword = keyword + " OR @" + client_twitter_name + " :(";
 		  	  $("#keywordfield").val(keyword);
-		  	  alert(keyword);
+		  	  
 		  	  $.notify('Filter created', 'info');
 			  $(".buttonNext").removeClass('buttonDisabled');
 			  $(".buttonNext").click();
@@ -226,7 +226,7 @@ $(document).ready(function() {
               
               
 		  	  $("#keywordfield").val(keyword);
-		  	  alert(keyword);
+		  	  
 		  	  $.notify('Filter created', 'info');
 			  $(".buttonNext").removeClass('buttonDisabled');
 			  $(".buttonNext").click();
@@ -241,7 +241,7 @@ $(document).ready(function() {
 		if(FilterKeyword.RT) keyword = keyword + ' ' + FilterKeyword.RT ;
 		if(FilterKeyword.links) keyword= keyword + ' ' + FilterKeyword.links;
 		$("#keywordfield").val(keyword);
-		alert($("#keywordfield").val());
+		
 
 	}
 
