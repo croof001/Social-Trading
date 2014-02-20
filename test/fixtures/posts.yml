@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  content: MyText
+  content_type: MyString
+  account_id: 
+  published_url: MyString
+  posted: false
+  post_at: 2014-02-20 00:46:41
+  client_id: 
+  secondary_accounts: MyString
+
+two:
+  title: MyString
+  content: MyText
+  content_type: MyString
+  account_id: 
+  published_url: MyString
+  posted: false
+  post_at: 2014-02-20 00:46:41
+  client_id: 
+  secondary_accounts: MyString

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  terminal_id: 
+  active: false
+  username: MyString
+  cred1: MyString
+  cred2: MyString
+  cred3: MyString
+
+two:
+  terminal_id: 
+  active: false
+  username: MyString
+  cred1: MyString
+  cred2: MyString
+  cred3: MyString
