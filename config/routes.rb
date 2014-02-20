@@ -1,5 +1,6 @@
 Social::Application.routes.draw do
  
+  mount Ckeditor::Engine => '/ckeditor'
   resources :future_tweets
 
   devise_for :clients do
@@ -14,7 +15,7 @@ Social::Application.routes.draw do
   ActiveAdmin.routes(self)
   resources :keywords
 
-  
+  resources :posts
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

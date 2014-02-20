@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206183536) do
+ActiveRecord::Schema.define(version: 20140220032102) do
+
+  create_table "accounts", force: true do |t|
+    t.integer  "terminal_id"
+    t.boolean  "active"
+    t.string   "username"
+    t.string   "cred1"
+    t.string   "cred2"
+    t.string   "cred3"
+    t.integer  "client_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accounts", ["terminal_id"], name: "index_accounts_on_terminal_id"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -45,6 +59,22 @@ ActiveRecord::Schema.define(version: 20140206183536) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
 
   create_table "clients", force: true do |t|
     t.string   "first_name"
@@ -145,6 +175,32 @@ ActiveRecord::Schema.define(version: 20140206183536) do
   end
 
   add_index "keywords", ["client_id"], name: "index_keywords_on_client_id"
+
+  create_table "posts", force: true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "content_type"
+    t.integer  "account_id"
+    t.string   "published_url"
+    t.boolean  "posted"
+    t.datetime "post_at"
+    t.integer  "client_id"
+    t.string   "secondary_accounts"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "posts", ["account_id"], name: "index_posts_on_account_id"
+  add_index "posts", ["client_id"], name: "index_posts_on_client_id"
+
+  create_table "terminals", force: true do |t|
+    t.string   "name"
+    t.boolean  "publishable"
+    t.boolean  "enabled"
+    t.boolean  "readable"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tweets", force: true do |t|
     t.string   "author"

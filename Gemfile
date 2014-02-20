@@ -42,6 +42,8 @@ gem 'clockwork'
 gem "language_list"
 gem 'delayed_job_active_record'
 gem "daemons"
+gem 'ckeditor'
+gem 'paperclip'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
