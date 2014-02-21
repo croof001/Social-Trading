@@ -16,7 +16,8 @@ Social::Application.routes.draw do
   resources :keywords
 
   resources :posts
-
+  resources  :accounts
+  get '/auth/:provider/callback', to: 'accounts#create'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

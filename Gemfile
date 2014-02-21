@@ -44,6 +44,7 @@ gem 'delayed_job_active_record'
 gem "daemons"
 gem 'ckeditor'
 gem 'paperclip'
+gem 'omniauth-facebook'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 

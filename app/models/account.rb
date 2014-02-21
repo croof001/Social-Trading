@@ -1,3 +1,3 @@
 class Account < ActiveRecord::Base
-  belongs_to :terminal
+  belongs_to :client
 end

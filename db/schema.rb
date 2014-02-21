@@ -14,9 +14,13 @@
 ActiveRecord::Schema.define(version: 20140220032102) do
 
   create_table "accounts", force: true do |t|
-    t.integer  "terminal_id"
+    t.string   "name"
+    t.string   "account_type", limit: 5
+    t.boolean  "publishable"
+    t.boolean  "primary"
     t.boolean  "active"
     t.string   "username"
+    t.string   "email"
     t.string   "cred1"
     t.string   "cred2"
     t.string   "cred3"
@@ -24,8 +28,6 @@ ActiveRecord::Schema.define(version: 20140220032102) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "accounts", ["terminal_id"], name: "index_accounts_on_terminal_id"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -181,11 +183,11 @@ ActiveRecord::Schema.define(version: 20140220032102) do
     t.text     "content"
     t.string   "content_type"
     t.integer  "account_id"
+    t.integer  "parent_id"
     t.string   "published_url"
     t.boolean  "posted"
     t.datetime "post_at"
     t.integer  "client_id"
-    t.string   "secondary_accounts"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

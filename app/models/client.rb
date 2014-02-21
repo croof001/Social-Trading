@@ -6,6 +6,7 @@ class Client < ActiveRecord::Base
   
   has_many :tweets
   has_many :keywords
+  has_many  :accounts
   def name
     first_name="" unless first_name 
     return first_name + " " + last_name.to_s

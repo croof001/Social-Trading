@@ -1,0 +1,22 @@
+<legend>Other accounts</legend>
+<table class="table-striped">
+<tr><th>Network</th><th>Username</th><th>Status</th><th>Actions</th><tr>
+<% @client.accounts.each do |account| %>
+<tr>
+	<td><%=account.name%> <%= '(primary)' if  account.primary%></td>
+	<td><%=account.username%></td>
+	<td><%= if account.active==true then 'Active' else 'Invalid' end%></td>
+	<td><%=link_to 'Disconnect', account , method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger btn-mini"%> 
+		<%if not account.primary%>
+		<%=link_to 'Make primary','#', :class=>"btn btn-danger btn-inverse btn-mini"%> 
+		<%end%>
+	</td>	
+</tr>
+<%end%>
+</table>
+<h2>Connect accounts</h2>
+<%= link_to 'Facebook',new_account_path+'?type=fb'%>
+<%= link_to 'Twitter',new_account_path+'?type=ttr'%>
+<%= link_to 'Pinterest',new_account_path+'?type=pin'%>
+<%= link_to 'Wordpress Blog',new_account_path+'?type=wp'%>
+<%= link_to 'Other Blog',new_account_path+'?type=blog'%>
