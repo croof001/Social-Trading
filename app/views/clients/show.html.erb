@@ -31,28 +31,7 @@
 </p>
 <%= link_to 'Modify', edit_client_path(@client),:class=>"btn btn-info" %> 
 </div>
-<legend>Twitter Account</legend>
-<div id="twitter-info">
-	<% if @client.screen_name %>
-	   <img src="<%=@client.profile_image_url%>" />
-	   <p>
-       <strong>Screen name:</strong>
-        <%= @client.screen_name %>
-       </p>
-       <strong>Location:</strong>
-        <%= @client.location %>
-       </p>
-       <strong>Twitter profile:</strong>
-        <a href="<%= @client.url %>"><%= @client.url %></a>
-       </p>
-        <%=link_to 'Disconnect' ,disconnect_twitter_path ,method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger" %>
-	<%else%>
-	 Your account doesn't have a Twitter account connected to it. You should have your Twitter accounted connected before being 
-	 able to use most of the features of this app. <br/>
-	 <a class="btn btn-warning" href="<%= twitter_oauth_url_path%>" target="_blank">Connect my Twitter account</a>
-	 <a class="btn btn-success" href="https://twitter.com/signup" target="_blank">Create new Twitter account</a>
-	<%end%>
-</div>
+
 
 <%= render 'accounts'%>
 <hr/>

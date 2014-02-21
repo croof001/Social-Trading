@@ -74,13 +74,16 @@ class TwitterManager
   end
   
   
-  def self.twitter_client(client)
+  def self.twitter_client(client,account = nil)
     tclient = Twitter::REST::Client.new do |config|
      config.consumer_key       = "rUqzjv3fCnAH5grduFxoUA"
      config.consumer_secret    = "irzIyOrjU1ArY0hbGHQ4cBrxtggbnoSghZlwo9Co"
-     if TwitterOauthSetting.exists?(:client=>client)
-       config.oauth_token        = TwitterOauthSetting.find_by_client_id(client.id).atocken
-       config.oauth_token_secret = TwitterOauthSetting.find_by_client_id(client.id).secret
+     if account || account = Account.where(:client=>client,:account_type=>'ttr',:primary=>true,:active=>true).first
+       config.oauth_token        = account.cred1
+       config.oauth_token_secret = account.cred2
+     #elsif TwitterOauthSetting.exists?(:client=>client)
+       #config.oauth_token        = TwitterOauthSetting.find_by_client_id(client.id).atocken
+      # config.oauth_token_secret = TwitterOauthSetting.find_by_client_id(client.id).secret         
      end
      end
      return tclient

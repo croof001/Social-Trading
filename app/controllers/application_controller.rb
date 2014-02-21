@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   def require_twitter_connection
     if current_client.present?
-      if current_client.screen_name.to_s.empty?
+      if not current_client.accounts.where(:primary=>true,:account_type=>'ttr').exists?
         flash[:alert]= "You need to connect your twitter account first!!"
         redirect_to current_client
       end

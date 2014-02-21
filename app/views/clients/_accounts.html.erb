@@ -1,5 +1,5 @@
-<legend>Other accounts</legend>
-<table class="table-striped">
+<legend>Connected accounts</legend>
+<table class="table table-striped">
 <tr><th>Network</th><th>Username</th><th>Status</th><th>Actions</th><tr>
 <% @client.accounts.each do |account| %>
 <tr>
@@ -15,8 +15,20 @@
 <%end%>
 </table>
 <h2>Connect accounts</h2>
-<%= link_to 'Facebook',new_account_path+'?type=fb'%>
-<%= link_to 'Twitter',new_account_path+'?type=ttr'%>
-<%= link_to 'Pinterest',new_account_path+'?type=pin'%>
-<%= link_to 'Wordpress Blog',new_account_path+'?type=wp'%>
-<%= link_to 'Other Blog',new_account_path+'?type=blog'%>
+
+<p>
+<a class="btn btn-facebook" href="<%=new_account_path+'?type=fb' %>" target="_blank" ><i class="fa fa-facebook"></i> | Connect Facebook</a>
+<a class="btn btn-twitter" href="<%=new_account_path+'?type=ttr'%>" target="_blank"><i class="fa fa-twitter"></i> | Connect Twitter</a>
+<a class="btn btn-pinterest" href="<%=new_account_path+'?type=pin'%>" target="_blank"><i class="fa fa-pinterest"></i> | Connect Pinterest</a>
+<a class="btn btn-google-plus" href="<%=new_account_path+'?type=gplus'%>" target="_blank"><i class="fa fa-google-plus"></i> | Connect Google Plus</a>
+</p>
+<p>
+<a class="btn btn-linkedin" href="<%=new_account_path+'?type=lkdn'%>" target="_blank"><i class="fa fa-linkedin"></i> | Connect LinkedIn</a>
+
+
+<a class="btn btn-xing" href="<%=new_account_path+'?type=wp'%>" target="_blank"><i class="fa fa-lxing"></i> | Connect Wordpress</a>
+
+<a class="btn btn-inverse" href="<%=new_account_path+'?type=blog'%>" target="_blank"><i class="fa "></i> | Connect Blog</a>
+<a class="btn btn-instagram" href="<%=new_account_path+'?type=inst'%>" target="_blank"><i class="fa fa-instagram"></i> | Connect Instagram</a>
+
+</p>
