@@ -6,6 +6,7 @@ Social::Application.routes.draw do
   devise_for :clients do
     get 'home', :to => 'dashboard#index', :as => :clients_root
   end
+  
   resources :clients
   resources :tweets do
     get :reset_filterrific, :on => :collection
@@ -16,7 +17,9 @@ Social::Application.routes.draw do
   resources :keywords
 
   resources :posts
-  resources  :accounts
+  resources  :accounts do
+    post :make_primary
+  end
   get '/auth/:provider/callback', to: 'accounts#create'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

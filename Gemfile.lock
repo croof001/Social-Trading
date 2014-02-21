@@ -264,7 +264,6 @@ DEPENDENCIES
   jquery-turbolinks
   language_list
   mysql2
-  oauth
   omniauth-facebook
   omniauth-twitter
   paperclip

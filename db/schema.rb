@@ -195,15 +195,6 @@ ActiveRecord::Schema.define(version: 20140220032102) do
   add_index "posts", ["account_id"], name: "index_posts_on_account_id"
   add_index "posts", ["client_id"], name: "index_posts_on_client_id"
 
-  create_table "terminals", force: true do |t|
-    t.string   "name"
-    t.boolean  "publishable"
-    t.boolean  "enabled"
-    t.boolean  "readable"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "tweets", force: true do |t|
     t.string   "author"
     t.string   "message",      limit: 400
@@ -214,15 +205,5 @@ ActiveRecord::Schema.define(version: 20140220032102) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "twitter_oauth_settings", force: true do |t|
-    t.string   "atocken"
-    t.string   "secret"
-    t.integer  "client_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "twitter_oauth_settings", ["client_id"], name: "index_twitter_oauth_settings_on_client_id"
 
 end

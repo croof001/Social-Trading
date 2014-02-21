@@ -30,9 +30,10 @@ class AccountsController < ApplicationController
   end
   
   def make_primary
-    @account = Account.find(params[:id])
+    @account = Account.find(params[:account_id])
     current = Account.where(:account_type=>@account.account_type,:primary=>true)
     if current.exists?
+      current = current.first
       current.primary = false
       current.save
     end

@@ -34,8 +34,6 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-gem 'oauth'
-
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'filterrific' , github: 'jhund/filterrific'
 gem 'twitter'
