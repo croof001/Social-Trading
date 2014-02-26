@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(version: 20140220032102) do
     t.string   "title"
     t.text     "content"
     t.string   "content_type"
+    t.string   "remote_id"
     t.integer  "account_id"
     t.integer  "parent_id"
     t.string   "published_url"

@@ -36,7 +36,7 @@
 				</ul>
 				<ul class="nav pull-right">
 					<li class="<%=is_active? client_path(current_client)%>" >
-						<a href="<%= client_path(current_client)%>">Profile</a>
+						<a href="<%= client_path(current_client)%>">Account</a>
 					</li>
 					<li ><%= link_to 'Logout', destroy_client_session_path,:method =>:delete %></li>
 			    </ul>

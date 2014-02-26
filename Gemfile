@@ -37,14 +37,18 @@ gem 'jquery-turbolinks'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'filterrific' , github: 'jhund/filterrific'
 gem 'twitter'
+gem 'instagram'
 gem 'clockwork'
 gem "language_list"
 gem 'delayed_job_active_record'
 gem "daemons"
 gem 'ckeditor'
 gem 'paperclip'
+gem 'rubypress'
+gem 'omniauth-identity'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'omniauth-instagram'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 

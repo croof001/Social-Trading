@@ -1,6 +1,6 @@
 class TwitterManager
-  def self.tweet(message,client)
-    twitter_client(client).update(message)
+  def self.tweet(message,client,account=nil)
+    twitter_client(client,account).update(message)
   end
   
   def self.future_tweet(future_tweet_id,client)
@@ -9,12 +9,12 @@ class TwitterManager
     end
   end
   
-  def self.follow(user,client)
-    twitter_client(client).follow(user)
+  def self.follow(user,client,account=nil)
+    twitter_client(client,account).follow(user)
   end
   
-  def self.retweet(tweet,client)
-    twitter_client(client).retweet(tweet)
+  def self.retweet(tweet,client,account=nil)
+    twitter_client(client,account).retweet(tweet)
   end
   
   def self.fetch_with_keyword(client, keyword,auto=false)
@@ -80,13 +80,18 @@ class TwitterManager
      config.consumer_secret    = "irzIyOrjU1ArY0hbGHQ4cBrxtggbnoSghZlwo9Co"
      if account || account = Account.where(:client=>client,:account_type=>'ttr',:primary=>true,:active=>true).first
        config.oauth_token        = account.cred1
-       config.oauth_token_secret = account.cred2
-     #elsif TwitterOauthSetting.exists?(:client=>client)
-       #config.oauth_token        = TwitterOauthSetting.find_by_client_id(client.id).atocken
-      # config.oauth_token_secret = TwitterOauthSetting.find_by_client_id(client.id).secret         
+       config.oauth_token_secret = account.cred2       
      end
      end
      return tclient
   end 
+  
+  #public interfaces-------------------------------------
+  def self.publish(item)
+    t = tweet(item.content,item.client,item.account)
+    item.remote_id = t.id
+    item.published_url = t.url.to_s
+    item.save
+  end
   
 end

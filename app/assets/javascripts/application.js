@@ -24,7 +24,9 @@
 //= require jquery.colorPicker
 //= require keywordwizard
 //= require tweets
+//= require post
 //= require ckeditor/override
 //= require ckeditor/init
+
 
 //= require turbolinks

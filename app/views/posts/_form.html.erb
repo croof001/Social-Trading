@@ -1,0 +1,117 @@
+<div class="well accounts-holder">
+ <%@posts={}%>
+  <%current_client.accounts.order("account_type desc").where(:active=>true).each do |account|%>
+     <%= check_box_tag account.username ,account.id,false,:class=>'selected-accounts',"data-account"=>account.id,'data-isroot'=>false%> <%= label_tag account.username, if account.primary then account.name else "#{account.name} (#{account.username})" end%>
+  <%@posts.merge!(account=>Post.new(:account=>account))%>
+  <%end%>
+</div>
+
+<script type="text/javascript">
+
+
+</script>
+
+
+<style>
+
+
+</style>
+
+<%@post.posts.each do |post|%>
+<%@posts.merge!(post.account=>post)%>
+<%end%>
+<div >
+<%@posts.each do |account,post|%>
+<div class="well <%='hide st-faint' unless post.parent_id%> postholder" id='<%= "postbox#{account.id}"%>'>
+<%=form_for post,:namespace=>"account#{account.id}",:html=>{'data-isroot'=>false ,'data-auto'=>true,:id=>"form_#{account.id}"},:remote=>true do |f|%>
+ <%if post.account.account_type=='wp'%>
+   <%=f.label :title%>
+   <%=f.text_field :title %>
+   <%= cktext_area :post, :content, :cols => 40%>
+ <%elsif post.account.account_type=='fb'%>
+   <%=f.hidden_field :title %>
+   <%=f.label :content,"#{account.name} #{('(' + account.username + ')') unless account.primary} post"%>
+   <%=f.text_area :content,:maxlenghth=>1536,:rows=>5 %>
+ <%elsif post.account.account_type=='ttr'%>
+   <%=f.hidden_field :title %>  
+   <%=f.label :content,"#{account.name} #{('(' + account.username + ')') unless account.primary} post"%>
+   <%=f.text_area :content,:maxlenghth=>140,:rows=>2 %>
+ <%end%>
+ <p>
+ 	<%=f.hidden_field :account_id%>
+ 	<%=f.hidden_field :content_type, :value=>account.account_type%>
+ 	<%=f.submit "Post to #{account.name}"%>
+ </p>
+<%end%>
+</div>
+<%end%>
+</div>
+<button class="btn btn-large btn-primary" onclick="createHash();">Post Now</button>
+<button class="btn btn-large btn-info">Post Later</button>
+<button class="btn btn-large btn-inverse">Save Draft</button>
+
+<script type="text/javascript">
+  function createHash()
+  {
+  	$.notify('Inspecting primary content', 'info');
+  	var root_form = $("#"+STrootform);
+  	var root_type = root_form.find($("input[name='post[content_type]']")).val();
+  	
+  	
+  	if (root_type=='wp')
+  	{   
+  	 for (instance in CKEDITOR.instances){
+        CKEDITOR.instances[instance].updateElement();
+      }
+  	}
+  	var root_content = root_form.find($("textarea[name='post[content]']")).val();
+
+  	var root_title = root_form.find($("input[name='post[title]']")).val();
+  	$.notify('Primary content type is '+root_type, 'info');
+
+  	
+  	var auto_forms = $("form[data-auto='true']");
+  	auto_forms.each(function(index,form){
+  		form = $(form);
+  		var form_type = form.find($("input[name='post[content_type]']")).val();
+  		$.notify('Found auto form of type '+form_type, 'info');
+  		if(form_type=='wp')
+  		{
+  			form.find($("textarea[name='post[content]']")).val(root_content);
+  			form.find($("input[name='post[title]']")).val(root_title);
+  		}
+  		else if(form_type=='ttr')
+  		{
+  			if(root_type=='wp')
+  			{
+  			form.find($("textarea[name='post[content]']")).val(root_title.substring(0,114)+"...\nhttp://short.url");
+  			}
+  			else if(root_type=='ttr')
+  			{
+  				form.find($("textarea[name='post[content]']")).val(root_content)
+  			}
+  			else
+  			{
+  			   form.find($("textarea[name='post[content]']")).val(root_content.substring(0,114)+"...\nhttp://short.url");
+  			}
+  		}
+  		else if(form_type=='fb')
+  		{
+  			if(root_type=='wp')
+  			{
+  				form.find($("textarea[name='post[content]']")).val($(root_content).text().substring(0,512)+"...\nhttp://short.url");
+  			}
+  			else
+  			{
+  			form.find($("textarea[name='post[content]']")).val(root_content);
+  			}
+  		}
+  		else
+  		{
+  			alert("Unknown handle");
+  		}
+  		
+  	});
+  	
+  }
+</script>

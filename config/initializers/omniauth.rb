@@ -7,4 +7,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            :force_login => 'true',
            :use_authorize => 'true'
             }
+  provider :instagram, ENV['INSTAGRAM_ID'], ENV['INSTAGRAM_SECRET']
+  
 end

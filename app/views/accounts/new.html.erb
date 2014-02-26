@@ -1,3 +1,21 @@
-<%= form_for @account%>
-<%=f.hidden_field :type%>
+<%= form_for @account,:html=>{:class=>'form-vertical'} do |f|%>
+<p>
+<%=f.hidden_field :account_type%>
+<%=f.hidden_field :name%>
+<%=f.label :cred3,'Blog URL' %>
+<%=f.text_field :cred3%>
+</p>
+<p>
+<%=f.label :cred1,'Username' %>
+<%=f.text_field :cred1%>
+</p>
+<p>
+<%=f.label :cred2,'Password' %>
+<%=f.text_field :cred2%>
+</p>
+<p>
+<%=f.label :username,'Give a nick name for this blog' %>
+<%=f.text_field :username%>
+</p>
+<%=f.submit "Connect #{@account.name}",:class=>'btn btn-inverse'%>
 <%end%>
