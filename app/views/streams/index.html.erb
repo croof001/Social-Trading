@@ -1,0 +1,26 @@
+<legend>Your streams</legend>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<div>
+  
+
+ 
+    <% @streams.each do |stream| %>
+    <div>
+      	<div>
+      		<blockquote class="twitter-tweet" lang="en"><p><%=stream.content%></p>&mdash; Vishnuprasad.R (@vishnuxxpxr) <a href="<%=stream.remote_url%>"><%=stream.posted_at%></a></blockquote>
+        </div>
+        <div>  
+         <%= link_to 'Reply', stream,:class=>'btn btn-mini btn-warning' %> 
+         <%= link_to 'Follow', stream,:class=>'btn btn-mini btn-primary' %> 
+         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %> 
+      	</div>
+      	
+    </div>
+    <% end %>
+
+</div>
+
+
+
+

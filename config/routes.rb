@@ -1,5 +1,7 @@
 Social::Application.routes.draw do
  
+  resources :streams
+
   mount Ckeditor::Engine => '/ckeditor'
   resources :future_tweets
 

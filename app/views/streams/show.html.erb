@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @stream.content %>
+</p>
+
+<p>
+  <strong>C2:</strong>
+  <%= @stream.c2 %>
+</p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @stream.post %>
+</p>
+
+<p>
+  <strong>Stream type:</strong>
+  <%= @stream.stream_type %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @stream.account %>
+</p>
+
+<p>
+  <strong>Remote url:</strong>
+  <%= @stream.remote_url %>
+</p>
+
+<p>
+  <strong>Remote:</strong>
+  <%= @stream.remote_id %>
+</p>
+
+<p>
+  <strong>Parent:</strong>
+  <%= @stream.parent %>
+</p>
+
+<p>
+  <strong>Read:</strong>
+  <%= @stream.read %>
+</p>
+
+<p>
+  <strong>Posted at:</strong>
+  <%= @stream.posted_at %>
+</p>
+
+<%= link_to 'Edit', edit_stream_path(@stream) %> |
+<%= link_to 'Back', streams_path %>

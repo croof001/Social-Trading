@@ -1,0 +1,57 @@
+<%= form_for(@stream) do |f| %>
+  <% if @stream.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stream.errors.count, "error") %> prohibited this stream from being saved:</h2>
+
+      <ul>
+      <% @stream.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_field :content %>
+  </div>
+  <div class="field">
+    <%= f.label :c2 %><br>
+    <%= f.text_field :c2 %>
+  </div>
+  <div class="field">
+    <%= f.label :post %><br>
+    <%= f.text_field :post %>
+  </div>
+  <div class="field">
+    <%= f.label :stream_type %><br>
+    <%= f.text_field :stream_type %>
+  </div>
+  <div class="field">
+    <%= f.label :account %><br>
+    <%= f.text_field :account %>
+  </div>
+  <div class="field">
+    <%= f.label :remote_url %><br>
+    <%= f.text_field :remote_url %>
+  </div>
+  <div class="field">
+    <%= f.label :remote_id %><br>
+    <%= f.text_field :remote_id %>
+  </div>
+  <div class="field">
+    <%= f.label :parent %><br>
+    <%= f.number_field :parent %>
+  </div>
+  <div class="field">
+    <%= f.label :read %><br>
+    <%= f.check_box :read %>
+  </div>
+  <div class="field">
+    <%= f.label :posted_at %><br>
+    <%= f.datetime_select :posted_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

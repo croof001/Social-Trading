@@ -15,6 +15,14 @@
 	opacity: 0.6;
 }
 
+.st-faint:hover
+{
+	opacity: 0.9;
+}
+
+.st-post-action-holder button{
+	margin-bottom:10px;
+}
 
 .accounts-holder input[type=checkbox] {
     display:none;

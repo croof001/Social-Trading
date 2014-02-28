@@ -86,12 +86,46 @@ class TwitterManager
      return tclient
   end 
   
+  
+  def self.stream_client(client,account=nil)
+      tclient = Twitter::Streaming::Client.new  do |config|
+     config.consumer_key       = "rUqzjv3fCnAH5grduFxoUA"
+     config.consumer_secret    = "irzIyOrjU1ArY0hbGHQ4cBrxtggbnoSghZlwo9Co"
+     if account || account = Account.where(:client=>client,:account_type=>'ttr',:primary=>true,:active=>true).first
+       config.oauth_token        = account.cred1
+       config.oauth_token_secret = account.cred2       
+     end
+     end
+     return tclient
+ end
+  
   #public interfaces-------------------------------------
   def self.publish(item)
     t = tweet(item.content,item.client,item.account)
     item.remote_id = t.id
     item.published_url = t.url.to_s
     item.save
+  end
+  
+  def self.get_streams(client)
+    
+    client.accounts.where(active:true,account_type:'ttr').each do |account|
+      options={}
+      since = Stream.where(account:account,stream_type:'ttr_mention').order("posted_at asc").last
+      if since
+        puts "Since ID found"
+      else
+        puts "No Since ID found"
+      end
+      options[:since_id] = since.remote_id if since
+      
+      twitter_client(nil,account).mentions_timeline(options).each do |tweet|
+        stream = Stream.new(content:tweet.text,posted_at:tweet.created_at,remote_id:tweet.id,
+                            remote_url:tweet.url.to_s,stream_type:'ttr_mention',account:account)
+        stream.save
+        
+      end
+    end
   end
   
 end

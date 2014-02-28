@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  content: MyString
+  c2: MyString
+  post_id: 
+  stream_type: MyString
+  account_id: 
+  remote_url: MyString
+  remote_id: MyString
+  parent: 1
+  read: false
+  posted_at: 2014-02-28 22:44:29
+
+two:
+  content: MyString
+  c2: MyString
+  post_id: 
+  stream_type: MyString
+  account_id: 
+  remote_url: MyString
+  remote_id: MyString
+  parent: 1
+  read: false
+  posted_at: 2014-02-28 22:44:29

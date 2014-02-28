@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140220032102) do
+ActiveRecord::Schema.define(version: 20140228171429) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -195,6 +195,24 @@ ActiveRecord::Schema.define(version: 20140220032102) do
 
   add_index "posts", ["account_id"], name: "index_posts_on_account_id"
   add_index "posts", ["client_id"], name: "index_posts_on_client_id"
+
+  create_table "streams", force: true do |t|
+    t.string   "content"
+    t.string   "c2"
+    t.integer  "post_id"
+    t.string   "stream_type"
+    t.integer  "account_id"
+    t.string   "remote_url"
+    t.string   "remote_id"
+    t.integer  "parent"
+    t.boolean  "read"
+    t.datetime "posted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "streams", ["account_id"], name: "index_streams_on_account_id"
+  add_index "streams", ["post_id"], name: "index_streams_on_post_id"
 
   create_table "tweets", force: true do |t|
     t.string   "author"

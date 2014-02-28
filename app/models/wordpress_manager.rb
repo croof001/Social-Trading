@@ -21,7 +21,7 @@ class WordpressManager
     #if Time.now.to_i> data.post_at.to_i
     data.remote_id = post(data,data.client,data.account)
       
-    data.published_url=wp_client(client,account).getPost(:post_id=>data.remote_id,:fields=>[:link,:guid])["link"]
+    data.published_url=wp_client(data.client,data.account).getPost(:post_id=>data.remote_id,:fields=>[:link,:guid])["link"]
 
     data.posted = true
     data.save

@@ -28,7 +28,13 @@
 						<a href="<%= keywords_path %>">Keywords</a>
 					</li>
 					<li class="<%=is_active? future_tweets_path%>" >
-						<a href="<%= future_tweets_path %>">Time machine</a>
+						<a href="<%= future_tweets_path %>">Scheduled posts</a>
+					</li>
+					<li class="<%=is_active? streams_path%>" >
+						<a href="<%= streams_path %>">Streams</a>
+					</li>
+					<li class="<%#=is_active? new_post_path%>" >
+						<a href="<%= new_post_path %>">Inbox</a>
 					</li>
 					<li class="<%=is_active? new_post_path%>" >
 						<a href="<%= new_post_path %>">Publish</a>

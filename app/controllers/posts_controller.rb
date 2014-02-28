@@ -5,6 +5,9 @@ class PostsController < ApplicationController
   end
   
   def create
+    puts "====================="
+    puts params.to_json
+    puts "====================="
     @post = Post.new(post_params)
     if @post.account.client == current_client
      @post.client = current_client
@@ -14,6 +17,7 @@ class PostsController < ApplicationController
      respond_to do |format|
        format.html{redirect_to new_post_path ,notice:'Post created successfully'}
        format.js {render :js=>"$.notify('Post created', 'success');$('form').reset();"}
+       format.json{render :json=>{message:'Your post has been pusblished successfully'}.to_json}
      end
     else
     redirect_to root_path, notice:'Access violation'
@@ -26,12 +30,12 @@ class PostsController < ApplicationController
   end
   
   def create_children
-    child_params.each do |child|
+    child_params.each do |index,child|
       if child[:id] && (Post.where(id:child[:id],client:current_client,post:@post).exists? == false)
         next
       else
         @child = Post.new(child)
-        @child.parent = @post
+        @child.post = @post
         @child.client = current_client
         @child.save  
       end
