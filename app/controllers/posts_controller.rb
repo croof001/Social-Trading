@@ -1,19 +1,31 @@
 class PostsController < ApplicationController
   before_action :authenticate_client!
   def new
+    @scheduled_posts = Post.where("post_at >= ?",Time.now).where.not(:posted=>true).where(:parent_id=>nil).order("updated_at desc")
+    @published_posts = Post.where(posted:true).where(:parent_id=>nil).order("updated_at desc")
+    @draft_posts     = Post.where(is_draft:true).where(:parent_id=>nil).order("updated_at desc")
+    @posts=[]
+    @accounts = current_client.accounts.order("account_type desc").where(:active=>true)
+    @accounts.each do |account|
+      @posts.push(Post.new(:account=>account))
+    end 
+    
+  end
+  
+  def edit
+    post = Post.find(params[:id])
     @scheduled_posts = Post.where("post_at >= ?",Time.now).where.not(:posted=>true).where(:parent_id=>nil)
     @published_posts = Post.where(posted:true).where(:parent_id=>nil)
     @draft_posts     = Post.where(is_draft:true).where(:parent_id=>nil)
-    @post = Post.new()
-    
-    @posts_bucket = {}
+    @posts=[post]
     @accounts = current_client.accounts.order("account_type desc").where(:active=>true)
     @accounts.each do |account|
-      @posts_bucket.merge!(account=>Post.new(:account=>account))
+      @posts.push(Post.new(:account=>account)) if account!=post.account
     end 
     
-    
+    render 'new'
   end
+  
   
   def create
     @post = Post.new(post_params)
@@ -67,13 +79,7 @@ class PostsController < ApplicationController
     end
   end
   
-  def edit
-    @post = Post.find(params[:id])
-    @scheduled_posts = Post.where("post_at >= ?",Time.now).where.not(:posted=>true).where(:parent_id=>nil)
-    @published_posts = Post.where(posted:true).where(:parent_id=>nil)
-    @draft_posts     = Post.where(is_draft:true).where(:parent_id=>nil)
-    render 'new'
-  end
+
   
   def update
     render :text=>"abcd"

@@ -1,6 +1,6 @@
 var STrootform=null;
 //the root-form
-
+var STCurrent_post_publish_path='/posts/';
 var STPublish_post_status = 'composing';
 
 

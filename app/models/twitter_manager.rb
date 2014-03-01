@@ -104,6 +104,7 @@ class TwitterManager
     t = tweet(item.content,item.client,item.account)
     item.remote_id = t.id
     item.published_url = t.url.to_s
+    item.posted = true
     item.save
   end
   

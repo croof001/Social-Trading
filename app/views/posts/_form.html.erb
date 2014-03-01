@@ -1,37 +1,56 @@
+<script type="text/javascript">
+ var STCurrent_post_publish_path='<%=posts_path%>';
+</script>
+
 <div class="well accounts-holder">
- <%@posts={}%>
-  <%current_client.accounts.order("account_type desc").where(:active=>true).each do |account|%>
-     <%= check_box_tag account.username ,account.id,false,:class=>'selected-accounts',"data-account"=>account.id,'data-isroot'=>false%> <%= label_tag account.username, if account.primary then account.name else "#{account.name} (#{account.username})" end%>
-  <%@posts.merge!(account=>Post.new(:account=>account))%>
+
+  <%@posts.each do |post|%>
+     <%= check_box_tag post.account.username ,post.account.id,(post.id && post.parent_id==nil),:class=>'selected-accounts',"data-account"=>post.account.id,'data-isroot'=>(post.id && post.parent_id==nil)%> <%= label_tag post.account.username, post.account.easy_name%>
+ 
   <%end%>
 </div>
 
-<%@posts.merge!(@post.account=>@post) if @post.id%>
 
-<%@post.posts.each do |post|%>
-<%@posts.merge!(post.account=>post)%>
-<%end%>
+
+
 <div >
-<%@posts.each do |account,post|%>
-<%post.account=account%>
-<div class="well <%='hide st-faint' unless post.id%> postholder" id='<%= "postbox#{account.id}"%>'>
-<%=form_for post,:namespace=>"account#{account.id}",:html=>{'data-isroot'=>false ,'data-auto'=>true,:id=>"form_#{account.id}",'data-enabled'=>false},:remote=>true do |f|%>
+<%@posts.each do |post|%>
+
+<%if (post.id && post.parent_id==nil)%>
+
+<script type="text/javascript">
+   STrootform='<%="form_#{post.account.id}"%>' ;
+   var STCurrent_post_publish_path='<%=post_path(post)%>';
+</script>
+<%
+  is_root = true
+  is_auto = false
+%>
+<%else
+  is_root=false
+  is_auto = true
+  is_auto = false if post.id
+end
+%>
+
+<div class="well <%='hide st-faint' unless post.id%> postholder" id='<%= "postbox#{post.account.id}"%>'>
+<%=form_for post,:namespace=>"account#{post.account.id}",:html=>{'data-isroot'=>is_root ,'data-auto'=>is_auto,:id=>"form_#{post.account.id}",'data-enabled'=>false},:remote=>true do |f|%>
  <%if post.account.account_type=='wp'%>
    <%=f.label :title%>
    <%=f.text_field :title ,:style=>"width:90%;"%>
    <%= cktext_area :post, :content, :cols => 40%>
  <%elsif post.account.account_type=='fb'%>
    <%=f.hidden_field :title %>
-   <%=f.label :content,"#{account.name} #{('(' + account.username + ')') unless account.primary} post"%>
+   <%=f.label :content,"#{post.account.easy_name} post"%>
    <%=f.text_area :content,:maxlenghth=>1536,:rows=>5,:style=>'width:50%;min-width:300px;' %>
  <%elsif post.account.account_type=='ttr'%>
    <%=f.hidden_field :title %>  
-   <%=f.label :content,"#{account.name} #{('(' + account.username + ')') unless account.primary} post"%>
+   <%=f.label :content, "#{post.account.easy_name} post"%>
    <%=f.text_area :content,:maxlenghth=>140,:rows=>2, :style=>'width:50%;min-width:300px;' %>
  <%end%>
  <p>
  	<%=f.hidden_field :account_id%>
- 	<%=f.hidden_field :content_type, :value=> account.account_type%>
+ 	<%=f.hidden_field :content_type, :value=> post.account.account_type%>
  	<%#=f.submit "Post to #{account.name}"%>
  </p>
 <%end%>

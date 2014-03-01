@@ -8,4 +8,13 @@ class Account < ActiveRecord::Base
        true
     end
   end
+  
+  def easy_name
+    if self.primary
+      self.name
+    else
+      "#{self.name} #{self.username}"
+    end
+  end
+  
 end

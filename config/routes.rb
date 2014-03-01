@@ -18,7 +18,11 @@ Social::Application.routes.draw do
 
   resources :posts do 
     post :publish
+    post :update
   end
+  
+  post '/posts/:id/' , to: 'posts#update'
+  
   resources  :accounts do
     post :make_primary
   end
