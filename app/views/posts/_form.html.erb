@@ -6,6 +6,7 @@
   <%end%>
 </div>
 
+<%@posts.merge!(@post.account=>@post) if @post.id%>
 
 <%@post.posts.each do |post|%>
 <%@posts.merge!(post.account=>post)%>
@@ -13,7 +14,7 @@
 <div >
 <%@posts.each do |account,post|%>
 <%post.account=account%>
-<div class="well <%='hide st-faint' unless post.parent_id%> postholder" id='<%= "postbox#{account.id}"%>'>
+<div class="well <%='hide st-faint' unless post.id%> postholder" id='<%= "postbox#{account.id}"%>'>
 <%=form_for post,:namespace=>"account#{account.id}",:html=>{'data-isroot'=>false ,'data-auto'=>true,:id=>"form_#{account.id}",'data-enabled'=>false},:remote=>true do |f|%>
  <%if post.account.account_type=='wp'%>
    <%=f.label :title%>
@@ -42,5 +43,5 @@
 
 <%=text_field_tag :post_at,nil,:placeholder=>"When to publush",:id=>'publish-post-at-datetime',:class=>'st-faint'%>
  <button class="btn btn-primary" id="post-publish-button">Publish</button>
- <button class="btn btn-inverse"  >Save Draft</button>
+ <button class="btn btn-inverse"  id="post-save-draft-button">Save Draft</button>
 </div>

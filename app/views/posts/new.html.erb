@@ -1,1 +1,21 @@
-<%=render 'form'%>
+<ul class="nav nav-tabs" id="myTab">
+<li class="active"><a href="#compose"  data-toggle="tab">Compose</a></li>
+<li><a href="#scheduled"  data-toggle="tab">Scheduled</a></li>
+<li><a href="#published"  data-toggle="tab">Published</a></li>
+<li><a href="#drafts"  data-toggle="tab">Drafts</a></li>
+</ul>
+ 
+<div class="tab-content">
+<div class="tab-pane active" id="compose"><%=render 'form'%></div>
+<div class="tab-pane" id="scheduled"><%=render 'scheduled'%></div>
+<div class="tab-pane" id="published"><%=render 'published'%></div>
+<div class="tab-pane" id="drafts"><%=render 'draft'%></div>
+</div>
+
+<script type="text/javascript">
+	var STCurrent_post_publish_path='<%=post_path(@post)%>';
+</script>
+
+
+
+

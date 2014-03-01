@@ -1,0 +1,28 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th>Scheduled for</th>
+      <th>Network</th>
+      <th class="actions-cell"></th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @scheduled_posts.each do |post| %>
+      <tr>
+      	<%if post.content_type=='wp'%>
+      	<td><%= post.title.first(80) %></td>
+      	<%else%>
+        <td><%= post.content.first(80) %></td>
+        <%end%>
+        <td><%= post.post_at %></td>
+        <td><%= post.account.name %></td>
+        <td class="actions-cell"><%= link_to 'Edit', edit_post_path(post),:class=>"btn btn-mini btn-warning" %>
+        	<%= link_to 'Publish Now', post_publish_path(post,:AUTH_TOKEN => form_authenticity_token.inspect),:class=>"btn btn-mini btn-success",:remote=>true,method:'post' %>
+           <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-mini btn-danger",:remote=>true %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

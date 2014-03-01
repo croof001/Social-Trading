@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(version: 20140228171429) do
     t.integer  "parent_id"
     t.string   "published_url"
     t.boolean  "is_draft"
-    t.boolean  "posted"
+    t.boolean  "posted",        default: false
     t.datetime "post_at"
     t.integer  "client_id"
     t.datetime "created_at"

@@ -6,6 +6,7 @@ class TweetsController < ApplicationController
   # GET /keywords
   # GET /keywords.json
   def index
+    flash[:notice] = "Only twitter feeds are supported for now."
     clean_select_multiple_params
     @filterrific = Filterrific.new(
       Tweet,

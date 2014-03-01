@@ -1,0 +1,91 @@
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<div class="span12">
+  
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_IN/all.js#xfbml=1&appId=369232359883635";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ 
+ 
+
+ 
+    <% @streams.order("posted_at desc").each do |stream| %>
+    <div class="span5">
+    <%if stream.stream_type=='ttr_mention'%>
+    
+      	<div>
+      		<blockquote class="twitter-tweet" lang="en"><p><%=stream.content%></p>&mdash; Vishnuprasad.R (@vishnuxxpxr) <a href="<%=stream.remote_url%>"><%=stream.posted_at%></a></blockquote>
+        </div>
+        
+                <div>  
+         <%= link_to 'Reply', stream,:class=>'btn btn-mini btn-warning' %> 
+         <%= link_to 'Follow', stream,:class=>'btn btn-mini btn-primary' %> 
+         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %> 
+      	</div>
+      	
+    
+    <%elsif stream.stream_type=='fb_page_post'%>
+          <div class="st-fbpost">
+          	<div class="st-fb-user">
+          		<div class="avatar">
+                   <fb:profile-pic uid="<%= stream.from_id %>" size="square"></fb:profile-pic><strong><fb:name uid="<%= stream.from_id %>"></fb:name></strong>
+               </div>
+          	</div>
+          	<div class="st-fb-content">
+          		<%= stream.content%>
+            </div><br/>
+            <div class="st-fb-time">
+            <a class="btn-mini btn-facebook" href="http://facebook.com" target="_blank" ><i class="fa fa-facebook"></i> |Facebook</a>  <time><a href="<%=stream.remote_url%>"><%=stream.posted_at.strftime('%l:%M %p - %d %b %Y')%></a></time> 
+            </div>
+            <br/>
+         <div>  
+         <%= link_to 'Reply', stream,:class=>'btn btn-mini btn-warning' %> 
+         <%= link_to 'Follow', stream,:class=>'btn btn-mini btn-primary' %> 
+         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %> 
+      	</div>
+          </div>	 
+    <%end%>
+    
+    
+
+
+    
+    </div>
+    <% end %>
+
+
+
+</div>
+
+<style>
+.st-fbpost
+{
+	border:1px solid #EEEEEE;
+	padding: 10px;
+	
+}
+
+.st-fb-content
+{
+	color:rgb(41, 47, 51);
+	font-family:Georgia,"Times New Roman",Palatino,serif;
+	font-size:18px;
+	font-weight:400;
+}
+
+.st-fb-time
+{
+	color:rgb(112, 112, 112);
+	font-family:"Helvetica Neue",Arial,sans-serif;
+	font-size: 12px;
+	border-bottom:1px solid rgb(232, 232, 232) ;
+	font-weight: 400;
+	padding-bottom:4px;
+}
+</style>

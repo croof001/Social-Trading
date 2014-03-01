@@ -15,12 +15,26 @@ class Post < ActiveRecord::Base
   
   def publish
    unless self.posted == true
+    
+    
     if content_type == 'wp'
-      WordpressManager.publish(self)
+      unless self.post_at.to_i >Time.now.to_i
+        WordpressManager.publish(self)
+      else
+        WordpressManager.delay(:run_at=>self.post_at,:queue => 'auto_x').publish(self)
+      end
     elsif content_type== 'ttr'
-      TwitterManager.publish(self)
+      unless self.post_at.to_i >Time.now.to_i
+        TwitterManager.publish(self)
+      else
+        TwitterManager.delay(:run_at=>self.post_at,:queue => 'auto_x').publish(self)
+      end
     elsif content_type =='fb'
-      FacebookManager.publish(self)
+      unless self.post_at.to_i >Time.now.to_i
+        FacebookManager.publish(self)
+      else
+        FacebookManager.delay(:run_at=>self.post_at,:queue => 'auto_x').publish(self)
+      end
     end
     publish_children
    end

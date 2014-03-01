@@ -27,14 +27,14 @@
 <h3 id="myModalLabel">Create a scheduled tweet</h3>
 </div>
 <div class="modal-body">
-<% @future_tweet = FutureTweet.new%>	
-<%= form_for @future_tweet,:html=>{:class=>'form-horizontal'},:remote=>true do |f| %>
-		<% if @future_tweet.errors.any? %>
+<% @post = Post.new(account:Account.where(client:current_client,account_type:'ttr').first,content_type:'ttr')%>	
+<%= form_for @post,:html=>{:class=>'form-horizontal'},:remote=>true do |f| %>
+		<% if @post.errors.any? %>
 		<div id="error_explanation">
-			<h2><%= pluralize(@future_tweet.errors.count, "error") %> prohibited this scheduled tweet from creating:</h2>
+			<h2><%= pluralize(@post.errors.count, "error") %> prohibited this scheduled tweet from creating:</h2>
 
 			<ul>
-				<% @future_tweet.errors.full_messages.each do |msg| %>
+				<% @post.errors.full_messages.each do |msg| %>
 				<li>
 					<%= msg %>
 				</li>
@@ -42,11 +42,12 @@
 			</ul>
 		</div>
 		<% end %>
-
+        <%=f.hidden_field :account_id, value:@post.account.id%>
+        <%=f.hidden_field :content_type, value:'ttr'%>
 		<div class="control-group">
-			<%= f.label :message, :class=>'control-label' %>
+			<%= f.label :content, :class=>'control-label' %>
 			<div class="controls">
-				<%= f.text_area :message %>
+				<%= f.text_area :content %>
 			</div>
 		</div>
 		<div class="control-group">

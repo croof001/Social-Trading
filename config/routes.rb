@@ -3,8 +3,6 @@ Social::Application.routes.draw do
   resources :streams
 
   mount Ckeditor::Engine => '/ckeditor'
-  resources :future_tweets
-
   devise_for :clients do
     get 'home', :to => 'dashboard#index', :as => :clients_root
   end
@@ -18,7 +16,9 @@ Social::Application.routes.draw do
   ActiveAdmin.routes(self)
   resources :keywords
 
-  resources :posts
+  resources :posts do 
+    post :publish
+  end
   resources  :accounts do
     post :make_primary
   end

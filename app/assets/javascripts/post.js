@@ -8,7 +8,7 @@ var STPublish_post_status = 'composing';
   
   
   
-  function postData()
+  function postData(action)
   {
   	
   	var root_form = $("#"+STrootform);
@@ -39,12 +39,12 @@ var STPublish_post_status = 'composing';
   	
   	$.ajax({
                type: "POST",
-                url: '/posts',
-               data: {post:post,children:children},
+                url: STCurrent_post_publish_path,
+               data: {post:post,children:children,commit:action},
             success: function(){
             	      $.notify('Posts published successfully', 'success');
             	      STPublish_post_status = 'published';
-            	      clearAllPost();
+            	      clearAllPosts();
             	      },
            dataType: 'json'
                 });
@@ -57,6 +57,9 @@ var STPublish_post_status = 'composing';
   	$("#publish-post-at-datetime").val('');
   	$("form input[type='text']").val("");
   	STPublish_post_status = 'composing';
+  	$('#post-publish-button').text('Publish');
+  	$('#post-save-draft-button').text('Save');
+  	
   }
 
 
@@ -155,12 +158,30 @@ $(function(){
   	{
   		STPublish_post_status = 'sent';
   		$(this).text("Publishing..");
-  		postData();
+  		postData('publish');
   	}
   	
   });
    
-
+   
+  $('#post-save-draft-button').click(function()
+  {
+  	if(STPublish_post_status=='composing')
+  	{
+  		$.notify('Preparing content', 'info');
+  		createHash();
+  		STPublish_post_status='ready';
+  		$(this).text("Save now");
+  		$.notify("Please verify your posts and press 'Save now'", 'warn');
+  	}
+  	else if(STPublish_post_status=='ready')
+  	{
+  		STPublish_post_status = 'sent';
+  		$(this).text("Saving..");
+  		postData('draft');
+  	}
+  	
+  });
 
 
 
