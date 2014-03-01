@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20140228171429) do
     t.integer  "account_id"
     t.integer  "parent_id"
     t.string   "published_url"
+    t.boolean  "is_draft"
     t.boolean  "posted"
     t.datetime "post_at"
     t.integer  "client_id"
@@ -199,6 +200,9 @@ ActiveRecord::Schema.define(version: 20140228171429) do
   create_table "streams", force: true do |t|
     t.string   "content"
     t.string   "c2"
+    t.string   "c3"
+    t.string   "c4"
+    t.string   "from_id"
     t.integer  "post_id"
     t.string   "stream_type"
     t.integer  "account_id"

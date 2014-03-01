@@ -3,6 +3,9 @@ class CreateStreams < ActiveRecord::Migration
     create_table :streams do |t|
       t.string :content
       t.string :c2
+      t.string :c3
+      t.string :c4
+      t.string :from_id
       t.references :post, index: true
       t.string :stream_type
       t.references :account, index: true

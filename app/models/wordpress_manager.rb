@@ -41,11 +41,14 @@ class WordpressManager
     end
   end
   
-  def publish_message(message,client=nil,account=nil)
+  def self.publish_message(message,client=nil,account=nil)
     data= Post.new(content:message,client:client,account:account,title:'No title')
     publish(data)
   end
   
+  def self.get_streams(client)
+    
+  end
   
   
 end

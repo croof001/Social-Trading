@@ -20,8 +20,19 @@ class FacebookManager
   end
   
   def self.get_streams(client)
-    client.accounts.where(active:true,account_type:'ttr').each do |account|
-      
+    client.accounts.where(active:true,account_type:'fb').each do |account|
+      user = FbGraph::User.me(account.cred2)
+      user.accounts.each do |page|
+        puts "=========================================="
+        page.feed(:limit=>20).each do |feed|
+          stream = Stream.new(account:account,posted_at:feed.created_time,stream_type:'fb_page_post',
+                               remote_url:if feed.actions.first then feed.actions.first.link else nil end,
+                               from_id:feed.from.identifier,
+                               remote_id:feed.identifier,content:feed.message || feed.name || feed.caption ||feed.description)
+          stream.save
+          puts stream
+        end
+      end
     end
   end
   
