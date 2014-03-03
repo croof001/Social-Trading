@@ -186,10 +186,11 @@ ActiveRecord::Schema.define(version: 20140228171429) do
     t.integer  "account_id"
     t.integer  "parent_id"
     t.string   "published_url"
-    t.boolean  "is_draft"
+    t.boolean  "is_draft",      default: true
     t.boolean  "posted",        default: false
     t.datetime "post_at"
     t.integer  "client_id"
+    t.string   "created_by",    default: "System"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -198,7 +199,7 @@ ActiveRecord::Schema.define(version: 20140228171429) do
   add_index "posts", ["client_id"], name: "index_posts_on_client_id"
 
   create_table "streams", force: true do |t|
-    t.string   "content"
+    t.text     "content"
     t.string   "c2"
     t.string   "c3"
     t.string   "c4"

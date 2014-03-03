@@ -70,6 +70,7 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     if @post.client == current_client
+       Post.where(post:@post).delete_all #Deleting child objects
        @post.destroy
      respond_to do |format|
       format.html { redirect_to posts_url }

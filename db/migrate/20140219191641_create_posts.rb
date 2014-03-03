@@ -2,8 +2,8 @@ class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
       t.string :title
-      t.text   :content
-      t.string :content_type
+      t.text   :content ,:length => 16777000
+      t.string :content_type ,:length=>30
       t.string :remote_id #ID obtained on publish
       t.references :account, index: true
       t.integer :parent_id #does the object have a parent
@@ -12,7 +12,7 @@ class CreatePosts < ActiveRecord::Migration
       t.boolean :posted,:default=>false #Is the post published to target already . Set by the publisher module
       t.datetime :post_at #When should be the post to be published
       t.references :client, index: true
-      t.string :created_by ,:default=>'System'
+      t.string :created_by ,:default=>'System' ,:length=>30
       t.timestamps
     end
   end

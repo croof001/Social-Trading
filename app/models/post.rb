@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   belongs_to :account
   belongs_to :client
-  has_many :posts ,:foreign_key=>:parent_id
+  has_many :posts ,:foreign_key=>:parent_id , :dependent => :nullify
   belongs_to :post ,:foreign_key=>:parent_id
   
   

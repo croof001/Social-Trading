@@ -1,7 +1,7 @@
 class CreateStreams < ActiveRecord::Migration
   def change
     create_table :streams do |t|
-      t.string :content
+      t.text :content
       t.string :c2
       t.string :c3
       t.string :c4
