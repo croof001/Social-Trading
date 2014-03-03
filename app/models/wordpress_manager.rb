@@ -10,7 +10,7 @@ class WordpressManager
 
   
   def self.post(data,client,account=nil)
-    wp_client(client,account).newPost( :content => { :post_status => "publish", :post_date => (if data.post_at then data.post_at else Time.now end), :post_content => data.content, :post_title => data.title }) 
+    wp_client(client,account).newPost( :content => { :post_status => "publish", :post_date => (if data.post_at then data.post_at else Time.zone.now end), :post_content => data.content, :post_title => data.title }) 
 
   end
   
@@ -18,16 +18,17 @@ class WordpressManager
   
   #------------------------Common interface fundtions -----------------
   def self.publish(data)
-    #if Time.now.to_i> data.post_at.to_i
+    if item.publish_at > Time.zone.now
+      puts "Out of schedule"
+      return 
+    end
+    
     data.remote_id = post(data,data.client,data.account)
       
     data.published_url=wp_client(data.client,data.account).getPost(:post_id=>data.remote_id,:fields=>[:link,:guid])["link"]
 
     data.posted = true
     data.save
-    #else
-       #WordpressManager.delay(:run_at=> @future_tweet.post_at,:queue => 'auto_x').post(data,data.client,data.account)
-    #end
   end
   
   def self.validate_account(account)

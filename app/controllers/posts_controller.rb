@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_client!
   def new
-    @scheduled_posts = Post.where("post_at >= ?",Time.now).where.not(:posted=>true).where(:parent_id=>nil).order("updated_at desc")
+    @scheduled_posts = Post.where("post_at >= ?",Time.zone.now).where.not(:posted=>true).where(:parent_id=>nil).order("updated_at desc")
     @published_posts = Post.where(posted:true).where(:parent_id=>nil).order("updated_at desc")
     @draft_posts     = Post.where(is_draft:true).where(:parent_id=>nil).order("updated_at desc")
     @posts=[]
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   
   def edit
     post = Post.find(params[:id])
-    @scheduled_posts = Post.where("post_at >= ?",Time.now).where.not(:posted=>true).where(:parent_id=>nil)
+    @scheduled_posts = Post.where("post_at >= ?",Time.zone.now).where.not(:posted=>true).where(:parent_id=>nil)
     @published_posts = Post.where(posted:true).where(:parent_id=>nil)
     @draft_posts     = Post.where(is_draft:true).where(:parent_id=>nil)
     @posts=[post]
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
        @post.publish
        respond_to do |format|
          format.html{redirect_to new_post_path ,notice:'Post created successfully'}
-         format.js {render :js=>"$.notify('Post created', 'success');$('#myModal2').modal('hide');"}
+         format.js {render :js=>"$.notify('Post created successfully', 'success');$('#myModal2').modal('hide');"}
          format.json{render :json=>{message:'Your post has been pusblished successfully'}.to_json}
        end
      else
@@ -58,11 +58,11 @@ class PostsController < ApplicationController
   
   def publish
     @post = Post.where(id:params[:post_id],client:current_client).first
-    @post.post_at = Time
+    @post.post_at = Time.zone.now
     @post.publish
          respond_to do |format|
        format.html{redirect_to new_post_path ,notice:'Post created successfully'}
-       format.js {render :js=>"$.notify('Post published', 'success');#{params[:callback]}"}
+       format.js {render :js=>"$.notify('Post published', 'success');PubCallBack.rmp(#{@post.id});#{params[:callback]}"}
        format.json{render :json=>{message:'Your post has been pusblished successfully'}.to_json}
      end
   end
@@ -71,18 +71,43 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.client == current_client
        @post.destroy
-    respond_to do |format|
+     respond_to do |format|
       format.html { redirect_to posts_url }
       format.json { head :no_content }
-      format.js  {render :js=>"$.notify('Post Deleted', 'success');#{params[:callback]}" }
-    end
+      format.js  {render :js=>"$.notify('Post Deleted', 'success');pub_remove_post(#{@post.id});#{params[:callback]}" }
+     end
     end
   end
   
 
   
-  def update
+ def update
+    @post = Post.find(params[:id])
+    if @post.client == current_client
+      Post.where(post:@post).delete_all #@post.posts.delete_all doesn't seems to work
+      create_children
+      if params[:commit]=='publish'
+        @post.is_draft=false
+        @post.update(post_params)
+        @post.publish
+        respond_to do |format|
+          format.html{redirect_to new_post_path ,notice:'Post updated successfully'}
+          format.js {render :js=>"$.notify('Post modified', 'success');$('#myModal2').modal('hide');"}
+          format.json{render :json=>{message:'Your post has been pusblished successfully'}.to_json}
+        end
+      else
+        @post.is_draft=true
+        @post.update(post_params)
+        respond_to do |format|
+          format.html{redirect_to new_post_path ,notice:'Draft saved successfully'}
+          format.js {render :js=>"$.notify('Draft saved', 'success');"}
+          format.json{render :json=>{message:'Your post has been saved into drafts'}.to_json}
+        end
+      end
+
+    else
     render :text=>"abcd"
+    end
   end
   
   private

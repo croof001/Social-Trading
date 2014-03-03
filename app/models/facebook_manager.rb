@@ -1,5 +1,10 @@
 class FacebookManager
   def self.publish(item)
+    if item.publish_at > Time.zone.now
+      puts "Out of schedule"
+      return 
+    end
+    
     account = item.account
     if account || account = Account.where(:client=>item.client,:account_type=>'fb',:primary=>true,:active=>true).first
       me = FbGraph::User.me(account.cred2)

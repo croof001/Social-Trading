@@ -101,6 +101,12 @@ class TwitterManager
   
   #public interfaces-------------------------------------
   def self.publish(item)
+    if item.publish_at > Time.zone.now
+      puts "Out of schedule"
+      return 
+    end
+    
+    
     t = tweet(item.content,item.client,item.account)
     item.remote_id = t.id
     item.published_url = t.url.to_s

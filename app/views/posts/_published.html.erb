@@ -11,7 +11,7 @@
 
   <tbody>
     <% @published_posts.each do |post| %>
-      <tr>
+      <tr id="st-publish-post-item-<%=post.id%>" >
       	<%if post.content_type=='wp'%>
       	<td><%= post.title.first(80) %></td>
       	<%else%>

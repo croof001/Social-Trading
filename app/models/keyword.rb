@@ -51,7 +51,7 @@ class Keyword < ActiveRecord::Base
       @probability_f = [true,true]
     end
     
-    now = Time.now.seconds_since_midnight
+    now = Time.zone.now.seconds_since_midnight
     if  now < auto_follow_time_from || now > auto_follow_time_to
       puts "Outside auto_follow period"
       follow_yet = 0
@@ -91,7 +91,7 @@ class Keyword < ActiveRecord::Base
     if @probability_t.nil?
       @probability_t = [true,true]
     end
-    now = Time.now.seconds_since_midnight
+    now = Time.zone.now.seconds_since_midnight
     if  now < auto_retweet_time_from || now > auto_retweet_time_to
       tweets_yet = 0
       return false #We are outside auto_action interval
@@ -120,7 +120,7 @@ class Keyword < ActiveRecord::Base
     if @probability_r.nil?
       @probability_r = [true,true]
     end
-    now = Time.now.seconds_since_midnight
+    now = Time.zone.now.seconds_since_midnight
     if  now < auto_reply_time_from || now > auto_reply_time_to
       reply_yet  = 0
       return false #We are outside auto_action interval

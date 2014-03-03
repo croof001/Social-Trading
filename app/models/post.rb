@@ -18,13 +18,13 @@ class Post < ActiveRecord::Base
     
     
     if content_type == 'wp'
-      unless self.post_at.to_i >Time.now.to_i
+      unless self.post_at.to_i >Time.zone.now.to_i
         WordpressManager.publish(self)
       else
         WordpressManager.delay(:run_at=>self.post_at,:queue => 'auto_x').publish(self)
       end
     elsif content_type== 'ttr'
-      unless self.post_at.to_i >Time.now.to_i
+      unless self.post_at.to_i >Time.zone.now.to_i
         TwitterManager.publish(self)
       else
         TwitterManager.delay(:run_at=>self.post_at,:queue => 'auto_x').publish(self)
