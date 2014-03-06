@@ -31,17 +31,23 @@ class FacebookManager
     end
   end
   
-  def self.get_streams(client)
+  def self.get_streams(client,since = nil)
     client.accounts.where(active:true,account_type:'fb').each do |account|
+      
+      if (since==nil) && (last_stream=Stream.where(account:account,stream_type:'fb_page_post').order('posted_at DESC').first)
+        since = last_stream.posted_at
+      end
+      
       user = FbGraph::User.me(account.cred2)
       user.accounts.each do |page|
-        puts "=========================================="
-        page.feed(:limit=>20).each do |feed|
-          stream = Stream.new(account:account,posted_at:feed.created_time,stream_type:'fb_page_post',
+        page.feed(since:since).each do |feed|
+          if not Stream.exists?(remote_id:feed.identifier,account:account)
+            stream = Stream.new(account:account,posted_at:feed.created_time,stream_type:'fb_page_post',
                                remote_url:if feed.actions.first then feed.actions.first.link else nil end,
                                from_id:feed.from.identifier,
                                remote_id:feed.identifier,content:feed.message || feed.name || feed.caption ||feed.description)
-          stream.save
+            stream.save
+          end
           
         end
       end

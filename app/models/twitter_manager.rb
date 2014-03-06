@@ -127,7 +127,7 @@ class TwitterManager
     
     client.accounts.where(active:true,account_type:'ttr').each do |account|
       options={}
-      since = Stream.where(account:account,stream_type:'ttr_mention').order("posted_at asc").last
+      since = Stream.where(account:account,stream_type:'ttr_mention').order("posted_at DESC").first
       if since
         puts "Since ID found"
       else
@@ -136,10 +136,11 @@ class TwitterManager
       options[:since_id] = since.remote_id if since
       
       twitter_client(nil,account).mentions_timeline(options).each do |tweet|
-        stream = Stream.new(content:tweet.text,posted_at:tweet.created_at,remote_id:tweet.id,
+        if not Stream.exists?(remote_id:tweet.id,account:account)
+          stream = Stream.new(content:tweet.text,posted_at:tweet.created_at,remote_id:tweet.id,
                             remote_url:tweet.url.to_s,stream_type:'ttr_mention',account:account)
-        stream.save
-        
+          stream.save
+        end
       end
     end
   end
