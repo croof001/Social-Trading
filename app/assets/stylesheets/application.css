@@ -17,6 +17,7 @@
  *= require social-buttons
  *= require font-awesome
  *= require post
+ *= require bootstrap-wysihtml5
  */
  
 .actions-cell

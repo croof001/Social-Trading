@@ -51,6 +51,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-instagram'
 gem 'fb_graph'
 gem "non-stupid-digest-assets"
+gem 'bootstrap-wysihtml5-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 

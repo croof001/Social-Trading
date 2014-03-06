@@ -18,7 +18,7 @@ class WordpressManager
   
   #------------------------Common interface fundtions -----------------
   def self.publish(data)
-    if item.publish_at > Time.zone.now
+    if data.post_at.to_i > Time.zone.now.to_i
       puts "Out of schedule"
       return 
     end

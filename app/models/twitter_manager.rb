@@ -100,8 +100,17 @@ class TwitterManager
  end
   
   #public interfaces-------------------------------------
+  
+  def self.reply_to_stream(stream,post)
+    current_tweet = twitter_client(post.client,stream.account).update(post.content,:in_reply_to_status_id=>remote_id)
+    @post.posted=true
+    @post.save
+    current_tweet
+  end
+  
+  
   def self.publish(item)
-    if item.publish_at > Time.zone.now
+    if item.post_at.to_i > Time.zone.now.to_i
       puts "Out of schedule"
       return 
     end

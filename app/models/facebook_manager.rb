@@ -1,6 +1,13 @@
 class FacebookManager
+  
+  
+  def self.reply_to_stream(stream,post)
+    
+  end
+  
+  
   def self.publish(item)
-    if item.publish_at > Time.zone.now
+    if item.post_at.to_i > Time.zone.now.to_i
       puts "Out of schedule"
       return 
     end
@@ -35,7 +42,7 @@ class FacebookManager
                                from_id:feed.from.identifier,
                                remote_id:feed.identifier,content:feed.message || feed.name || feed.caption ||feed.description)
           stream.save
-          puts stream
+          
         end
       end
     end

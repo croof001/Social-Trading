@@ -1,6 +1,11 @@
 Social::Application.routes.draw do
  
-  resources :streams
+  resources :streams do 
+    member do
+      post 'reply'
+      post 'follow'
+    end
+  end
 
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :clients do

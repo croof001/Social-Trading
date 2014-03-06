@@ -27,6 +27,10 @@
 //= require post
 //= require ckeditor/override
 //= require ckeditor/init
-
+//= require bootstrap.min.js
+//= require bootstrapx-clickover.js
+//= require wysihtml5
+//= require bootstrap-wysihtml5
+//= require stream
 
 //= require turbolinks

@@ -5,7 +5,7 @@
   
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
+  //var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_IN/all.js#xfbml=1&appId=369232359883635";
@@ -16,7 +16,7 @@
 
  
     <% @streams.order("posted_at desc").each do |stream| %>
-    <div class="span5">
+    <div class="span5" id="stream-feed-<%=stream.id%>">
     <%if stream.stream_type=='ttr_mention'%>
     
       	<div>
@@ -24,9 +24,11 @@
         </div>
         
                 <div>  
-         <%= link_to 'Reply', stream,:class=>'btn btn-mini btn-warning' %> 
-         <%= link_to 'Follow', stream,:class=>'btn btn-mini btn-primary' %> 
-         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %> 
+         
+         
+         <a class='btn btn-mini btn-warning stream-reply-button' data-original-title="Reply"  rel="clickover" data-content="Something went wrong" href="<%=reply_stream_path(stream)%>">Reply</a>
+         <%= link_to 'Follow', follow_stream_path(stream),:class=>'btn btn-mini btn-primary',:method=>'post',:remote=>true %> 
+         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %> 
       	</div>
       	
     
@@ -45,14 +47,15 @@
             </div>
             <br/>
          <div>  
-         <%= link_to 'Reply', stream,:class=>'btn btn-mini btn-warning' %> 
-         <%= link_to 'Follow', stream,:class=>'btn btn-mini btn-primary' %> 
-         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %> 
+         
+         <a class='btn btn-mini btn-warning stream-reply-button' data-original-title="Reply"  rel="clickover" data-content="Something went wrong" href="<%=reply_stream_path(stream)%>">Reply</a>
+         <%= link_to 'Follow', follow_stream_path(stream),:class=>'btn btn-mini btn-primary',:method=>'post',:remote=>true %> 
+         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %> 
       	</div>
           </div>	 
     <%end%>
     
-    
+
 
 
     
@@ -88,4 +91,20 @@
 	font-weight: 400;
 	padding-bottom:4px;
 }
+
+
+.popover
+{
+	width:300px;
+	max-width: 1400px;
+}
 </style>
+
+
+
+<script type="text/javascript">
+
+   
+      
+   
+</script>
