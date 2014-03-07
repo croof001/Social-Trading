@@ -1,110 +1,101 @@
-
-
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<div class="span12">
-  
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  //var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_IN/all.js#xfbml=1&appId=369232359883635";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
- 
- 
+<div class="span12" >
 
- 
-    <% @streams.order("posted_at desc").each do |stream| %>
-    <div class="span5" id="stream-feed-<%=stream.id%>">
-    <%if stream.stream_type=='ttr_mention'%>
-    
-      	<div>
-      		<blockquote class="twitter-tweet" lang="en"><p><%=stream.content%></p>&mdash; Vishnuprasad.R (@vishnuxxpxr) <a href="<%=stream.remote_url%>"><%=stream.posted_at%></a></blockquote>
-        </div>
-        
-                <div>  
-         
-         
-         <a class='btn btn-mini btn-warning stream-reply-button' data-original-title="Reply"  rel="clickover" data-content="Something went wrong" href="<%=reply_stream_path(stream)%>">Reply</a>
-         <%= link_to 'Follow', follow_stream_path(stream),:class=>'btn btn-mini btn-primary',:method=>'post',:remote=>true %> 
-         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %> 
-      	</div>
-      	
-    
-    <%elsif stream.stream_type=='fb_page_post'%>
-          <div class="st-fbpost">
-          	<div class="st-fb-user">
-          		<div class="avatar">
-                   <fb:profile-pic uid="<%= stream.from_id %>" size="square"></fb:profile-pic><strong><fb:name uid="<%= stream.from_id %>"></fb:name></strong>
-               </div>
-          	</div>
-          	<div class="st-fb-content">
-          		<%= stream.content%>
-            </div><br/>
-            <div class="st-fb-time">
-            <a class="btn-mini btn-facebook" href="http://facebook.com" target="_blank" ><i class="fa fa-facebook"></i> |Facebook</a>  <time><a href="<%=stream.remote_url%>"><%=stream.posted_at.strftime('%l:%M %p - %d %b %Y')%></a></time> 
-            </div>
-            <br/>
-         <div>  
-         
-         <a class='btn btn-mini btn-warning stream-reply-button' data-original-title="Reply"  rel="clickover" data-content="Something went wrong" href="<%=reply_stream_path(stream)%>">Reply</a>
-         <%= link_to 'Follow', follow_stream_path(stream),:class=>'btn btn-mini btn-primary',:method=>'post',:remote=>true %> 
-         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %> 
-      	</div>
-          </div>	 
-    <%end%>
-    
+	<div id="fb-root"></div>
+	<script type="text/javascript">
+		/*( function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id))
+					return;
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "//connect.facebook.net/en_IN/all.js#xfbml=1&appId=369232359883635";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));*/
+	</script>
 
+	<% @streams.order("posted_at desc").each do |stream| %>
+	<div class="span5" id="stream-feed-<%= stream.id%>">
+		<%if stream.stream_type=='ttr_mention'%>
 
+		<div>
+			<blockquote class="twitter-tweet" lang="en">
+				<p>
+					<%= stream.content%>
+				</p>
+				&mdash; Vishnuprasad.R (@vishnuxxpxr) <a href="<%= stream.remote_url%>"><%= stream.posted_at%></a>
+			</blockquote>
+		</div>
 
-    
-    </div>
-    <% end %>
+		<div>
 
+			<a class='btn btn-mini btn-warning stream-reply-button' data-original-title="Reply"  rel="clickover" data-content="Something went wrong" href="<%= reply_stream_path(stream)%>">Reply</a>
+			<%= link_to 'Follow', follow_stream_path(stream),:class=>'btn btn-mini btn-primary',:method=>'post',:remote=>true %>
+			<%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %>
+		</div>
 
+		<%elsif stream.stream_type=='fb_page_post'%>
+		<div class="st-fbpost">
+			<div class="st-fb-user">
+				<div class="avatar">
+					<fb:profile-pic uid="<%= stream.from_id %>" size="square"></fb:profile-pic><strong><fb:name uid="<%= stream.from_id %>"></fb:name></strong>
+				</div>
+			</div>
+			<div class="st-fb-content">
+				<%= stream.content%>
+			</div>
+			<br/>
+			<div class="st-fb-time">
+				<a class="btn-mini btn-facebook" href="http://facebook.com" target="_blank" ><i class="fa fa-facebook"></i> |Facebook</a>
+				<time>
+					<a href="<%= stream.remote_url%>"><%= stream.posted_at.strftime('%l:%M %p - %d %b %Y')%></a>
+				</time>
+			</div>
+			<br/>
+			<div>
+
+				<a class='btn btn-mini btn-warning stream-reply-button' data-original-title="Reply"  rel="clickover" data-content="Something went wrong" href="<%= reply_stream_path(stream)%>">Reply</a>
+				<%= link_to 'Follow', follow_stream_path(stream),:class=>'btn btn-mini btn-primary',:method=>'post',:remote=>true %>
+				<%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %>
+			</div>
+		</div>
+		<%end%>
+
+	</div>
+	<% end %>
 
 </div>
 
+<div id="paginator">
+	<%= paginate @streams  ,remote:true,param_name:'response_page'%>
+</div>
+
 <style>
-.st-fbpost
-{
-	border:1px solid #EEEEEE;
-	padding: 10px;
-	
-}
+	.st-fbpost {
+		border: 1px solid #EEEEEE;
+		padding: 10px;
+	}
 
-.st-fb-content
-{
-	color:rgb(41, 47, 51);
-	font-family:Georgia,"Times New Roman",Palatino,serif;
-	font-size:18px;
-	font-weight:400;
-}
+	.st-fb-content {
+		color: rgb(41, 47, 51);
+		font-family: Georgia, "Times New Roman", Palatino, serif;
+		font-size: 18px;
+		font-weight: 400;
+	}
 
-.st-fb-time
-{
-	color:rgb(112, 112, 112);
-	font-family:"Helvetica Neue",Arial,sans-serif;
-	font-size: 12px;
-	border-bottom:1px solid rgb(232, 232, 232) ;
-	font-weight: 400;
-	padding-bottom:4px;
-}
+	.st-fb-time {
+		color: rgb(112, 112, 112);
+		font-family: "Helvetica Neue", Arial, sans-serif;
+		font-size: 12px;
+		border-bottom: 1px solid rgb(232, 232, 232);
+		font-weight: 400;
+		padding-bottom: 4px;
+	}
 
-
-.popover
-{
-	width:300px;
-	max-width: 1400px;
-}
+	.popover {
+		width: 300px;
+		max-width: 1400px;
+	}
 </style>
 
-
-
-<script type="text/javascript">
-
-   
-      
-   
-</script>
+<script type="text/javascript"></script>

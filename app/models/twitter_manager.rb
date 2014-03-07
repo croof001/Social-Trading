@@ -62,6 +62,14 @@ class TwitterManager
     end
   end
   
+  
+  def self.stream_all
+    Client.all.each do |client|
+          TwitterManager.delay(:queue => 'stream_fetch').get_streams(client)
+     end
+  end
+  
+  
   def self.fetch_all(auto=false)
     puts "fetch all being run.."
     Client.all.each do |client|
@@ -123,16 +131,14 @@ class TwitterManager
     item.save
   end
   
+  
+  
   def self.get_streams(client)
     
     client.accounts.where(active:true,account_type:'ttr').each do |account|
+      #------------Fetching mentions timeline-----------------------------
       options={}
       since = Stream.where(account:account,stream_type:'ttr_mention').order("posted_at DESC").first
-      if since
-        puts "Since ID found"
-      else
-        puts "No Since ID found"
-      end
       options[:since_id] = since.remote_id if since
       
       twitter_client(nil,account).mentions_timeline(options).each do |tweet|
@@ -142,6 +148,20 @@ class TwitterManager
           stream.save
         end
       end
+      
+      #------------------Fetching action timeline-------------------------------
+      options={}
+      since = Stream.where(account:account,stream_type:'ttr_usertimeline').order("posted_at DESC").first
+      options[:since_id] = since.remote_id if since
+      
+      twitter_client(nil,account).user_timeline(options).each do |tweet|
+        if not Stream.exists?(remote_id:tweet.id,account:account)
+          stream = Stream.new(content:tweet.text,posted_at:tweet.created_at,remote_id:tweet.id,
+                            remote_url:tweet.url.to_s,stream_type:'ttr_usertimeline',account:account)
+          stream.save
+        end
+      end
+      
     end
   end
   

@@ -1,0 +1,36 @@
+<div class="span12" >
+ <% @action_streams.order("posted_at desc").each do |stream| %>
+    <div class="span5" id="stream-feed-<%=stream.id%>">
+    <%if stream.stream_type=='ttr_usertimeline'%>
+    
+      	<div>
+      		<blockquote class="twitter-tweet" lang="en"><p><%=stream.content%></p>&mdash; Vishnuprasad.R (@vishnuxxpxr) <a href="<%=stream.remote_url%>"><%=stream.posted_at%></a></blockquote>
+        </div>
+        
+                <div>  
+         
+         
+         <%= link_to 'Erase', stream,:class=>'btn btn-mini btn-inverse', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %> 
+         <%= link_to 'Hide', stream,:class=>'btn btn-mini btn-info', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %>
+         <%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %> 
+      	</div>
+      	
+    
+     
+    <%end%>
+    
+
+
+
+    
+    </div>
+    <% end %>
+
+
+
+</div>
+
+<div id="actions_page_paginator">
+	
+	<%= paginate @streams  ,remote:true,param_name:'actions_page' %>
+</div>
