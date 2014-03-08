@@ -8,13 +8,11 @@ Social::Application.routes.draw do
   end
 
   mount Ckeditor::Engine => '/ckeditor'
-  resources :clients
-  
   devise_for :clients do
-    get 'home', :to => 'dashboard#index'
+    get 'home', :to => 'dashboard#index', :as => :clients_root
   end
   
-  
+  resources :clients
   resources :tweets do
     get :reset_filterrific, :on => :collection
   end
