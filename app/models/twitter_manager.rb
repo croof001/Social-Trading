@@ -18,7 +18,7 @@ class TwitterManager
   end
   
   def self.fetch_with_keyword(client, keyword,auto=false)
-    puts "quied #{keyword.phrase}"
+    #puts "quied #{keyword.phrase}"
     
     query_options = Hash.new
     query_options[:result_type]  = "recent"
@@ -28,32 +28,33 @@ class TwitterManager
     query_options[:max_count]= "#{keyword.max_count}" if keyword.max_count
 
     
-    require 'pp'
-    pp query_options
+    #require 'pp'
+    #pp query_options
     results=twitter_client(client).search("#{keyword.phrase}",query_options ).take(50)
     if results.first
       keyword.last_tweet = results.first.id
     end
-    puts "=============================="
-    puts results.count
+    #puts "=============================="
+
     results.each do |tweet|
         if not  Tweet.exists?(:twitter_uuid=>tweet.id) 
-          new_post=Tweet.new(:message => tweet.text.dup.encode("UTF-8", "ISO-8859-1"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id, :client=>client,:keyword=>keyword)
+          new_post=Tweet.new(:message => tweet.text.dup.encode("UTF-8", "ISO-8859-1"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id,
+                             :client=>client,:keyword=>keyword, :posted_at=>tweet.created_at)
           new_post.save
           if auto
             if keyword.should_auto_follow?
               TwitterManager.delay(:queue => 'auto_x').follow(new_post.author,client)
               keyword.follow_yet = keyword.follow_yet + 1
-               puts "+++++++++++++++autofollow requested+++++++++++++++++++"
+               #puts "+++++++++++++++autofollow requested+++++++++++++++++++"
             end
             if keyword.should_auto_retweet? 
-              puts "+++++++++++++++autoretweet requested+++++++++++++++++++"
+              #puts "+++++++++++++++autoretweet requested+++++++++++++++++++"
               TwitterManager.delay(:queue => 'auto_x').retweet(new_post.twitter_uuid,client)
               keyword.tweets_yet = keyword.tweets_yet + 1
             end
             if keyword.should_auto_reply?
               keyword.reply_yet = keyword.reply_yet + 1
-              puts "+++++++++++++++autoreply requested+++++++++++++++++++"
+              #puts "+++++++++++++++autoreply requested+++++++++++++++++++"
             end
             keyword.save #save changes to auto_actions count
           end

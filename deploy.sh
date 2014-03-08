@@ -25,7 +25,7 @@ RAILS_ENV=production rake assets:precompile
 echo "starting three thin servrs"
 thin start --servers 3 -e production
 echo "starting delayed jobs"
-RAILS_ENV=production bin/delayed_job --queues=keyword_fetch,auto_x start
+RAILS_ENV=production bin/delayed_job --queues=keyword_fetch,auto_x,stream_fetch start
 echo "re-starting nginx"
 service nginx restart
 

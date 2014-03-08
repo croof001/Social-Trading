@@ -46,7 +46,7 @@ end
   }
   
   scope :with_created_at_gte, lambda { |reference_time|
-  where('tweets.created_at >= ?', reference_time.to_datetime)
+  where('tweets.posted_at >= ?', reference_time.to_datetime)
   }
   
   scope :search_query, lambda { |query|

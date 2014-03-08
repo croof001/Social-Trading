@@ -1,0 +1,11 @@
+$('#your-actions').html('<%= escape_javascript render :partial=>"youractions" %>'); 
+$('#actions_page_paginator').html('<%= escape_javascript(paginate(@action_streams, :remote => true,:param_name=>'actions_page').to_s) %>');
+
+$('#responses').html('<%= escape_javascript render :partial=>"responses" %>');
+
+$('#paginator').html('<%= escape_javascript(paginate(@streams, :remote => true,:param_name=>'response_page').to_s) %>');
+
+
+
+
+

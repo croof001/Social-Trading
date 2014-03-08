@@ -31,6 +31,13 @@ class FacebookManager
     end
   end
   
+  
+  def self.stream_all
+     Client.all.each do |client|
+          FacebookManager.delay(:queue => 'stream_fetch').get_streams(client)
+     end
+  end
+  
   def self.get_streams(client,since = nil)
     client.accounts.where(active:true,account_type:'fb').each do |account|
       
