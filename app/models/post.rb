@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   
   def publish_children
     posts.each do |p|
-      p.content["http://short.url"]=self.published_url
+      p.content.gsub!("http://short.url", self.published_url)
       p.save
       p.publish
     end

@@ -6,6 +6,9 @@ echo "Stopping delayed jobs"
 RAILS_ENV=production bin/delayed_job stop
 echo "stopping thin servers"
 thin stop --servers 3
+echo "Stoping clockwork scheduler"
+kill -KILL $(cat tmp/clock.pid)
+echo "Clearing assets"
 rm -r public/assets
 echo "Cleaning every local change"
 git reset --hard origin/master
@@ -31,4 +34,5 @@ service nginx restart
 
 echo "start clockwork"
 #RAILS_ENV=production  clockwork clock.rb
-RAILS_ENV=production clockworkd -c clock.rb start
+#RAILS_ENV=production clockworkd -c clock.rb start
+nohup clockwork clock.rb  0<&- &> tmp/clock.log & echo $! > tmp/clock.pid
