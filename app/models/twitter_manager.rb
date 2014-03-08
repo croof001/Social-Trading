@@ -41,6 +41,7 @@ class TwitterManager
           new_post=Tweet.new(:message => tweet.text.dup.encode("UTF-8", "ISO-8859-1"), :author => tweet.user.screen_name, :twitter_uuid=>tweet.id,
                              :client=>client,:keyword=>keyword, :posted_at=>tweet.created_at)
           new_post.save
+          account = keyword.client.accounts.where(account_type:'ttr').first
           if auto
             if keyword.should_auto_follow?
               TwitterManager.delay(:queue => 'auto_x').follow(new_post.author,client)
@@ -54,6 +55,11 @@ class TwitterManager
             end
             if keyword.should_auto_reply?
               keyword.reply_yet = keyword.reply_yet + 1
+              post = Post.new(client:keyword.client, account:account, content_type:'feed_reply',
+                       content:keyword.default_reply ,is_draft:false)
+              post.save
+              
+              TwitterManager.delay(:queue=>'auto_x').reply_to_feed(tweet.post)
               #puts "+++++++++++++++autoreply requested+++++++++++++++++++"
             end
             keyword.save #save changes to auto_actions count
