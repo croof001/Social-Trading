@@ -6,7 +6,9 @@ class CreateTweets < ActiveRecord::Migration
       t.string :twitter_uuid
       t.datetime :posted_at
       t.references :client
+      t.references :account
       t.references :keyword
+      
       t.timestamps
     end
   end

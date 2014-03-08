@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20140228171429) do
     t.string   "c3"
     t.string   "c4"
     t.string   "from_id"
+    t.string   "author"
     t.integer  "post_id"
     t.string   "stream_type"
     t.integer  "account_id"

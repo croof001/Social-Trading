@@ -14,7 +14,11 @@ Social::Application.routes.draw do
   
   resources :clients
   resources :tweets do
+    
     get :reset_filterrific, :on => :collection
+    member do
+      post 'reply'
+    end
   end
 
   devise_for :admin_users, ActiveAdmin::Devise.config

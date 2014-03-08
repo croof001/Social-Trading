@@ -102,7 +102,28 @@ class TweetsController < ApplicationController
       end
     end
   end
+  
 
+def reply
+    @feed = Tweet.find(params[:id])
+    if @feed.client == current_client
+      content = params[:content]
+      @post = Post.new(client:current_client, account:@feed.client.accounts.where(account_type:'ttr').first, content_type:'feed_reply',
+                       content:content,post_at:params[:post_at],is_draft:false)
+      @post.save
+      
+      #if @stream.stream_type=='ttr_mention'
+        TwitterManager.reply_to_feed(@feed,@post)
+      #end
+      
+      respond_to do |format|
+        format.json {render :json=>@post.to_json}
+        format.js {render :js=>"$.notify('Reply successful', 'success');"}
+      end
+    end
+  end
+  
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_keyword

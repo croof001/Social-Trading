@@ -111,12 +111,18 @@ class TwitterManager
   #public interfaces-------------------------------------
   
   def self.reply_to_stream(stream,post)
-    current_tweet = twitter_client(post.client,stream.account).update(post.content,:in_reply_to_status_id=>remote_id)
-    @post.posted=true
-    @post.save
+    current_tweet = twitter_client(post.client,stream.account).update("@#{stream.author} #{post.content}",{:in_reply_to_status_id=>stream.remote_id})
+    post.posted=true
+    post.save
     current_tweet
   end
   
+  def self.reply_to_feed(tweet,post)
+    current_tweet = twitter_client(post.client).update("@#{tweet.author} #{post.content}",{:in_reply_to_status_id=>tweet.twitter_uuid})
+    #@post.posted=true
+    #@post.save
+    current_tweet
+  end
   
   def self.publish(item)
     if item.post_at.to_i > Time.zone.now.to_i
@@ -145,7 +151,7 @@ class TwitterManager
       twitter_client(nil,account).mentions_timeline(options).each do |tweet|
         if not Stream.exists?(remote_id:tweet.id,account:account)
           stream = Stream.new(content:tweet.text,posted_at:tweet.created_at,remote_id:tweet.id,
-                            remote_url:tweet.url.to_s,stream_type:'ttr_mention',account:account)
+                            remote_url:tweet.url.to_s,stream_type:'ttr_mention',account:account,author:tweet.user.screen_name)
           stream.save
         end
       end

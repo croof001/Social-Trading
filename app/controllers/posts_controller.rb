@@ -33,7 +33,7 @@ class PostsController < ApplicationController
      @post.client = current_client
      
      create_children
-     if params[:commit]=='publish'
+     if params[:commit]=='publish' || params[:commit]=='Publish'
        @post.is_draft=false
        @post.save
        @post.publish

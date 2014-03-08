@@ -30,10 +30,10 @@
 						<td><%= link_to tweet.twitter_uuid.last(4) , "https://twitter.com/#{tweet.author}/status/#{tweet.twitter_uuid}"%></td>
 						<td><%=link_to tweet.author , "https://twitter.com/#{tweet.author}"%></td>
 						<td class="tweet-message-td"><%= tweet.message %>
-							<div class="tweet-message-div"> <%= link_to 'Reply', tweet,:class=>'btn btn-mini btn-info' %>
+							<div class="tweet-message-div"> <%= link_to 'Pin', "#",:class=>'btn btn-mini btn-info disabled' %>
 						          <%= link_to 'Follow', "#{follow_path}?tweeter=#{tweet.author}",:class=>'btn btn-mini btn-success' ,:remote=>true%>
 						          <%= link_to 'Retweet', retweet_path(:AUTH_TOKEN => form_authenticity_token.inspect,:tweet_id=>tweet.twitter_uuid),:class=>'btn  btn-mini btn-warning',:method=>:post,:remote=>true %>
-						          <%= link_to 'Mark as read', edit_tweet_path(tweet),:class=>'btn btn-mini btn-inverse' %>
+						          <%= link_to 'Reply', reply_tweet_path(tweet),:class=>'btn btn-mini btn-inverse',:rel=>'clickover' %>
 						          <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-mini btn-danger',:remote=>'true' %>
 						    </div>
 						</td>

@@ -56,3 +56,9 @@
    
    
 }
+
+
+	.popover {
+		width: 300px;
+		max-width: 1400px;
+	}

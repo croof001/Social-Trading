@@ -3,7 +3,7 @@ class Tweet < ActiveRecord::Base
   belongs_to :keyword
   
    filterrific(
-    :default_settings => { :sorted_by => 'created_at_desc' },
+    :default_settings => { :sorted_by => 'posted_at_desc' },
     :filter_names => [
       :sorted_by,
       :search_query,
@@ -16,9 +16,9 @@ class Tweet < ActiveRecord::Base
   
 def self.options_for_sorted_by
   [
-    ['Time (newest first)', 'created_at_desc'],
+    ['Time (newest first)', 'posted_at_desc'],
     ['Keyword', 'keyword_asc'],
-    ['Time (oldest first)', 'created_at_asc'],
+    ['Time (oldest first)', 'posted_at_asc'],
     ['Author', 'author_asc'],
     ['Priority','priority_asc']
   ]
@@ -82,12 +82,12 @@ end
   # extract the sort direction from the param value.
   direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
   case sort_option.to_s
-  when /^created_at_/
+  when /^posted_at_/
     # Simple sort on the created_at column.
     # Make sure to include the table name to avoid ambiguous column names.
     # Joining on other tables is quite common in Filterrific, and almost
     # every ActiveRecord table has a 'created_at' column.
-    order("tweets.created_at #{ direction }")
+    order("tweets.posted_at #{ direction }")
   when /^author_/
     # Simple sort on the name colums
     order("LOWER(tweets.author) #{ direction }")

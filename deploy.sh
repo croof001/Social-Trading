@@ -35,4 +35,4 @@ service nginx restart
 echo "start clockwork"
 #RAILS_ENV=production  clockwork clock.rb
 #RAILS_ENV=production clockworkd -c clock.rb start
-nohup clockwork clock.rb  0<&- &> tmp/clock.log & echo $! > tmp/clock.pid
+RAILS_ENV=production nohup clockwork clock.rb  0<&- &> tmp/clock.log & echo $! > tmp/clock.pid

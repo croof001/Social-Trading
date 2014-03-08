@@ -10,12 +10,14 @@ class StreamsController < InheritedResources::Base
   def reply
     @stream = Stream.find(params[:id])
     if @stream.account.client == current_client
-      content = params[:contnet]
+      content = params[:content]
       @post = Post.new(client:current_client, account:@stream.account, content_type:'stream_reply',
                        content:content,post_at:params[:post_at],is_draft:false)
       @post.save
       
-      
+      if @stream.stream_type=='ttr_mention'
+        TwitterManager.reply_to_stream(@stream,@post)
+      end
       
       respond_to do |format|
         format.json {render :json=>@post.to_json}

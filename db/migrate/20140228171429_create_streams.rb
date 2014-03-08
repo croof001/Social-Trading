@@ -6,6 +6,7 @@ class CreateStreams < ActiveRecord::Migration
       t.string :c3
       t.string :c4
       t.string :from_id
+      t.string :author
       t.references :post, index: true
       t.string :stream_type
       t.references :account, index: true

@@ -44,6 +44,7 @@
 		<% end %>
         <%=f.hidden_field :account_id, value:@post.account.id%>
         <%=f.hidden_field :content_type, value:'ttr'%>
+        
 		<div class="control-group">
 			<%= f.label :content, :class=>'control-label' %>
 			<div class="controls">
@@ -59,7 +60,7 @@
 
 		<div class="control-group">
 			<div class="controls">
-				<%= f.submit 'Tweet', :class=>'btn btn-success' %>
+				<%= f.submit 'Publish', :class=>'btn btn-success' %>
 			</div>
 		</div>
 
