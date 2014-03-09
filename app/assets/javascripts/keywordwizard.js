@@ -305,7 +305,7 @@ $(document).ready(function() {
             auto_reply_rate: $('#auto_reply_rate').val(),
             
             nickname: $('#nickname').val(),
-            email_notification: $('#email_notification').val(),
+            email_notification: $('#email_notification').is(':checked'),
             notification_frequency: $('#notification_frequency').val(),
             fetch_frequency: $('#fetch_frequency').val(),
             priority: $('#priority').val(),

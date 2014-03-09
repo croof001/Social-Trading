@@ -3,11 +3,15 @@ class EmailManager
   def self.send_notifications(keyword)
     case keyword.notification_frequency
     when '1','3','6','12','24','48'
-      feeds = Tweet.where("created_at >= ?", keyword.notification_frequency.to_i.hours.ago)
-      FeedNotifier.notify(keyword,feeds).deliver
+      feeds = Tweet.where("created_at >= ?", keyword.notification_frequency.to_i.hours.ago).where(keyword:keyword)
+      if feeds.count>0
+        FeedNotifier.notify(keyword,feeds).deliver
+      end
     when 'hourly'
-      feeds = Tweet.where("created_at >= ?",1.hour.ago)
-      FeedNotifier..notify(keyword,feeds).deliver
+      feeds = Tweet.where("created_at >= ?",1.hour.ago).where(keyword:keyword)
+      if feeds.count>0
+        FeedNotifier..notify(keyword,feeds).deliver
+      end
     end
   end
   
