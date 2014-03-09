@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+	</head>
+	<body>
+		<h1>HI<%= @keyword.client.name %>, </h1>
+		<p>
+			New feeds have been arrived for target <%= @keyword.nickname%>.
+
+		</p>
+		<p>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+
+						<th>ID</th>
+						<th>Author</th>
+						<th>Message</th>
+						<th class="actions-cell">Posted at</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @feeds.each do |feed| %>
+					<tr id="tweet<%= feed.id%>" style="color:<%= feed.keyword.color%>">
+
+						<td><%= link_to feed.twitter_uuid.last(4) , "https://twitter.com/#{feed.author}/status/#{feed.twitter_uuid}"%></td>
+						<td><%= link_to feed.author , "https://twitter.com/#{feed.author}"%></td>
+						<td class="tweet-message-td"><%= feed.message %> </td>
+
+						<td class="actions-cell"><%= feed.posted_at.strftime('%d %b %l:%M %p') %></td>
+
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+
+		</p>
+		<p>
+			Have a great day!
+		</p>
+	</body>
+</html>

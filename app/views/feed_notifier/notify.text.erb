@@ -1,0 +1,16 @@
+HI<%= @keyword.client.name %>,
+
+New feeds have been arrived for target <%= @keyword.nickname%>.
+
+
+
+<% @feeds.each do |feed| %>					
+<%= feed.twitter_uuid.last(4) %> : @<%= feed.author%>  at<%= feed.posted_at.strftime('%d %b %l:%M %p') %>
+--------------------------------------------------
+	<%= feed.message %>	
+						
+<%="https://twitter.com/#{feed.author}/status/#{feed.twitter_uuid}"%>
+
+
+
+<% end %>

@@ -130,6 +130,15 @@ class TwitterManager
     current_tweet
   end
   
+  def self.follow_stream(stream)
+    if stream.stream_type.first(3)=='ttr'
+        follow(stream.author,nil,stream.account)
+    else
+      raise "Incompatible stream type"
+    end
+    
+  end
+  
   def self.publish(item)
     if item.post_at.to_i > Time.zone.now.to_i
       puts "Out of schedule"

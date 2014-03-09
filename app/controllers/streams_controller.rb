@@ -28,8 +28,11 @@ class StreamsController < InheritedResources::Base
   
   def follow
     @stream = Stream.find(params[:id])
+    if @stream.stream_type.first(3)=='ttr'
+      TwitterManager.follow_stream(@stream)
+    end
     respond_to do |format|
-        format.json {render :json=>@post.to_json}
+        format.json {render :json=>@stream.to_json}
         format.js {render :js=>"$.notify('Follow successful', 'success');"}
       end
     

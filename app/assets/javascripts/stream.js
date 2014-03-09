@@ -15,7 +15,7 @@ function setClickoverButton()
     		global_close:false,
     		html:true,
     		onShown:handleReplybox,
-    		content:'<form id="replyform" action=""><textarea id="txtarea" name="content" placeholder="Enter your reply here">sdadasd</textarea><input type="submit" value="Post" class="btn btn-success"></form>'
+    		content:'<form id="replyform" action=""><textarea id="txtarea" name="content" placeholder="Enter your reply here"></textarea><input type="submit" value="Post" class="btn btn-success"></form>'
     	}
     );
     $('[rel="clickover"]').click(function()
