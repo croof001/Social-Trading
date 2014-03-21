@@ -172,6 +172,8 @@ ActiveRecord::Schema.define(version: 20140228171429) do
     t.integer  "follow_yet",             default: 0
     t.integer  "reply_yet",              default: 0
     t.datetime "last_reply"
+    t.datetime "last_ai_training_at"
+    t.datetime "last_ai_rating_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -226,7 +228,10 @@ ActiveRecord::Schema.define(version: 20140228171429) do
     t.string   "twitter_uuid"
     t.datetime "posted_at"
     t.integer  "client_id"
+    t.integer  "account_id"
     t.integer  "keyword_id"
+    t.integer  "user_rating"
+    t.integer  "ai_rating"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,7 @@
+---
+mechanism: oauth_2
+scope: https://www.googleapis.com/auth/prediction
+client_id: 929083618245-acnq20p7oje4nrccpeb0h5aloug0vie6.apps.googleusercontent.com
+client_secret: 8mqHlE5jWtelZQNeaxdzx_b3
+access_token: ya29.1.AADtN_VkH3DqleaTZKitR1lJJfRZ8lLqFpmW03tA2EjH85qDNVXcrfSyerYUIX0
+refresh_token: 1/sH3rDyDyf9h6DgtOS5GfB3FKZL-k2kVDS8yBa9Kp_cE

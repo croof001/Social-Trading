@@ -8,7 +8,8 @@ class CreateTweets < ActiveRecord::Migration
       t.references :client
       t.references :account
       t.references :keyword
-      
+      t.integer :user_rating
+      t.integer :ai_rating
       t.timestamps
     end
   end

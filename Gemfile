@@ -52,6 +52,11 @@ gem 'omniauth-instagram'
 gem 'fb_graph'
 gem "non-stupid-digest-assets"
 gem 'bootstrap-wysihtml5-rails'
+
+gem 'google-api-client'
+gem 'gstore'
+gem "omniauth-google-oauth2"
+gem 'soothsayer'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 

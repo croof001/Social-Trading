@@ -26,6 +26,8 @@ class AccountsController < ApplicationController
       @account = Account.new(:client=>current_client,:name=>:Wordpress,:account_type=>type)
     elsif type=='blog'
       
+    elsif type=='google' 
+      redirect_to '/auth/google_oauth2'
     end
   end
   
@@ -66,6 +68,20 @@ class AccountsController < ApplicationController
                  a.primary = true if not Account.where(:client=>current_client,:account_type=>'ttr').exists?
                  a.email=info.info.email}
       flash[:notice] = 'Twitter account connected successfully'
+      
+    elsif info[:provider] =='google_oauth2'
+    
+      @account= Account.find_or_create_by(:account_type=>'google',:client=>current_client,:username=>info.info.email) { |a|
+                 a.name    = 'Google'
+                 a.cred2   = info.uid.to_s
+                 a.cred1   = info.credentials.token
+                 a.cred3   = info.credentials.refresh_token
+                 a.active  = true
+                 a.primary = true if not Account.where(:client=>current_client,:account_type=>'google').exists?
+                 a.email=info.info.email}
+      flash[:notice] = 'Twitter account connected successfully'   
+      
+      
     elsif info[:provider]=='wordpress'
        values = params.require(:account).permit(:account_type,:name,:username,:cred1,:cred2,:cred3)
        @account = Account.new(values)

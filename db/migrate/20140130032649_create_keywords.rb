@@ -52,7 +52,9 @@ class CreateKeywords < ActiveRecord::Migration
       t.integer :reply_yet, :default=>0
       t.datetime :last_retweet
       t.datetime :last_reply
-
+      
+      t.datetime :last_ai_training_at
+      t.datetime :last_ai_rating_at
       t.timestamps
     end
   end
