@@ -53,8 +53,9 @@ class CreateKeywords < ActiveRecord::Migration
       t.datetime :last_retweet
       t.datetime :last_reply
       
-      t.datetime :last_ai_training_at
-      t.datetime :last_ai_rating_at
+      t.datetime :last_ai_training_at, :default=>Time.zone.now
+      t.datetime :last_ai_rating_at, :default=>Time.zome.now
+      t.string :ai_url
       t.timestamps
     end
   end

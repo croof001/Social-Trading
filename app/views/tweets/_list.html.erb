@@ -30,11 +30,24 @@
 						<td><%= link_to tweet.twitter_uuid.last(4) , "https://twitter.com/#{tweet.author}/status/#{tweet.twitter_uuid}"%></td>
 						<td><%=link_to tweet.author , "https://twitter.com/#{tweet.author}"%></td>
 						<td class="tweet-message-td"><%= tweet.message %>
-							<div class="tweet-message-div"> <%= link_to 'Pin', "#",:class=>'btn btn-mini btn-info disabled' %>
+							<div class="tweet-message-div"> 
+								 
 						          <%= link_to 'Follow', "#{follow_path}?tweeter=#{tweet.author}",:class=>'btn btn-mini btn-success' ,:remote=>true%>
 						          <%= link_to 'Retweet', retweet_path(:AUTH_TOKEN => form_authenticity_token.inspect,:tweet_id=>tweet.twitter_uuid),:class=>'btn  btn-mini btn-warning',:method=>:post,:remote=>true %>
 						          <%= link_to 'Reply', reply_tweet_path(tweet),:class=>'btn btn-mini btn-inverse',:rel=>'clickover' %>
 						          <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-mini btn-danger',:remote=>'true' %>
+						          
+						       	<span class="feed-rating">
+    	                       <select class="feed-rating-select" id="feed-rating" name="rating" selected=<%=tweet.ai_rating.to_i%6%>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+									</select>
+	                            </span>   
+						          	
+						      
 						    </div>
 						</td>
 
@@ -50,6 +63,15 @@
 	</table>
 
 	<%= paginate @tweets  %>
+
+<script type="text/javascript">
+$(function(){	
+	$('.feed-rating-select').barrating({
+showValues:false, // If set to true, rating values will be displayed on the bars.
+showSelectedRating:false //If set to true, user selected rating will be displayed next to the widget.
+});});
+</script>
+
 
 <script type="text/javascript">
 $('#batch-select-chk').change(function(){

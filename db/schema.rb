@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 20140228171429) do
     t.datetime "last_reply"
     t.datetime "last_ai_training_at"
     t.datetime "last_ai_rating_at"
+    t.string   "ai_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

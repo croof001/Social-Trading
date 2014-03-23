@@ -32,5 +32,5 @@
 //= require wysihtml5
 //= require bootstrap-wysihtml5
 //= require stream
-
+//= require jquery.barrating.min.js
 //= require turbolinks

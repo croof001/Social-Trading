@@ -103,7 +103,30 @@ class TweetsController < ApplicationController
     end
   end
   
-
+  def upvote
+    @feed = Tweet.find(params[:id])
+    if @feed.client == current_client
+      @feed.user_rating = 10
+      @feed.save
+      respond_to do |format|
+        format.json {render :json=>@post.to_json}
+        format.js {render :js=>"$.notify('Logged as useful', 'success');"}
+      end
+    end
+  end
+  
+  def downvote
+    @feed = Tweet.find(params[:id])
+    if @feed.client == current_client
+      @feed.user_rating = -10
+      @feed.save
+      respond_to do |format|
+        format.json {render :json=>@post.to_json}
+        format.js {render :js=>"$.notify('Logged as not useful', 'success');"}
+      end
+    end
+  end
+  
 def reply
     @feed = Tweet.find(params[:id])
     if @feed.client == current_client

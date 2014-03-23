@@ -36,7 +36,7 @@ gem 'jquery-turbolinks'
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'filterrific' , github: 'jhund/filterrific'
-gem 'twitter'
+gem 'twitter' , '~> 5.8.0'
 gem 'instagram'
 gem 'clockwork'
 gem "language_list"
@@ -54,9 +54,8 @@ gem "non-stupid-digest-assets"
 gem 'bootstrap-wysihtml5-rails'
 
 gem 'google-api-client'
-gem 'gstore'
 gem "omniauth-google-oauth2"
-gem 'soothsayer'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 

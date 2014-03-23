@@ -18,6 +18,7 @@
  *= require font-awesome
  *= require post
  *= require bootstrap-wysihtml5
+ *=require feed_rating
  */
  
 .actions-cell

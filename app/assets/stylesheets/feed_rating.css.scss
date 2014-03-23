@@ -1,0 +1,24 @@
+
+.feed-rating .br-widget a {
+    background: url(image_path('star.png'));
+    width: 24px;
+    height: 24px;
+    display: block;
+    float: left;
+}
+ 
+.feed-rating .br-widget a:hover,
+.feed-rating .br-widget a.active,
+.feed-rating .br-widget a.selected {
+    background-position: 0 24px;
+}
+ 
+@media
+only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio : 1.5),
+(min-resolution: 192dpi) {
+    .feed-rating .br-widget a {
+        background: url(image_path('star@2x.png'));
+        background-size: 24px 48px;
+    }
+}
