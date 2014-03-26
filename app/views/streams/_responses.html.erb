@@ -13,35 +13,33 @@
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 	</script>
+	<div class="span5" >
+		<% @streams.where(:stream_type=>'ttr_mention').order("posted_at desc").each do |stream| %>
 
-	<% @streams.where(:stream_type=>'ttr_mention').order("posted_at desc").each do |stream| %>
-	<div class="span5" id="stream-feed-<%= stream.id%>">
+		<div id="stream-feed-<%= stream.id%>">
+			<div>
+				<blockquote class="twitter-tweet" lang="en">
+					<p>
+						<%= stream.content%>
+					</p>
+					&mdash; Loading (@loading) <a href="<%= stream.remote_url%>"><%= stream.posted_at%></a>
+				</blockquote>
+			</div>
 
-		<div>
-			<blockquote class="twitter-tweet" lang="en">
-				<p>
-					<%= stream.content%>
-				</p>
-				&mdash; Loading (@loading) <a href="<%= stream.remote_url%>"><%= stream.posted_at%></a>
-			</blockquote>
+			<div>
+
+				<a class='btn btn-mini btn-warning stream-reply-button' data-original-title="Reply"  rel="clickover" data-content="Something went wrong" href="<%= reply_stream_path(stream)%>">Reply</a>
+				<%= link_to 'Follow', follow_stream_path(stream),:class=>'btn btn-mini btn-primary',:method=>'post',:remote=>true %>
+				<%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %>
+			</div>
+
 		</div>
+		<%end%>
+	</div>
 
-		<div>
-
-			<a class='btn btn-mini btn-warning stream-reply-button' data-original-title="Reply"  rel="clickover" data-content="Something went wrong" href="<%= reply_stream_path(stream)%>">Reply</a>
-			<%= link_to 'Follow', follow_stream_path(stream),:class=>'btn btn-mini btn-primary',:method=>'post',:remote=>true %>
-			<%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %>
-		</div>
-		</div>
-       <%end%>
-       
-</div>
-
-<div class='span12 alert alert-info' style="margin-top:30px;"></div>
-<div class="span12">     
-       
+	<div class="span6">
 		<% @streams.where(:stream_type=>'fb_page_post').order("posted_at desc").each do |stream|%>
-		<div class="span5">
+      <div id="stream-feed-<%= stream.id%>">
 		<div class="st-fbpost">
 			<div class="st-fb-user">
 				<div class="avatar">
@@ -66,20 +64,16 @@
 				<%= link_to 'Delete', stream,:class=>'btn btn-mini btn-danger', method: :delete, data: { confirm: 'Are you sure?' },:remote=>true %>
 			</div>
 		</div>
-		</div>
+      </div>
 		<%end%>
 
-	
-
-
+	</div>
 </div>
+	<div id="paginator">
+		<%= paginate @streams  ,remote:true,param_name:'response_page'%>
+	</div>
 
-<div id="paginator">
-	<%= paginate @streams  ,remote:true,param_name:'response_page'%>
-</div>
+	<style>
+	</style>
 
-<style>
-	
-</style>
-
-<script type="text/javascript"></script>
+	<script type="text/javascript"></script>
