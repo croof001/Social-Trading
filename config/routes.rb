@@ -18,8 +18,8 @@ Social::Application.routes.draw do
     get :reset_filterrific, :on => :collection
     member do
       post 'reply'
-      post 'upvote'
-      post 'downvote'
+      put 'rate'
+      put 'reset'
     end
   end
 

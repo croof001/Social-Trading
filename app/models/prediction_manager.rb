@@ -4,7 +4,7 @@ class PredictionManager
   def self.generate_training_data(keyword)
      tdata = []
      
-     feeds = Tweet.where(keyword:keyword).where("created_at >= ?",keyword.last_ai_training_at).where.not(user_rating:nil)
+     feeds = Tweet.where(keyword:keyword).where("updated_at >= ?",keyword.last_ai_training_at).where.not(user_rating:nil)
      feeds.each do |feed|
        tdata.push({"output" => feed.user_rating, "csvInstance" => [feed.message]})
      end
@@ -15,7 +15,7 @@ class PredictionManager
     api_client = get_client
     prediction = api_client.discovered_api('prediction', 'v1.6')
     last_ai_training_at = Time.zone.now
-    feeds = Tweet.where(keyword:keyword).where("created_at >= ?",keyword.last_ai_training_at).where.not(user_rating:nil)
+    feeds = Tweet.where(keyword:keyword).where("updated_at >= ?",keyword.last_ai_training_at).where.not(user_rating:nil)
     feeds.each do |feed|
      api_client.execute(:api_method => prediction.trainedmodels.update,
                        parameters:{ 'id' => keyword.nickname.gsub(/[^[:alnum:]]/, ""), project:"929083618245"},
@@ -53,7 +53,7 @@ class PredictionManager
      api_client = get_client
      prediction = api_client.discovered_api('prediction', 'v1.6')
      last_ai_training_at = Time.zone.now
-     feeds = Tweet.where(keyword:keyword).where("created_at >= ?",keyword.last_ai_training_at).where.not(user_rating:nil)
+     feeds = Tweet.where(keyword:keyword).where("updated_at >= ?",keyword.last_ai_training_at).where.not(user_rating:nil)
      if keyword.ai_url==nil && feeds.count>20  
        tdata = []
        feeds.each do |feed|

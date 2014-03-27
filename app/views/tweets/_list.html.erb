@@ -1,7 +1,7 @@
 <div id="filterrific_results">
 
 	<div>
-		<%= page_entries_info @tweets  %>     
+		<%= page_entries_info @tweets  %>
 	</div>
 
 	<table>
@@ -14,67 +14,64 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th ><%=check_box_tag '','abc',false,:id=>'batch-select-chk'%></th>
+						<th ><%= check_box_tag '','abc',false,:id=>'batch-select-chk'%></th>
 						<th>ID</th>
 						<th>Author</th>
 						<th>Message</th>
 						<th class="actions-cell">Posted at</th>
-						
+
 					</tr>
 				</thead>
 
 				<tbody>
 					<% tweets.each do |tweet| %>
-					<tr id="tweet<%=tweet.id%>" style="color:<%=tweet.keyword.color%>">
-						<td ><%=check_box_tag '',false,false,'data-tid'=>tweet.id,:class=>"chk-multi-select"%></td>
-						<td><%= link_to tweet.twitter_uuid.last(4) , "https://twitter.com/#{tweet.author}/status/#{tweet.twitter_uuid}"%></td>
-						<td><%=link_to tweet.author , "https://twitter.com/#{tweet.author}"%></td>
-						<td class="tweet-message-td"><%= tweet.message %>
-							<div class="tweet-message-div"> 
-								 
-						          <%= link_to 'Follow', "#{follow_path}?tweeter=#{tweet.author}",:class=>'btn btn-mini btn-success' ,:remote=>true%>
-						          <%= link_to 'Retweet', retweet_path(:AUTH_TOKEN => form_authenticity_token.inspect,:tweet_id=>tweet.twitter_uuid),:class=>'btn  btn-mini btn-warning',:method=>:post,:remote=>true %>
-						          <%= link_to 'Reply', reply_tweet_path(tweet),:class=>'btn btn-mini btn-inverse',:rel=>'clickover' %>
-						          <%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-mini btn-danger',:remote=>'true' %>
-						          
-						       	<span class="feed-rating">
-    	                       <select class="feed-rating-select" id="feed-rating" name="rating" selected=<%=tweet.ai_rating.to_i%6%>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-									</select>
-	                            </span>   
-						          	
-						      
-						    </div>
+					<tr id="tweet<%= tweet.id%>" style="color:<%= tweet.keyword.color%>">
+						<td ><%= check_box_tag '',false,false,'data-tid'=>tweet.id,:class=>"chk-multi-select"%></td>
+						<td><%= link_to tweet.twitter_uuid.last(4) , "https://twitter.com/#{tweet.author}/status/#{tweet.twitter_uuid}"%>
+							<%if tweet.ai_rating %>
+							  <div class="rateit" data-rateit-value="<%=tweet.ai_rating%>" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+							<%end%>
 						</td>
+						<td><%= link_to tweet.author , "https://twitter.com/#{tweet.author}"%></td>
+						<td class="tweet-message-td"><%= tweet.message %>
+						<div class="tweet-message-div">
+                            
+                            <select id="feedrating<%=tweet.id%>" class="feedrating" >
+								<option value="0" <%='selected' if tweet.user_rating==0%> >No rating</option>
+								<option value="1" <%='selected' if tweet.user_rating==1%> >Very useless</option>
+								<option value="2" <%='selected' if tweet.user_rating==2%> >Not useful</option>
+								<option value="3" <%='selected' if tweet.user_rating==3%> >Useful</option>
+								<option value="4" <%='selected' if tweet.user_rating==4%> >Very useful</option>
+							</select>
+							<div class="rateit" data-rateit-backingfld="#feedrating<%=tweet.id%>"  data-rateit-min="0" data-rateit-max="4" data-url="<%=rate_tweet_url(tweet)%>"></div>
+                            
+							<%= link_to 'Follow', "#{follow_path}?tweeter=#{tweet.author}",:class=>'btn btn-mini btn-success' ,:remote=>true%>
+							<%= link_to 'Retweet', retweet_path(:AUTH_TOKEN => form_authenticity_token.inspect,:tweet_id=>tweet.twitter_uuid),:class=>'btn  btn-mini btn-warning',:method=>:post,:remote=>true %>
+							<%= link_to 'Reply', reply_tweet_path(tweet),:class=>'btn btn-mini btn-inverse',:rel=>'clickover' %>
+							<%= link_to 'Delete', tweet, method: :delete, data: { confirm: 'Are you sure?' },:class=>'btn btn-mini btn-danger',:remote=>'true' %>
+
+
+
+						</div></td>
 
 						<td class="actions-cell"><%= tweet.posted_at.strftime('%d %b %l:%M %p') %></td>
-					
+
 					</tr>
 					<% end %>
 				</tbody>
-			</table>
-			 <%end%> 
-			 </td>
+			</table> <%end%> </td>
 		</tr>
 	</table>
 
 	<%= paginate @tweets  %>
 
-<script type="text/javascript">
-$(function(){	
-	$('.feed-rating-select').barrating({
-showValues:false, // If set to true, rating values will be displayed on the bars.
-showSelectedRating:false //If set to true, user selected rating will be displayed next to the widget.
-});});
-</script>
+	<script type="text/javascript">
+		$('#batch-select-chk').change(function() {
+			$(".chk-multi-select").prop('checked', $(this).prop('checked'));
+		});
+		
+		$('.feedrating').change(function(item){});
+		$(function () { $('.rateit').rateit();});
+	</script>
 
 
-<script type="text/javascript">
-$('#batch-select-chk').change(function(){
-	$(".chk-multi-select").prop('checked',$(this).prop('checked') );
-});
-</script>

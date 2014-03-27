@@ -52,7 +52,7 @@ class FacebookManager
             stream = Stream.new(account:account,posted_at:feed.created_time,stream_type:'fb_page_post',
                                remote_url:if feed.actions.first then feed.actions.first.link else nil end,
                                from_id:feed.from.identifier,
-                               remote_id:feed.identifier,content:feed.message || feed.name || feed.caption ||feed.description)
+                               remote_id:feed.identifier,content:feed.message || feed.story|| feed.name || feed.caption ||feed.description)
             stream.save
           end
           
