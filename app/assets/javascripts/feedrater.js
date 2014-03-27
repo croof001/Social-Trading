@@ -1,5 +1,5 @@
   $(function (){ 
-     $(document).on('reset rated', '.rateit',function (e,f) {
+     $('.rateit').on('reset rated',function (e,f) {
          var ri = $(this);
  
          //if the use pressed reset, it will get value: 0 (to be compatible with the HTML range control), we could check if e.type == 'reset', and then set the value to  null .

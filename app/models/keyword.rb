@@ -39,11 +39,14 @@ class Keyword < ActiveRecord::Base
      return true
   end
   
+  def print_tweets_yet
+    puts "My value is #{tweets_yet}"
+  end
   
   def should_auto_follow?
-    puts "At start"
+
     unless auto_follow
-      print "disabled"
+      print "Auto follow disabled for this keyword"
       return false
     end
 
@@ -52,9 +55,9 @@ class Keyword < ActiveRecord::Base
     end
     
     now = Time.zone.now.seconds_since_midnight
-    if  now < auto_follow_time_from || now > auto_follow_time_to
-      puts "Outside auto_follow period"
-      follow_yet = 0
+    if  (now < auto_follow_time_from) || (now > auto_follow_time_to)
+      puts "Outside auto_follow period  #{auto_follow_time_to} < #{now} < #{auto_follow_time_from}"
+      self.follow_yet = 0
       return false #We are outside auto_action interval
     end
     
@@ -64,7 +67,7 @@ class Keyword < ActiveRecord::Base
     puts "fecth occurs at every #{fetch_interval} seonds "
     fetches_left = seconds_left/fetch_interval
     puts "#{fetches_left} fetches left"
-    follows_left = auto_follow_rate - follow_yet
+    follows_left = auto_follow_rate - self.follow_yet
     puts "#{follows_left} follows left"
     
     if follows_left <1 #We have exceeded auto_action limit of the days
@@ -93,13 +96,14 @@ class Keyword < ActiveRecord::Base
     end
     now = Time.zone.now.seconds_since_midnight
     if  now < auto_retweet_time_from || now > auto_retweet_time_to
-      tweets_yet = 0
+      self.tweets_yet = 0
       return false #We are outside auto_action interval
     end
     seconds_left = auto_retweet_time_to - now
     fetch_interval = (3600 * 24) / fetch_frequency
     fetches_left = seconds_left/fetch_interval
-    tweets_left = auto_retweet_rate - tweets_yet
+   
+    tweets_left = auto_retweet_rate - self.tweets_yet
     if tweets_left <1 #We have exceeded auto_action limit of the days
       return false
     elsif tweets_left > fetches_left #We have too many follows left
@@ -122,14 +126,14 @@ class Keyword < ActiveRecord::Base
     end
     now = Time.zone.now.seconds_since_midnight
     if  now < auto_reply_time_from || now > auto_reply_time_to
-      reply_yet  = 0
+      self.reply_yet  = 0
       return false #We are outside auto_action interval
     end
     
     seconds_left = auto_reply_time_to - now
     fetch_interval = (3600 * 24) / fetch_frequency
     fetches_left = seconds_left/fetch_interval
-    reply_left = auto_reply_rate - reply_yet
+    reply_left = auto_reply_rate - self.reply_yet
     if reply_left <1 #We have exceeded auto_action limit of the days
       return false
     elsif reply_left > fetches_left #We have too many follows left
