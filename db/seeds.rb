@@ -7,3 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Client.new(:email=>'vishnu@yubi.in',:password=>'password',:password_confirmation=>'password').save
+Client.new(:email=>'test123@yubi.in',:password=>'testpassword',:password_confirmation=>'testpassword').save
+Client.new(:email=>'test1@yubi.in',:password=>'testpassword',:password_confirmation=>'testpassword').save
+Client.new(:email=>'test2@yubi.in',:password=>'testpassword',:password_confirmation=>'testpassword').save
+Client.new(:email=>'test3@yubi.in',:password=>'testpassword',:password_confirmation=>'testpassword').save
